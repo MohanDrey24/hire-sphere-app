@@ -1,1 +1,0 @@
-# hire-sphere-app
