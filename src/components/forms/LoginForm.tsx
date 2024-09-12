@@ -28,7 +28,7 @@ export default function LoginForm() {
       <Form {...form}>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="lg:w-1/4 md:w-1/2 space-y-6"
+          className="lg:w-[1/4] sm:w-1/2 md:w-[500px] space-y-6"
         >
           <h1 className="text-2xl font-bold text-center">Welcome to Hire Sphere</h1>
 
@@ -55,7 +55,7 @@ export default function LoginForm() {
       </Form>
 
       <div 
-        className="relative w-1/4 flex justify-center items-center"
+        className="relative lg:w-[1/4] md:w-[500px] sm:w-1/2 w-1/2 flex justify-center items-center"
       >
         <div className="flex-grow border-t border-black"></div>
         <span className="flex-shrink p-2">or</span>
@@ -65,7 +65,8 @@ export default function LoginForm() {
       <Button variant="outline">Continue with Google</Button>
   
       <div >
-        <span>Don't have an account?</span><Button className="underline text-blue-600" variant="link">Sign up</Button>
+        <span>Don't have an account?</span>
+        <Button className="underline text-blue-600" variant="link">Sign up</Button>
       </div>
     </div> 
   );
