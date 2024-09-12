@@ -24,26 +24,26 @@ export default function LoginForm() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
+    <div className="flex flex-col items-center justify-center min-h-screen p-4 space-y-6">
       <Form {...form}>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="w-full max-w-md p-8 space-y-6 bg-white rounded shadow"
+          className="lg:w-1/4 md:w-1/2 space-y-6"
         >
           <h1 className="text-2xl font-bold text-center">Welcome to Hire Sphere</h1>
 
-          <HFormField 
+          <HFormField
             control={control}
-            name="email"
             label="Email"
+            name="email"
             type="email"
             placeholder="Enter your email here"
           />
         
-          <HFormField 
+          <HFormField
             control={control}
+            label="Password" 
             name="password"
-            label="Password"
             type="password"
             placeholder="Enter your password here"
           />
@@ -53,6 +53,20 @@ export default function LoginForm() {
           </Button>
         </form>
       </Form>
+
+      <div 
+        className="relative w-1/4 flex justify-center items-center"
+      >
+        <div className="flex-grow border-t border-black"></div>
+        <span className="flex-shrink p-2">or</span>
+        <div className="flex-grow border-t border-black"></div>
+      </div>
+
+      <Button variant="outline">Continue with Google</Button>
+  
+      <div >
+        <span>Don't have an account?</span><Button className="underline text-blue-600" variant="link">Sign up</Button>
+      </div>
     </div> 
   );
 }
