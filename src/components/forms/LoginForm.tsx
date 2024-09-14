@@ -6,8 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Form } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import HFormField from '@/components/forms/HFormField';
-import { useQuery } from '@tanstack/react-query'
-import { useEffect } from 'react';
+import { useMutation } from '@tanstack/react-query'
 
 const loginSchema = zod.object({
   email: zod
@@ -17,26 +16,51 @@ const loginSchema = zod.object({
     .string({ required_error: 'Password is required'})
 })
 
-export default function LoginForm() {
+type LoginFormData = zod.infer<typeof loginSchema>
 
+export default function LoginForm() {
   const form = useForm<zod.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: '',
+      password: ''
+    }
   });
 
   const { handleSubmit, control } = form
 
-  const onSubmit = async(sample: any) => {
-    // TO DO
+  // make a reusable composable for fecth and useMutation
+  const mutation = useMutation({
+    mutationFn: async (data: LoginFormData) => {
+      const response = await fetch("http://localhost:4000/api/auth/signin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        credentials: 'include',
+        body: JSON.stringify(data)
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to sign in");
+      }
+      return response.json();
+    }
+  });
+
+  const onSubmit = (value: LoginFormData) => {
+    mutation.mutate(value, {
+      onSuccess: (data) => {
+        // dapat mu redirect ug lain na page
+        console.log("Successfully signed in", data);
+      },
+      onError: (error) => {
+        // dapat mu show error handling 
+        console.error("Error signing in", error);
+      }
+    });
   }
 
-  const { data } = useQuery({ 
-    queryKey: ['yawa'], 
-    queryFn: () => {
-      return fetch('http://localhost:4000/api/jobs/all').then((res) => res.json())
-    }  
-  })
-
-  console.log("data na yawa", data)
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen space-y-6">
