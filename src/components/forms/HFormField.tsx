@@ -10,7 +10,7 @@ interface HFormFieldProps {
   placeholder: string;
 }
 
-export default function HFormField({ control, name, type, placeholder, label }: HFormFieldProps) {
+export default function HFormField({ control, name, type = 'text', placeholder, label }: HFormFieldProps) {
   return (
     <FormField
       control={control}
