@@ -1,12 +1,14 @@
 "use client"
 
 import * as zod from 'zod';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Form } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import HFormField from '@/components/forms/HFormField';
 import { useMutation } from '@tanstack/react-query'
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 const loginSchema = zod.object({
   email: zod
@@ -29,6 +31,10 @@ export default function LoginForm() {
 
   const { handleSubmit, control } = form
 
+  const router = useRouter()
+
+  const [errorMessage, setErrorMessage] = useState('')
+
   // make a reusable composable for fecth and useMutation
   const mutation = useMutation({
     mutationFn: async (data: LoginFormData) => {
@@ -50,17 +56,14 @@ export default function LoginForm() {
 
   const onSubmit = (value: LoginFormData) => {
     mutation.mutate(value, {
-      onSuccess: (data) => {
-        // dapat mu redirect ug lain na page
-        console.log("Successfully signed in", data);
+      onSuccess: () => {
+        router.push('/dashboard')
       },
-      onError: (error) => {
-        // dapat mu show error handling 
-        console.error("Error signing in", error);
+      onError: () => {
+        setErrorMessage('Invalid credentials')
       }
     });
   }
-
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen space-y-6">
@@ -92,6 +95,12 @@ export default function LoginForm() {
           </Button>
         </form>
       </Form>
+
+      {errorMessage && (
+        <div className="text-red-500 text-center">
+          {errorMessage}
+        </div>
+      )}
 
       <div 
         className="relative lg:w-[1/4] md:w-[500px] sm:w-1/2 w-3/4 flex justify-center items-center"
