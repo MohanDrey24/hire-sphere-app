@@ -19,10 +19,10 @@ export default function HFormField({ control, name, type = 'text', placeholder, 
         <FormItem>
           <FormControl>
             <Input
+              {...field}
               label={label}
               type={type}
               placeholder={placeholder}
-              {...field}
             />
           </FormControl>
           <FormMessage />
