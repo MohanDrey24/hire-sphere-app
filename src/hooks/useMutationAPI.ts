@@ -7,7 +7,7 @@ interface CustomMutationOptions<TData, TError, TVariables> {
   mutationOptions?: Omit<UseMutationOptions<TData, TError, TVariables>, 'mutationFn'>;
 }
 
-const BASE_URL: string = 'http://localhost:4000'
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL
 
 export function useMutationAPI<TData = unknown, TError = unknown, TVariables = unknown>(
   endpoint: string, 
@@ -15,9 +15,9 @@ export function useMutationAPI<TData = unknown, TError = unknown, TVariables = u
   options: CustomMutationOptions<TData, TError, TVariables> = {}
 ) {
 
-  const { headers = {}, mutationOptions = {}} = options
+  // const { headers = {}, mutationOptions = {}} = options
   return useMutation({
-    mutationFn: async (body) => {
+    mutationFn: async (body: TVariables) => {
       const response = await fetch(`${BASE_URL}${endpoint}`, {
         method,
         headers: {
