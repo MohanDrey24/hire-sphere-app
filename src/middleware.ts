@@ -13,6 +13,7 @@ export async function middleware(request: NextRequest) {
   const isProtectedRoute = protectedRoutes.includes(path);
   const isPublicRoute = publicRoutes.includes(path);
   const isLoggedIn = await decryptJWT(session)
+
   /**
    * if there is no session and they try to access a 
    * protected route redirect the user back to index page
