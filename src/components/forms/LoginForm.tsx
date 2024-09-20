@@ -6,9 +6,9 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Form } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import HFormField from '@/components/forms/HFormField';
-import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { useMutationAPI } from '@/hooks/useMutationAPI';
 
 const loginSchema = zod.object({
   email: zod
@@ -35,34 +35,23 @@ export default function LoginForm() {
 
   const [errorMessage, setErrorMessage] = useState('')
 
-  // make a reusable composable for fecth and useMutation
-  const mutation = useMutation({
-    mutationFn: async (data: LoginFormData) => {
-      const response = await fetch("http://localhost:4000/api/auth/signin", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        credentials: 'include',
-        body: JSON.stringify(data)
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to sign in");
-      }
-      return response.json();
-    }
-  });
+  const { status, mutate } = useMutationAPI("/auth/signin")
 
   const onSubmit = (value: LoginFormData) => {
-    mutation.mutate(value, {
+    mutate(value, {
       onSuccess: () => {
         router.push('/dashboard')
       },
       onError: () => {
         setErrorMessage('Invalid credentials')
       }
-    });
+    })
+  }
+
+  if (status === 'pending') {
+    return(
+      <div>Loading...</div>
+    )
   }
 
   return (
