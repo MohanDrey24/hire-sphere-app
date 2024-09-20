@@ -36,3 +36,5 @@ export function useMutationAPI<TData = unknown, TError = unknown, TVariables = u
     }
   })
 }
+
+export default useMutationAPI;
