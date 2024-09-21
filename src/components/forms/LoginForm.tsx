@@ -38,6 +38,7 @@ export default function LoginForm() {
   const { status, mutate } = useMutationAPI("/auth/signin")
 
   const onSubmit = (value: LoginFormData) => {
+    setErrorMessage('')
     mutate(value, {
       onSuccess: () => {
         router.push('/dashboard')
@@ -48,11 +49,7 @@ export default function LoginForm() {
     })
   }
 
-  if (status === 'pending') {
-    return(
-      <div>Loading...</div>
-    )
-  }
+  const isLoading = status === 'pending'
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen space-y-6">
@@ -69,6 +66,7 @@ export default function LoginForm() {
             name="email"
             type="email"
             placeholder="Enter your email here"
+            disabled={isLoading}
           />
         
           <HFormField
@@ -77,10 +75,11 @@ export default function LoginForm() {
             name="password"
             type="password"
             placeholder="Enter your password here"
+            disabled={isLoading}
           />
 
-          <Button type="submit" variant="default" className="w-full">
-            Log In
+          <Button type="submit" variant="default" className="w-full" disabled={isLoading}>
+            { isLoading ? 'Loading...' : 'Log In' }
           </Button>
         </form>
       </Form>
@@ -99,11 +98,11 @@ export default function LoginForm() {
         <div className="flex-grow border-t border-black"></div>
       </div>
 
-      <Button variant="outline">Continue with Google</Button>
+      <Button variant="outline" disabled={isLoading}>Continue with Google</Button>
   
       <div>
         <span>Don't have an account?</span>
-        <Button className="underline text-blue-600" variant="link">Sign up</Button>
+        <Button className="underline text-blue-600" variant="link" disabled={isLoading}>Sign up</Button>
       </div>
     </div> 
   );
