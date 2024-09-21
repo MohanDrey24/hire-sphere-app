@@ -8,9 +8,10 @@ interface HFormFieldProps {
   type: string;
   label: string;
   placeholder: string;
+  disabled: boolean
 }
 
-export default function HFormField({ control, name, type = 'text', placeholder, label }: HFormFieldProps) {
+export default function HFormField({ control, name, type = 'text', placeholder, label, disabled = false }: HFormFieldProps) {
   return (
     <FormField
       control={control}
@@ -23,6 +24,7 @@ export default function HFormField({ control, name, type = 'text', placeholder, 
               label={label}
               type={type}
               placeholder={placeholder}
+              disabled={disabled}
             />
           </FormControl>
           <FormMessage />
