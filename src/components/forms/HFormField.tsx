@@ -8,7 +8,7 @@ interface HFormFieldProps {
   type: string;
   label: string;
   placeholder: string;
-  disabled: boolean
+  disabled: boolean;
 }
 
 export default function HFormField({ control, name, type = 'text', placeholder, label, disabled = false }: HFormFieldProps) {
@@ -31,5 +31,5 @@ export default function HFormField({ control, name, type = 'text', placeholder, 
         </FormItem>
       )}
     />
-  )
+  );
 }
