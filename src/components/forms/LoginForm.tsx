@@ -9,6 +9,7 @@ import HFormField from '@/components/forms/HFormField';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useMutationAPI } from '@/hooks/useMutationAPI';
+import Icon from '../Icon';
 
 const loginSchema = zod.object({
   email: zod
@@ -50,6 +51,10 @@ export default function LoginForm() {
   }
 
   const isLoading = status === 'pending'
+
+  const sample = () => {
+    router.push('http://localhost:4000/api/auth/google/redirect')
+  }
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen space-y-6">
@@ -98,11 +103,19 @@ export default function LoginForm() {
         <div className="flex-grow border-t border-black"></div>
       </div>
 
-      <Button variant="outline" disabled={isLoading}>Continue with Google</Button>
+      <Button className="flex space-x-2" variant="outline" disabled={isLoading} onClick={sample}>
+        <Icon 
+          src='/icons/google.svg'
+          alt='google-icon'
+          height='20px'
+          width='20px'
+        />
+        <p>Continue with Google</p>
+      </Button>
   
-      <div>
+      <div className="">
         <span>Don't have an account?</span>
-        <Button className="underline text-blue-600" variant="link" disabled={isLoading}>Sign up</Button>
+        <a className="text-blue-600 p-1.5 cursor-pointer underline">Sign up</a>
       </div>
     </div> 
   );
