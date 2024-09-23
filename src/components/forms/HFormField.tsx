@@ -1,6 +1,7 @@
 import { Control } from "react-hook-form";
 import { FormControl, FormField, FormItem, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
+import { MouseEventHandler } from "react";
 
 interface HFormFieldProps {
   control: Control<any>;
@@ -9,9 +10,10 @@ interface HFormFieldProps {
   label: string;
   placeholder: string;
   disabled: boolean;
+  onClick?: MouseEventHandler<HTMLInputElement>;
 }
 
-export default function HFormField({ control, name, type = 'text', placeholder, label, disabled = false }: HFormFieldProps) {
+export default function HFormField({ onClick, control, name, type = 'text', placeholder, label, disabled = false }: HFormFieldProps) {
   return (
     <FormField
       control={control}
@@ -25,6 +27,7 @@ export default function HFormField({ control, name, type = 'text', placeholder, 
               type={type}
               placeholder={placeholder}
               disabled={disabled}
+              onClick={onClick}
             />
           </FormControl>
           <FormMessage />
