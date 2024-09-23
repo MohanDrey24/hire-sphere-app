@@ -52,8 +52,16 @@ export default function LoginForm() {
 
   const isLoading = status === 'pending'
 
-  const sample = () => {
-    router.push('http://localhost:4000/api/auth/google/redirect')
+  const navigateToGoogleRedirectURI = () => {
+    if (process.env.NEXT_PUBLIC_GOOGLE_OAUTH2_CALLBACK_URL) {
+      router.push(process.env.NEXT_PUBLIC_GOOGLE_OAUTH2_CALLBACK_URL)
+    } else {
+      console.error("Redirect URI not defined")
+    }
+  }
+
+  const resetErrorMessage = () => {
+    setErrorMessage('')
   }
 
   return (
@@ -72,6 +80,7 @@ export default function LoginForm() {
             type="email"
             placeholder="Enter your email here"
             disabled={isLoading}
+            onClick={resetErrorMessage}
           />
         
           <HFormField
@@ -81,6 +90,7 @@ export default function LoginForm() {
             type="password"
             placeholder="Enter your password here"
             disabled={isLoading}
+            onClick={resetErrorMessage}
           />
 
           <Button type="submit" variant="default" className="w-full" disabled={isLoading}>
@@ -103,7 +113,7 @@ export default function LoginForm() {
         <div className="flex-grow border-t border-black"></div>
       </div>
 
-      <Button className="flex space-x-2" variant="outline" disabled={isLoading} onClick={sample}>
+      <Button className="flex space-x-2" variant="outline" disabled={isLoading} onClick={navigateToGoogleRedirectURI}>
         <Icon 
           src='/icons/google.svg'
           alt='google-icon'
