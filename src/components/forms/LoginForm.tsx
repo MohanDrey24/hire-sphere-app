@@ -65,7 +65,7 @@ export default function LoginForm() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen space-y-6">
+    <div className="w-[40%] flex flex-col items-center justify-center min-h-screen space-y-6">
       <Form {...form}>
         <form
           onSubmit={handleSubmit(onSubmit)}
