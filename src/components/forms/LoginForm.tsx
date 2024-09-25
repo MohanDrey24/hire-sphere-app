@@ -22,7 +22,7 @@ const loginSchema = zod.object({
 type LoginFormData = zod.infer<typeof loginSchema>
 
 export default function LoginForm() {
-  const form = useForm<zod.infer<typeof loginSchema>>({
+  const form = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
       email: '',
@@ -35,43 +35,50 @@ export default function LoginForm() {
   const router = useRouter()
 
   const [errorMessage, setErrorMessage] = useState('')
+  const [isLoginPage, setIsLoginPage] = useState(true)
 
-  const { status, mutate } = useMutationAPI("/auth/signin")
+  const { status: signInStatus, mutate: signIn } = useMutationAPI("/auth/signin")
+
+  const { status: signUpStatus , mutate: signUp } = useMutationAPI("/auth")
+
+  const status = signInStatus === 'pending' || signUpStatus === 'pending'
 
   const onSubmit = (value: LoginFormData) => {
     setErrorMessage('')
-    mutate(value, {
-      onSuccess: () => {
-        router.push('/dashboard')
-      },
-      onError: () => {
-        setErrorMessage('Invalid credentials')
-      }
-    })
-  }
-
-  const isLoading = status === 'pending'
-
-  const navigateToGoogleRedirectURI = () => {
-    if (process.env.NEXT_PUBLIC_GOOGLE_OAUTH2_CALLBACK_URL) {
-      router.push(process.env.NEXT_PUBLIC_GOOGLE_OAUTH2_CALLBACK_URL)
+    if (isLoginPage) {
+      signIn(value, {
+        onSuccess: () => {
+          router.push('/dashboard')
+        },
+        onError: () => {
+          setErrorMessage('Invalid credentials')
+        }
+      })
     } else {
-      console.error("Redirect URI not defined")
+      signUp(value, {
+        onSuccess: () => {
+          setIsLoginPage(true)
+        },
+        onError: () => {
+          setErrorMessage('Bad Request')
+        }
+      })
     }
   }
 
-  const resetErrorMessage = () => {
-    setErrorMessage('')
+  const navigateToGoogleRedirectURI = () => {
+    router.push(process.env.NEXT_PUBLIC_GOOGLE_OAUTH2_CALLBACK_URL || '')
   }
 
   return (
-    <div className="w-[40%] flex flex-col items-center justify-center min-h-screen space-y-6">
+    <div className="w-screen md:w-screen lg:w-[40%] flex flex-col items-center justify-center min-h-screen space-y-6">
       <Form {...form}>
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="lg:w-[1/4] md:w-[500px] sm:w-1/2 w-3/4 space-y-6"
         >
-          <h1 className="text-2xl font-bold text-center">Welcome to Hire Sphere</h1>
+
+          <h1 className="text-2xl font-bold text-center">{ isLoginPage ? "Welcome to Hire Sphere" : "Sign Up to Hire Sphere" }</h1>
 
           <HFormField
             control={control}
@@ -79,8 +86,8 @@ export default function LoginForm() {
             name="email"
             type="email"
             placeholder="Enter your email here"
-            disabled={isLoading}
-            onClick={resetErrorMessage}
+            disabled={status}
+            onClick={() => setErrorMessage('')}
           />
         
           <HFormField
@@ -89,12 +96,17 @@ export default function LoginForm() {
             name="password"
             type="password"
             placeholder="Enter your password here"
-            disabled={isLoading}
-            onClick={resetErrorMessage}
+            disabled={status}
+            onClick={() => setErrorMessage('')}
           />
 
-          <Button type="submit" variant="default" className="w-full" disabled={isLoading}>
-            { isLoading ? 'Loading...' : 'Log In' }
+          <Button
+            type="submit"
+            variant="default"
+            className="w-full"
+            disabled={status}
+          >
+            { status ? 'Loading...' : isLoginPage ? 'Log in' : 'Sign Up' }
           </Button>
         </form>
       </Form>
@@ -103,30 +115,44 @@ export default function LoginForm() {
         <div className="text-red-500 text-center">
           {errorMessage}
         </div>
-      )}
+        )
+      }
 
-      <div 
-        className="relative lg:w-[1/4] md:w-[500px] sm:w-1/2 w-3/4 flex justify-center items-center"
-      >
-        <div className="flex-grow border-t border-black"></div>
-        <span className="flex-shrink p-2">or</span>
-        <div className="flex-grow border-t border-black"></div>
-      </div>
+    { isLoginPage && 
+      <>
+        <div className="relative lg:w-[1/4] md:w-[500px] sm:w-1/2 w-3/4 flex justify-center items-center">
+          <div className="flex-grow border-t border-black"></div>
+          <span className="flex-shrink p-2">or</span>
+          <div className="flex-grow border-t border-black"></div>
+        </div>
 
-      <Button className="flex space-x-2" variant="outline" disabled={isLoading} onClick={navigateToGoogleRedirectURI}>
-        <Icon 
-          src='/icons/google.svg'
-          alt='google-icon'
-          height='20px'
-          width='20px'
-        />
-        <p>Continue with Google</p>
-      </Button>
-  
-      <div className="">
-        <span>Don't have an account?</span>
-        <a className="text-blue-600 p-1.5 cursor-pointer underline">Sign up</a>
-      </div>
+        <Button 
+          className="flex space-x-2"
+          variant="outline"
+          disabled={status}
+          onClick={navigateToGoogleRedirectURI}
+        >
+          <Icon 
+            src='/icons/google.svg'
+            alt='google-icon'
+            height='20px'
+            width='20px'
+          />
+          <p>Continue with Google</p>
+        </Button>
+    
+        <div>
+          <span>Don't have an account?</span>
+          <Button
+            variant="link" 
+            className="text-blue-600 p-1.5 cursor-pointer underline"
+            onClick={() => setIsLoginPage(false)}
+          >
+            Sign up
+          </Button>
+        </div> 
+      </>
+    }
     </div> 
   );
 }
