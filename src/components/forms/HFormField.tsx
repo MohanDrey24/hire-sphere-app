@@ -9,7 +9,7 @@ interface HFormFieldProps {
   type: string;
   label: string;
   placeholder: string;
-  disabled: boolean;
+  disabled?: boolean;
   onClick?: MouseEventHandler<HTMLInputElement>;
 }
 
