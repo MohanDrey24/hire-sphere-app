@@ -10,10 +10,11 @@ interface HFormFieldProps {
   label: string;
   placeholder: string;
   disabled?: boolean;
+  className?: string;
   onClick?: MouseEventHandler<HTMLInputElement>;
 }
 
-export default function HFormField({ onClick, control, name, type = 'text', placeholder, label, disabled = false }: HFormFieldProps) {
+export default function HFormField({ onClick, control, name, type = 'text', placeholder, label, disabled = false, className }: HFormFieldProps) {
   return (
     <FormField
       control={control}
@@ -28,6 +29,7 @@ export default function HFormField({ onClick, control, name, type = 'text', plac
               placeholder={placeholder}
               disabled={disabled}
               onClick={onClick}
+              className={className}
             />
           </FormControl>
           <FormMessage />
