@@ -21,7 +21,11 @@ const loginSchema = zod.object({
 
 type LoginFormData = zod.infer<typeof loginSchema>
 
-export default function LoginForm() {
+type LoginFormProps = {
+  className?: string
+}
+
+export default function LoginForm({ className }: LoginFormProps) {
   const form = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -71,11 +75,11 @@ export default function LoginForm() {
   }
 
   return (
-    <div className="w-screen md:w-screen lg:w-[40%] flex flex-col items-center justify-center min-h-screen space-y-6">
+    <div className={className}>
       <Form {...form}>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="lg:w-[1/4] md:w-[500px] sm:w-1/2 w-3/4 space-y-6"
+          className="lg:w-3/4 sm:max-md:w-[60%] w-[60%] space-y-6"
         >
 
           <h1 className="text-2xl font-bold text-center">{ isLoginPage ? "Welcome to Hire Sphere" : "Sign Up to Hire Sphere" }</h1>
@@ -120,7 +124,7 @@ export default function LoginForm() {
 
     { isLoginPage && 
       <>
-        <div className="relative lg:w-[1/4] md:w-[500px] sm:w-1/2 w-3/4 flex justify-center items-center">
+        <div className="relative lg:w-3/4 sm:max-md:w-[60%] w-[60%] flex justify-center items-center">
           <div className="flex-grow border-t border-black"></div>
           <span className="flex-shrink p-2">or</span>
           <div className="flex-grow border-t border-black"></div>
