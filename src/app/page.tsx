@@ -1,9 +1,10 @@
 import LoginForm from "@/components/forms/LoginForm";
+import NavBar from "@/components/NavBar";
 
 export default function Home() {
   return (
     <div className="h-screen flex flex-col">
-      <div className="h-16">navbar</div>
+      <NavBar className="h-16" />
       <div className="flex-1 flex flex-row">
         <div className="hidden sm:hidden lg:block w-0 lg:w-1/2 xl:w-1/2 relative overflow-hidden">
           <img 
