@@ -107,7 +107,7 @@ export default function LoginForm({ className }: LoginFormProps) {
           <Button
             type="submit"
             variant="default"
-            className="w-full"
+            className="w-full h-12"
             disabled={status}
           >
             { status ? 'Loading...' : isLoginPage ? 'Log in' : 'Sign Up' }
