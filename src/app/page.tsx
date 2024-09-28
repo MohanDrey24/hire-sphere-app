@@ -1,3 +1,5 @@
+"use client"
+
 import LoginForm from "@/components/forms/LoginForm";
 import NavBar from "@/components/NavBar";
 
