@@ -15,7 +15,6 @@ export function useMutationAPI<TData = unknown, TError = unknown, TVariables = u
   options: CustomMutationOptions<TData, TError, TVariables> = {}
 ) {
 
-  // const { headers = {}, mutationOptions = {}} = options
   return useMutation({
     mutationFn: async (body: TVariables) => {
       const response = await fetch(`${BASE_URL}${endpoint}`, {
