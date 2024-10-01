@@ -1,12 +1,19 @@
 "use client"
 
-import LoginForm from "@/components/forms/LoginForm";
+import { useState } from "react";
+import AuthForm from "@/components/forms/AuthForm";
 import NavBar from "@/components/NavBar";
 
 export default function Home() {
+  const [isLoginPage, setIsLoginPage] = useState(true);
+
   return (
     <div className="h-screen flex flex-col">
-      <NavBar className="h-16" />
+      <NavBar 
+        onClickLogin={() => setIsLoginPage(true)}
+        onClickSignin={() => setIsLoginPage(false)}
+        className="h-16"
+      />
       <div className="flex-1 flex flex-row">
         <div className="hidden sm:hidden lg:block w-0 lg:w-1/2 xl:w-1/2 relative overflow-hidden">
           <img 
@@ -15,7 +22,11 @@ export default function Home() {
             alt="Palette ball"
           />
         </div>
-        <LoginForm className="w-full lg:w-1/2 flex flex-col items-center justify-center space-y-6"/>
+        <AuthForm 
+          className="w-full lg:w-1/2 flex flex-col items-center justify-center space-y-6"
+          isLoginPage={isLoginPage}
+          setIsLoginPage={setIsLoginPage}
+        />
       </div>
     </div>
   );
