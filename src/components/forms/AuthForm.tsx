@@ -19,14 +19,16 @@ const loginSchema = zod.object({
     .string({ required_error: 'Password is required'})
 })
 
-type LoginFormData = zod.infer<typeof loginSchema>
+type AuthFormData = zod.infer<typeof loginSchema>
 
-type LoginFormProps = {
-  className?: string
+type AuthFormProps = {
+  className?: string;
+  isLoginPage: boolean;
+  setIsLoginPage: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function LoginForm({ className }: LoginFormProps) {
-  const form = useForm<LoginFormData>({
+export default function AuthForm({ className, isLoginPage, setIsLoginPage }: AuthFormProps) {
+  const form = useForm<AuthFormData>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
       email: '',
@@ -39,7 +41,6 @@ export default function LoginForm({ className }: LoginFormProps) {
   const router = useRouter()
 
   const [errorMessage, setErrorMessage] = useState('')
-  const [isLoginPage, setIsLoginPage] = useState(true)
 
   const { status: signInStatus, mutate: signIn } = useMutationAPI("/auth/signin")
 
@@ -47,7 +48,7 @@ export default function LoginForm({ className }: LoginFormProps) {
 
   const status = signInStatus === 'pending' || signUpStatus === 'pending'
 
-  const onSubmit = (value: LoginFormData) => {
+  const onSubmit = (value: AuthFormData) => {
     setErrorMessage('')
     if (isLoginPage) {
       signIn(value, {
