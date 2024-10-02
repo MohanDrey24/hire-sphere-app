@@ -1,7 +1,10 @@
 "use client"
 
+import React from "react";
+
 import { motion } from "framer-motion"
-import SignupForm from "@/components/forms/SignupForm"
+import Hexagon from "@/components/Hexagon";
+import HexagonHive from "@/components/HexagonHive";
 
 export default function Sample () {
   return (
@@ -37,8 +40,22 @@ export default function Sample () {
     //     src="/images/HIRE_SPHERE.svg"
     //   />
     // </div>
-    <>
-      <SignupForm />
-    </>
+
+    // <div className="flex flex-row items-center">
+    //   <div className="flex-col space-y-1">
+    //     <Hexagon size="sm" color="blue" className="mr-1" />
+    //     <Hexagon size="sm" color="blue" className="mr-1" />
+    //     <Hexagon size="sm" color="blue" />
+    //   </div>
+    //   <div className="flex-col space-y-1 -translate-x-3">
+    //     <Hexagon size="sm" color="blue" className="mr-1" />
+    //     <Hexagon size="sm" color="blue" className="mr-1" />
+    //     <Hexagon size="sm" color="blue" className="mr-1" />
+    //     <Hexagon size="sm" color="blue" />
+    //   </div>
+    // </div>
+    <div>
+      <HexagonHive />
+    </div>
   )
 }
