@@ -18,27 +18,28 @@
       .string({ required_error: 'Password is required'})
   })
 
-  type AuthFormData = zod.infer<typeof loginSchema>
+  type LoginFormData = zod.infer<typeof loginSchema>
 
-  type AuthFormProps = {
+  type LoginFormProps = {
     className?: string;
     isLoginPage: boolean;
     setIsLoginPage: React.Dispatch<React.SetStateAction<boolean>>;
   }
 
-  export default function AuthForm({ className, isLoginPage, setIsLoginPage }: AuthFormProps) {
-    const form = useForm<AuthFormData>({
+  export default function AuthForm({ className, isLoginPage, setIsLoginPage }: LoginFormProps) {
+    const form = useForm<LoginFormData>({
       resolver: zodResolver(loginSchema),
       defaultValues: {
         email: '',
         password: ''
-      }
+      },
+      mode: 'onChange',
+      shouldUseNativeValidation: false
     });
 
     const { 
       handleSubmit, 
       control,
-      register,
       setError,
       formState: { errors } 
     } = form
@@ -51,7 +52,7 @@
 
     const status = signInStatus === 'pending' || signUpStatus === 'pending'
 
-    const onSubmit = (value: AuthFormData) => {
+    const onSubmit = (value: LoginFormData) => {
       setError('root', { message: undefined })
       if (isLoginPage) {
         signIn(value, {
@@ -91,7 +92,6 @@
             <h1 className="text-2xl font-bold text-center">{ isLoginPage ? "Welcome to Hire Sphere" : "Sign Up to Hire Sphere" }</h1>
 
             <HFormField
-              {...register("email")}
               control={control}
               label="Email"
               name="email"
@@ -102,7 +102,6 @@
             />
 
             <HFormField
-              {...register("password")}
               control={control}
               label="Password" 
               name="password"
