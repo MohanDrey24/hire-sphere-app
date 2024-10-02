@@ -14,7 +14,16 @@ interface HFormFieldProps {
   onClick?: MouseEventHandler<HTMLInputElement>;
 }
 
-export default function HFormField({ onClick, control, name, type = 'text', placeholder, label, disabled = false, className }: HFormFieldProps) {
+export default function HFormField({ 
+  onClick, 
+  control, 
+  name, 
+  type = 'text', 
+  placeholder, 
+  label,
+  disabled = false, 
+  className 
+}: HFormFieldProps) {
   return (
     <FormField
       control={control}
@@ -29,6 +38,7 @@ export default function HFormField({ onClick, control, name, type = 'text', plac
               placeholder={placeholder}
               disabled={disabled}
               onClick={onClick}
+              autoComplete="off"
               className={className}
             />
           </FormControl>
