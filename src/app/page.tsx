@@ -1,8 +1,9 @@
 "use client"
 
 import { useState } from "react";
-import AuthForm from "@/components/forms/AuthForm";
+import LoginForm from "@/components/forms/LoginForm";
 import NavBar from "@/components/NavBar";
+import SignupForm from "@/components/forms/SignupForm";
 
 export default function Home() {
   const [isLoginPage, setIsLoginPage] = useState(true);
@@ -22,11 +23,11 @@ export default function Home() {
             alt="Palette ball"
           />
         </div>
-        <AuthForm 
+        <LoginForm 
           className="w-full lg:w-1/2 flex flex-col items-center justify-center space-y-6"
           isLoginPage={isLoginPage}
           setIsLoginPage={setIsLoginPage}
-        />
+        /> 
       </div>
     </div>
   );
