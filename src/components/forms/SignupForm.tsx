@@ -1,12 +1,14 @@
-import HFormField from './HFormField';
+"use client"
+
 import * as zod from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod'
-import { MouseEventHandler } from "react";
-import { Form } from "react-hook-form";
+import { Form } from '../ui/form';
+import HFormField from '@/components/forms/HFormField';
 import { Button } from "../ui/button";
-import useMutationAPI from "@/hooks/useMutationAPI";
+import { useMutationAPI } from "@/hooks/useMutationAPI";
 import { useRouter } from 'next/navigation';
+import { MouseEventHandler } from "react";
 
 const signupSchema = zod.object({
   email: zod.string().email(),
@@ -62,13 +64,13 @@ export default function SignupForm({ onClick, className }: SignupFormProps) {
 
   return (
     <div className={className="w-full lg:w-1/2 flex flex-col items-center justify-center space-y-6"}>
-      {/* <Form {...form}> */}
+      <Form {...form}>
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="lg:w-3/4 sm:max-md:w-[60%] w-[60%] space-y-6"
         >
 
-          <h1 className="text-2xl font-bold text-center">"Sign Up to Hire Sphere"</h1>
+          <h1 className="text-2xl font-bold text-center">Sign Up to Hire Sphere</h1>
 
           <HFormField
             control={control}
@@ -109,7 +111,7 @@ export default function SignupForm({ onClick, className }: SignupFormProps) {
             { status ? "Loading..." : "Sign Up" }
           </Button>
         </form>
-      {/* </Form> */}
+      </Form>
     </div>
   );
 }
