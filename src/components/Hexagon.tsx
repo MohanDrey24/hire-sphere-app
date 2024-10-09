@@ -35,7 +35,7 @@ const Hexagon = ({
         className={`bg-black ${sizeClasses[`${size}Outside`]} flex items-center justify-center cursor-pointer`}
         initial={{ opacity: 1 }}
         whileHover={{ opacity: 0 }}
-        animate={{ rotate: 360, transition: { duration: 3, ease: "easeInOut"} }}
+        // animate={{ rotate: 360, transition: { duration: 3, ease: "easeInOut"} }}
         transition={{ 
           duration: 0.5, 
           ease: "easeInOut",
