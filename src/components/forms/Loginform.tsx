@@ -12,10 +12,11 @@
 
   const loginSchema = zod.object({
     email: zod
-      .string({ required_error: 'Email is required'})
+      .string()
       .email({ message: 'Email should have valid format'}),
     password: zod
       .string({ required_error: 'Password is required'})
+      .min(1, { message: 'Password is required'})
   })
 
   type LoginFormData = zod.infer<typeof loginSchema>
