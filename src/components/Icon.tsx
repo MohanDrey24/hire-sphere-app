@@ -3,13 +3,15 @@ interface IconProps {
   alt?: string;
   width?: string;
   height?: string;
+  className?: string;
 }
 
-export default function Icon ({ src, alt, width, height}: IconProps) {
+export default function Icon ({ src, alt, width, height, className }: IconProps) {
   return (
-    <img 
+    <img
+      className={className}
       src={src} 
-      alt={src} 
+      alt={alt} 
       width={width} 
       height={height} 
     />
