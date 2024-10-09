@@ -55,9 +55,9 @@ export default function Sample () {
     //     <Hexagon size="sm" color="blue" />
     //   </div>
     // </div>
-    <div className="w-full lg:w-1/2 flex flex-col items-center justify-center space-y-6">
-      {/* <HexagonHive /> */}
-      <SignupForm />
-    </div>
+    <HexagonHive />
+    // <div className="w-full lg:w-1/2 flex flex-col items-center justify-center space-y-6">
+    //   <SignupForm />
+    // </div>
   )
 }
