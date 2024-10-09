@@ -23,11 +23,14 @@ export default function Home() {
             alt="Palette ball"
           />
         </div>
-        <Loginform
+        
+        { isLoginPage ? <Loginform
           className="w-full lg:w-1/2 flex flex-col items-center justify-center space-y-6"
           isLoginPage={isLoginPage}
           setIsLoginPage={setIsLoginPage}
-        /> 
+        /> :
+          <SignupForm />
+        }
       </div>
     </div>
   );
