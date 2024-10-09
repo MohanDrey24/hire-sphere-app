@@ -9,7 +9,6 @@ const HexagonHive: React.FC = () => {
     >
       {[...Array(24)].map((_, index) => (
         <Hexagon className="" key={index} size="sm" />
-        // <Hexagon className="-translate-x-8" key={index} size="sm" />
       ))}
     </div>
   );
