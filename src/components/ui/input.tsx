@@ -1,12 +1,11 @@
 import * as React from "react"
-
 import { cn } from "@/lib/utils"
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {}
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, ...props }, ref) => {
+  ({ className, type, children, ...props }, ref) => {
     return (
       <>
         <input
@@ -18,6 +17,10 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           ref={ref}
           {...props}
         />
+
+        <div className="absolute inset-y-0 right-[15px] top-[15px] cursor-pointer">
+          {children}
+        </div>  
       </>
     )
   }
