@@ -23,11 +23,9 @@
 
   type LoginFormProps = {
     className?: string;
-    isLoginPage?: boolean;
-    setIsLoginPage: React.Dispatch<React.SetStateAction<boolean>>;
   }
 
-  export default function LoginForm({ className, isLoginPage, setIsLoginPage }: LoginFormProps) {
+  export default function LoginForm({ className }: LoginFormProps) {
     const form = useForm<LoginFormData>({
       resolver: zodResolver(loginSchema),
       defaultValues: {
@@ -49,33 +47,20 @@
 
     const { status: signInStatus, mutate: signIn } = useMutationAPI("/auth/signin")
 
-    const { status: signUpStatus , mutate: signUp } = useMutationAPI("/auth")
-
-    const status = signInStatus === 'pending' || signUpStatus === 'pending'
+    const status = signInStatus === 'pending'
 
     const onSubmit = (value: LoginFormData) => {
       setError('root', { message: undefined })
-      if (isLoginPage) {
-        signIn(value, {
-          onSuccess: () => {
-            router.push("/dashboard")
-          },
-          onError: () => {
-            setError("root", {
-              message: "Invalid Credentials"
-            })
-          }
-        })
-      } else {
-        signUp(value, {
-          onSuccess: () => {
-            setIsLoginPage(true)
-          },
-          onError: () => {
-            setError('root', { message: undefined })
-          }
-        })
-      }
+      signIn(value, {
+        onSuccess: () => {
+          router.push("/dashboard")
+        },
+        onError: () => {
+          setError("root", {
+            message: "Invalid Credentials"
+          })
+        }
+      })
     }
 
     const navigateToGoogleRedirectURI = () => {
@@ -90,7 +75,7 @@
             className="lg:w-3/4 sm:max-md:w-[60%] w-[60%] space-y-6"
           >
 
-            <h1 className="text-2xl font-bold text-center">{ isLoginPage ? "Welcome to Hire Sphere" : "Sign Up to Hire Sphere" }</h1>
+            <h1 className="text-2xl font-bold text-center">Welcome to Hire Sphere</h1>
 
             <HFormField
               control={control}
@@ -118,7 +103,7 @@
               className="w-full h-12"
               disabled={status}
             >
-              { status ? 'Loading...' : isLoginPage ? 'Log in' : 'Sign Up' }
+              { status ? 'Loading...' :'Log in' }
             </Button>
           </form>
         </Form>
@@ -129,7 +114,6 @@
           </div>
         )}
 
-      { isLoginPage && 
         <>
           <div className="relative lg:w-3/4 sm:max-md:w-[60%] w-[60%] flex justify-center items-center">
             <div className="flex-grow border-t border-black"></div>
@@ -152,18 +136,17 @@
             <p>Continue with Google</p>
           </Button>
       
+          {/* MAKE THIS BUTTON NAVIGATE TO SIGNUPFORM */}
           <div>
             <span>Don't have an account?</span>
             <Button
               variant="link" 
               className="text-blue-600 p-1.5 cursor-pointer underline"
-              onClick={() => setIsLoginPage(false)}
             >
               Sign up
             </Button>
           </div> 
         </>
-      }
       </div> 
     );
   }
