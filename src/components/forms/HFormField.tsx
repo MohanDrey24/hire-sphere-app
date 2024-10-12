@@ -30,7 +30,7 @@ export default function HFormField({
       name={name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel>{label}</FormLabel>
+          <label>{label}</label>
           <FormControl>
             <Input
               {...field}
