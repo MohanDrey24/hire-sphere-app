@@ -35,8 +35,7 @@ export default function SignupForm({ onClick, className }: SignupFormProps) {
       password: "",
       confirmPassword: ""
     },
-    mode: 'onChange',
-    shouldUseNativeValidation: false
+    mode: 'onChange'
   })
 
   const {
@@ -49,7 +48,6 @@ export default function SignupForm({ onClick, className }: SignupFormProps) {
   const { status: signupStatus , mutate } = useMutationAPI("/auth")
 
   const status = signupStatus === 'pending'
-
   const onSubmit = (value: SignupData) => {
     mutate(value, {
       onSuccess: () => {
@@ -95,7 +93,7 @@ export default function SignupForm({ onClick, className }: SignupFormProps) {
           <HFormField 
             control={control}
             label="Confirm Password"
-            name="Confirm Password"
+            name="confirmPassword"
             type="password"
             placeholder="Re-enter your password here"
             disabled={status}
@@ -106,7 +104,7 @@ export default function SignupForm({ onClick, className }: SignupFormProps) {
             type="submit"
             variant="default"
             className="w-full h-12"
-            disabled={status}
+            disabled={status || !!errors.confirmPassword}
           >
             { status ? "Loading..." : "Sign Up" }
           </Button>
