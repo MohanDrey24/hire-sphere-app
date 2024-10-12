@@ -19,7 +19,7 @@ export default function NavBar ({ className, onClickLogin, onClickSignin }: Prop
           Log in
         </Button>
         <Button onClick={onClickSignin}>
-          Sign In
+          Sign Up
         </Button>
       </div>
     </div>
