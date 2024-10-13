@@ -10,6 +10,7 @@ export default function Home() {
 
   return (
     <div className="h-screen flex flex-col">
+      {/* MOVE NAVBAR TO LAYOUT */}
       <NavBar 
         onClickLogin={() => setIsLoginPage(true)}
         onClickSignin={() => setIsLoginPage(false)}
@@ -25,7 +26,10 @@ export default function Home() {
         </div>
 
         { isLoginPage ? 
-          <Loginform className="w-full lg:w-1/2 flex flex-col items-center justify-center space-y-6" /> : 
+          <Loginform 
+            className="w-full lg:w-1/2 flex flex-col items-center justify-center space-y-6" 
+            onClick={() => setIsLoginPage(false)}
+          /> : 
           <SignupForm />
         }
 
