@@ -1,9 +1,10 @@
 import { DashboardNavBar } from "./DashboardNavBar"
 
 export default function Dashboard() {
-  return(
+
+  return (
     <div>
-      {/* MOVE NAVBAR TO LAYOUT */}
+      {/* SHOULD BE IN A LAYOUT */}
       <DashboardNavBar />
     </div>
   );
