@@ -137,7 +137,7 @@ export default function LoginForm({ className, onClick }: LoginFormProps) {
           />
           <p>Continue with Google</p>
         </Button>
-    
+
         <div>
           <span>Don't have an account?</span>
           <Button
