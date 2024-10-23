@@ -1,6 +1,7 @@
 "use client"
 
 import Icon from "@/components/Icon";
+import JobCard from "@/components/JobCard";
 import { Avatar,
   AvatarFallback } from "@/components/ui/avatar";
 import { 
@@ -57,15 +58,6 @@ export function DashboardNavBar () {
     }
   })
 
-  const allJobs = data ? data.map((job: Job) => (
-    <ul>
-      <li>{job.position}</li>
-      <li>{job.salary}</li>
-      <li>{job.location}</li>
-      <li>{job.country}</li>
-    </ul>
-  )) : null
-
   return (
     <>
       <div className="flex justify-between bg-slate-100 h-20 min-w-full items-center">
@@ -113,13 +105,9 @@ export function DashboardNavBar () {
         </motion.div>
       </div>
 
-      { !isPending ?
-        <div className="flex gap-10">
-          {allJobs}
-        </div>
-        : 
-        <p>Loading ...</p>
-      }
+      <JobCard 
+        jobData={data}
+      />
     </>
   );
 }
