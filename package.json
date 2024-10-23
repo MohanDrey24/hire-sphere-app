@@ -20,6 +20,7 @@
     "@tanstack/react-query-devtools": "^5.59.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "dayjs": "^1.11.13",
     "framer-motion": "^11.11.1",
     "jose": "^5.9.3",
     "lucide-react": "^0.447.0",
