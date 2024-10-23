@@ -1,9 +1,7 @@
 "use client"
 
 import Icon from "@/components/Icon";
-import JobCard from "@/components/JobCard";
-import { Avatar,
-  AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { 
   DropdownMenu,
   DropdownMenuContent,
@@ -13,21 +11,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import useMutationAPI from "@/hooks/useMutationAPI";
-import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
-
-interface Job {
-  id: string;
-  companyId: string;
-  position: string;
-  location: string;
-  country?: string;
-  salary: number;
-  isAvailable: boolean;
-  createdAt: string;
-  updatedAt: string;
-};
 
 export function DashboardNavBar () {
 
@@ -46,17 +31,6 @@ export function DashboardNavBar () {
       }
     });
   };
-
-  const { isPending, data, error } = useQuery<Array<Job>>({
-    queryKey: ['jobs'],
-    queryFn: async () => {
-      const response = await fetch('http://localhost:4000/api/jobs/all', {
-        credentials: 'include'
-      })
-
-      return await response.json()
-    }
-  })
 
   return (
     <>
@@ -104,10 +78,6 @@ export function DashboardNavBar () {
           </DropdownMenu>
         </motion.div>
       </div>
-
-      <JobCard 
-        jobData={data}
-      />
     </>
   );
 }
