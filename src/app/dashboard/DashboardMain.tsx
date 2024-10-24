@@ -8,6 +8,7 @@ export default function DashboardMain () {
   const { isPending, data, error } = useQuery<Array<Job>>({
     queryKey: ['jobs'],
     queryFn: async () => {
+      // should be reusable function that can be accessed globally
       const response = await fetch('http://localhost:4000/api/jobs/all', {
         credentials: 'include'
       })
