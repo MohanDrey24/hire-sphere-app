@@ -9,11 +9,12 @@ export interface Job {
   id: string;
   companyId: string;
   position: string;
-  location: string;
+  type: 'REMOTE' | 'ONSITE' | 'HYBRID';
   country?: string;
   salary: number;
   isAvailable: boolean;
   createdAt: string;
   updatedAt: string;
   company: Company;
+  description?: string;
 };
