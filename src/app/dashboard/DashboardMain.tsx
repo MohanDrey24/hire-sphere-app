@@ -1,11 +1,16 @@
 "use client"
 
+import { useEffect } from "react";
+import JobCard from "./JobCard";
+import useJobStore from "../stores/useJobStore";
 import { useQuery } from "@tanstack/react-query";
 import { type Job } from "./types";
-import JobCard from "./JobCard";
 
 export default function DashboardMain () {
-  const { isPending, data, error } = useQuery<Array<Job>>({
+  const setJobs = useJobStore((state) => state.setJobs)
+  const jobState = useJobStore((state) => state.jobs)
+
+  const { isPending, data, isSuccess } = useQuery<Array<Job>>({
     queryKey: ['jobs'],
     queryFn: async () => {
       // should be reusable function that can be accessed globally
@@ -17,7 +22,16 @@ export default function DashboardMain () {
     }
   })
 
+  useEffect(() => {
+    if (isSuccess) {
+      setJobs(data)
+    }
+  }, [isSuccess])
+
   return (
-    <JobCard jobData={data} />
+    <JobCard 
+      jobData={jobState} 
+      isPending={isPending}
+    />
   );
 };
