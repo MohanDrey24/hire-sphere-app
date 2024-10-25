@@ -7,18 +7,34 @@ import {
 } from "../../components/ui/card";
 import dayjs from 'dayjs'
 import { type Job } from "./types";
-import Icon from "@/components/Icon";
+// import Icon from "@/components/Icon";
 
 interface CardProps {
   jobData?: Job[];
+  isPending: boolean;
 };
 
-export default function JobCard ({ jobData }: CardProps) {
+export default function JobCard ({ jobData, isPending = false }: CardProps) {
   const computeTotalDays = (createdAt: string) => {
     const currentDate = dayjs()
     const createdDate = dayjs(createdAt)
     return currentDate.diff(createdDate, 'day')
   }
+  console.log(isPending)
+
+  if (isPending) return (
+    <div>
+      <div className="grid gap-4 p-4">
+          <Card className="w-60 min-h-60 flex flex-col">
+            <div className="animate-pulse flex flex-col gap-2 p-4">
+              { Array.from({ length: 8 }, (_) => (
+                <div className="bg-slate-200 h-5 w-full rounded" />
+              ))}
+          </div>
+          </Card>
+        </div>
+    </div>
+  );
 
   return (
     <div className="grid gap-4 p-4">
@@ -28,13 +44,13 @@ export default function JobCard ({ jobData }: CardProps) {
         className="w-60 min-h-60 flex flex-col"
       >
       
-        <Icon
+        {/* <Icon
           className="cursor-pointer self-end"
           alt="bookmark"
           src="/icons/bookmark-outline.svg"
           height="20px"
           width="20px"
-        />
+        /> */}
 
         <CardHeader>
           <CardTitle>{job.position}</CardTitle>
