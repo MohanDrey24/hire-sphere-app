@@ -5,6 +5,7 @@ import JobCard from "./JobCard";
 import useJobStore from "../stores/useJobStore";
 import { useQuery } from "@tanstack/react-query";
 import { type Job } from "./types";
+import useFetch from "@/hooks/useFetch"
 
 export default function DashboardMain () {
   const setJobs = useJobStore((state) => state.setJobs)
@@ -12,14 +13,7 @@ export default function DashboardMain () {
 
   const { isPending, data, isSuccess } = useQuery<Array<Job>>({
     queryKey: ['jobs'],
-    queryFn: async () => {
-      // should be reusable function that can be accessed globally
-      const response = await fetch('http://localhost:4000/api/jobs/all', {
-        credentials: 'include'
-      })
-
-      return await response.json()
-    }
+    queryFn: () => useFetch('/jobs/all')
   })
 
   useEffect(() => {
