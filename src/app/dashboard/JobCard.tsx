@@ -20,7 +20,6 @@ export default function JobCard ({ jobData, isPending = false }: CardProps) {
     const createdDate = dayjs(createdAt)
     return currentDate.diff(createdDate, 'day')
   }
-  console.log(isPending)
 
   if (isPending) return (
     <div>
