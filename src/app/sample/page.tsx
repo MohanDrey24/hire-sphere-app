@@ -2,10 +2,10 @@
 
 import React from "react";
 
-import { motion } from "framer-motion"
-import Hexagon from "@/components/Hexagon";
+// import { motion } from "framer-motion"
+// import Hexagon from "@/components/Hexagon";
 import HexagonHive from "@/components/HexagonHive";
-import SignupForm from "@/components/forms/SignupForm";
+// import SignupForm from "@/components/forms/SignupForm";
 
 export default function Sample () {
   return (
