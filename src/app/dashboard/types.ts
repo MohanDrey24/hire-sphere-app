@@ -18,3 +18,24 @@ export interface Job {
   company: Company;
   description?: string;
 };
+
+export interface Account {
+  userId: string;
+  name?: string;
+  provider: string;
+  providerAccountId: string;
+  password?: string;
+  refresh_token?: string;
+  access_token?: string;
+  expires_at?: number;
+};
+
+export interface User {
+  id: string;
+  email: string;
+  emailVerified?: string;
+  image?: string;
+  createdAt: string;
+  updatedAt: string;
+  accounts: Account[];
+};
