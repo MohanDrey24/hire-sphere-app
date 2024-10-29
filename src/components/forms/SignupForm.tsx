@@ -26,7 +26,7 @@ type SignupFormProps = {
   onClick?: MouseEventHandler<HTMLInputElement>;
 };
 
-export default function SignupForm({ onClick, className }: SignupFormProps) {
+export default function SignupForm({ onClick }: SignupFormProps) {
   const router = useRouter()
   const form = useForm<SignupData>({
     resolver: zodResolver(signupSchema),
@@ -61,7 +61,7 @@ export default function SignupForm({ onClick, className }: SignupFormProps) {
   }
 
   return (
-    <div className={className="w-full lg:w-1/2 flex flex-col items-center justify-center space-y-6"}>
+    <div className="w-full lg:w-1/2 flex flex-col items-center justify-center space-y-6">
       <Form {...form}>
         <form
           onSubmit={handleSubmit(onSubmit)}
