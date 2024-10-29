@@ -1,18 +1,17 @@
 import { create } from 'zustand';
+import { type User } from '../dashboard/types';
 
 type UserState = {
-  userId: string;
-  name: string;
+  user: User | null
 }
 
 type UserAction = {
-  setUser: (payload: UserState) => void
+  setUser: (user: User) => void
 }
 
 const useUserStore = create<UserState & UserAction>((set) => ({
-  userId: '',
-  name: '',
-  setUser: (payload: UserState) => set({ userId: payload.userId, name: payload.name })
+  user: null,
+  setUser: (user: User) => set({ user })
 }))
 
 export default useUserStore;
