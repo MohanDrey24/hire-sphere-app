@@ -139,7 +139,7 @@ export default function LoginForm({ className, onClick }: LoginFormProps) {
         </Button>
 
         <div>
-          <span>Don't have an account?</span>
+          <span>Don&apos;t have an account?</span>
           <Button
             variant="link" 
             className="text-blue-600 p-1.5 cursor-pointer underline"
