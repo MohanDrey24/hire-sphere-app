@@ -21,19 +21,20 @@ export default function JobCard ({ jobData, isPending = false }: CardProps) {
     return currentDate.diff(createdDate, 'day')
   }
 
-  if (isPending) return (
-    <div>
+
+  if (isPending) {
+    return (
       <div className="grid gap-4 p-4">
-          <Card className="w-60 min-h-60 flex flex-col">
-            <div className="animate-pulse flex flex-col gap-2 p-4">
-              { Array.from({ length: 8 }, (_) => (
-                <div className="bg-slate-200 h-5 w-full rounded" />
-              ))}
+        <Card className="w-60 min-h-60 flex flex-col">
+          <div className="animate-pulse flex flex-col gap-2 p-4">
+            {Array.from({ length: 8 }, (_, index) => (
+              <div key={index} className="bg-slate-200 h-5 w-full rounded" />
+            ))}
           </div>
-          </Card>
-        </div>
-    </div>
-  );
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <div className="grid gap-4 p-4">
