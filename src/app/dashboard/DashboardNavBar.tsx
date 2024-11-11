@@ -1,26 +1,37 @@
 "use client"
 
 import Icon from "@/components/Icon";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { 
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuTrigger
-} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import useMutationAPI from "@/hooks/useMutationAPI";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
+import useUserStore from "../stores/useUserStore";
+import { useQuery } from "@tanstack/react-query";
+import useFetch from "@/hooks/useFetch";
+import type { User } from "./types";
+import { useEffect } from "react";
+import HDropdown from "@/components/HDropDown";
 
 export function DashboardNavBar () {
+  const setUser = useUserStore((state) => state.setUser);
+  const userState = useUserStore((state) => state.user);
 
-  const router = useRouter()
+  const router = useRouter();
 
   const { mutate } = useMutationAPI('/auth/signout');
 
-  const handleLogout = () => {
+  const { data: userData, isSuccess: userDataSuccess} = useQuery<User>({
+    queryKey: ['users'],
+    queryFn: () => useFetch('/users/current')
+  })
+
+  useEffect(() => {
+    if (userDataSuccess) {
+      setUser(userData)
+    }
+  }, [userDataSuccess, userData, setUser]);
+
+  const handleLogout = (): void => {
     mutate(undefined, { 
       onSuccess: () => {
         router.push('/')
@@ -31,6 +42,8 @@ export function DashboardNavBar () {
       }
     });
   };
+
+  const DropdownItems = ["Profile", "Logout"];
 
   return (
     <>
@@ -61,21 +74,12 @@ export function DashboardNavBar () {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.8 }}
         >
-          {/* should be component to remove boiler plate */}
-          <DropdownMenu>
-            <DropdownMenuTrigger>
-              <Avatar>
-                {/* should be dynamic depending on the initials of the user */}
-                <AvatarFallback className="text-white">MD</AvatarFallback>
-              </Avatar>
-
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="mr-8 hidden md:flex md:flex-col">
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuItem>Profile</DropdownMenuItem>
-              <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <HDropdown
+            userState={userState}
+            label="My Account"
+            items={DropdownItems}
+            onLogout={handleLogout}
+          />
         </motion.div>
       </div>
     </>
