@@ -21,7 +21,6 @@ export interface Job {
 
 export interface Account {
   userId: string;
-  name?: string;
   provider: string;
   providerAccountId: string;
   password?: string;
@@ -34,6 +33,9 @@ export interface User {
   id: string;
   email: string;
   emailVerified?: string;
+  name?: string;
+  firstName: string;
+  lastName: string;
   image?: string;
   createdAt: string;
   updatedAt: string;
