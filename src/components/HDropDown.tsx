@@ -16,16 +16,24 @@ interface Props {
 }
 
 export default function HDropdown ({ userState, label, items, onLogout }: Props) {
-  
-  const getInitials = (name?: string): string => {
-    return name 
-      ? name.trim()
+  const getInitials = (user: User | null): string => {
+    if (!user) return '';
+
+    if (user.name?.trim()) {
+      return user.name
+        .trim()
         .split(' ')
-        .filter(word => word.length > 0)
-        .map(word => word.charAt(0).toUpperCase())
+        .filter(Boolean)
+        .map(word => word[0]?.toUpperCase())
         .join('')
-      : '';
-  };
+    }
+    
+    return (
+      (user.firstName?.[0] || '') +
+      (user.lastName?.[0] || '')
+    ).toUpperCase();
+  }
+
 
   const handleLogout = (item: string): void => {
     if (item.toLowerCase() === 'logout' && onLogout) {
@@ -38,14 +46,12 @@ export default function HDropdown ({ userState, label, items, onLogout }: Props)
       <DropdownMenu>
         <DropdownMenuTrigger>
           <Avatar>
-            {userState?.accounts.map(user => (
-              <AvatarFallback 
-                key={user.userId}
-                className="text-white"
-              >
-                {getInitials(user.name)}
-              </AvatarFallback>
-            ))}
+            <AvatarFallback
+              key={userState?.id}
+              className="text-white"
+            >
+              {getInitials(userState)}
+            </AvatarFallback>
           </Avatar>
         </DropdownMenuTrigger>
         
