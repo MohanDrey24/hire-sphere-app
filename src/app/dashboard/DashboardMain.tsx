@@ -7,7 +7,11 @@ import useJobStore from "../stores/useJobStore";
 import useFetch from "@/hooks/useFetch"
 import type { Job } from "./types";
 
-export default function DashboardMain () {
+type Props = {
+  className?: string;
+}
+
+export default function DashboardMain ({ className }: Props) {
   const setJobs = useJobStore((state) => state.setJobs);
   const jobState = useJobStore((state) => state.jobs);
   
@@ -23,11 +27,11 @@ export default function DashboardMain () {
   }, [jobsSuccess, jobsData, setJobs]);
 
   return (
-    <>
-      <JobCard 
+    <div className={`${className} w-64`}>
+      <JobCard
         jobData={jobState} 
         isPending={isPending}
       />
-    </>
+    </div>
   );
 };
