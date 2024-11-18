@@ -21,7 +21,6 @@ export default function JobCard ({ jobData, isPending = false }: CardProps) {
     return currentDate.diff(createdDate, 'day')
   }
 
-
   if (isPending) {
     return (
       <div className="grid gap-4 p-4">
@@ -71,4 +70,3 @@ export default function JobCard ({ jobData, isPending = false }: CardProps) {
     </div>
   );
 }
-
