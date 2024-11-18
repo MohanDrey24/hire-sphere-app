@@ -12,7 +12,11 @@ import type { User } from "./types";
 import { useEffect } from "react";
 import HDropdown from "@/components/HDropDown";
 
-export function DashboardNavBar () {
+type Props = {
+  className?: string
+}
+
+export function DashboardNavBar ({ className }: Props) {
   const setUser = useUserStore((state) => state.setUser);
   const userState = useUserStore((state) => state.user);
 
@@ -46,8 +50,8 @@ export function DashboardNavBar () {
   const DropdownItems = ["Profile", "Logout"];
 
   return (
-    <>
-      <div className="flex justify-between bg-slate-100 h-20 min-w-full items-center">
+    <div className={className}>
+      <div className="fixed flex justify-between bg-slate-100 h-20 min-w-full items-center">
         <div className="border-none ml-10 bg-red-100 w-10 h-10 rounded-full" />
 
         <div className="flex flex-row relative">
@@ -82,6 +86,6 @@ export function DashboardNavBar () {
           />
         </motion.div>
       </div>
-    </>
+    </div>
   );
 }
