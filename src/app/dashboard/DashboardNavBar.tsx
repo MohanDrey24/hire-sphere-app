@@ -38,7 +38,7 @@ export function DashboardNavBar ({ className }: Props) {
   const handleLogout = (): void => {
     mutate(undefined, { 
       onSuccess: () => {
-        router.push('/')
+        window.location.reload();
       },
       onError: () => {
         // improve error handling in the future
