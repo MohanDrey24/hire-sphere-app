@@ -16,6 +16,7 @@ export default function Home() {
         onClickSignin={() => setIsLoginPage(false)}
         className="h-16"
       />
+
       <div className="flex-1 flex flex-row">
         <div className="hidden sm:hidden lg:block w-0 lg:w-1/2 xl:w-1/2 relative overflow-hidden">
           <img 

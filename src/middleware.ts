@@ -19,7 +19,7 @@ export async function middleware(request: NextRequest) {
    * protected route redirect the user back to index page
    */
   if (!session && isProtectedRoute) {
-    return NextResponse.redirect(new URL('/', request.url))
+    return NextResponse.redirect(new URL('/', request.url));
   }
 
   /**
