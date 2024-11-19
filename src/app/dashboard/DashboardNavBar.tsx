@@ -52,11 +52,11 @@ export function DashboardNavBar ({ className }: Props) {
   return (
     <div className={className}>
       <div className="fixed flex justify-between bg-slate-100 h-24 min-w-full items-center">
-        <div className="border-none ml-10 bg-red-100 w-10 h-10 rounded-full" />
+        <div className="border-none ml-5 sm:ml-10 bg-red-100 w-10 h-10 rounded-full" />
 
         <div className="flex flex-row relative">
           <Input
-            className="w-[300px]"
+            className="w-44 sm:w-80"
             placeholder="Search for jobs"
           >
             <motion.button
@@ -74,7 +74,7 @@ export function DashboardNavBar ({ className }: Props) {
         </div>
 
         <motion.div
-          className="mr-8 cursor-pointer hidden md:flex"
+          className="mr-8 cursor-pointer flex"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.8 }}
         >
