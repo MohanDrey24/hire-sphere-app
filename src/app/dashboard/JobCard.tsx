@@ -24,7 +24,7 @@ export default function JobCard ({ jobData, isPending = false }: CardProps) {
   if (isPending) {
     return (
       <div className="grid gap-4 p-4">
-        <Card className="w-60 min-h-60 flex flex-col">
+        <Card className="min-w-full min-h-[250px] flex flex-col">
           <div className="animate-pulse flex flex-col gap-2 p-4">
             {Array.from({ length: 8 }, (_, index) => (
               <div key={index} className="bg-slate-200 h-5 w-full rounded" />
@@ -40,7 +40,7 @@ export default function JobCard ({ jobData, isPending = false }: CardProps) {
     { jobData?.map((job: Job) => (
       <Card 
         key={job.id}
-        className="w-60 min-h-60 flex flex-col"
+        className="min-w-full min-h-[250px] flex flex-col"
       >
       
         {/* <Icon
