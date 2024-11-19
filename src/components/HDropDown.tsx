@@ -55,7 +55,7 @@ export default function HDropdown ({ userState, label, items, onLogout }: Props)
           </Avatar>
         </DropdownMenuTrigger>
         
-        <DropdownMenuContent className="mr-8 hidden md:flex md:flex-col">
+        <DropdownMenuContent className="mr-8 flex flex-col">
           <DropdownMenuLabel>{label}</DropdownMenuLabel>
           {items.map(item => (
             <DropdownMenuItem
