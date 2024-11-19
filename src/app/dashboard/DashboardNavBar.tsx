@@ -51,7 +51,7 @@ export function DashboardNavBar ({ className }: Props) {
 
   return (
     <div className={className}>
-      <div className="fixed flex justify-between bg-slate-100 h-20 min-w-full items-center">
+      <div className="fixed flex justify-between bg-slate-100 h-24 min-w-full items-center">
         <div className="border-none ml-10 bg-red-100 w-10 h-10 rounded-full" />
 
         <div className="flex flex-row relative">
