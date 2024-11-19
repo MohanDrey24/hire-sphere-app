@@ -27,7 +27,7 @@ export default function DashboardMain ({ className }: Props) {
   }, [jobsSuccess, jobsData, setJobs]);
 
   return (
-    <div className={`${className} w-64`}>
+    <div className={`${className} w-full bg-red-100`}>
       <JobCard
         jobData={jobState} 
         isPending={isPending}
