@@ -5,7 +5,7 @@ import {
   CardHeader, 
   CardTitle 
 } from "../../components/ui/card";
-import dayjs from 'dayjs'
+import { computeDaysAgo } from "../utils/computeTimeAgo";
 import { type Job } from "./types";
 // import Icon from "@/components/Icon";
 
@@ -15,11 +15,6 @@ interface CardProps {
 };
 
 export default function JobCard ({ jobData, isPending = false }: CardProps) {
-  const computeTotalDays = (createdAt: string) => {
-    const currentDate = dayjs()
-    const createdDate = dayjs(createdAt)
-    return currentDate.diff(createdDate, 'day')
-  }
 
   if (isPending) {
     return (
@@ -62,7 +57,7 @@ export default function JobCard ({ jobData, isPending = false }: CardProps) {
           <p>{job.country}</p>
         </CardContent>
         <p className="text-muted-foreground text-xs ml-6 mb-2">
-          {computeTotalDays(job.createdAt)} days ago
+          {computeDaysAgo(job.createdAt)}
         </p>
       </Card>
       ))
