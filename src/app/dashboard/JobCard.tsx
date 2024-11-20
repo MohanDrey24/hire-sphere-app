@@ -1,3 +1,4 @@
+"use client";
 import { 
   Card, 
   CardContent, 
@@ -5,6 +6,7 @@ import {
   CardHeader, 
   CardTitle 
 } from "../../components/ui/card";
+import useJobStore from "../stores/useJobStore";
 import { computeDaysAgo } from "../utils/computeTimeAgo";
 import { type Job } from "./types";
 // import Icon from "@/components/Icon";
@@ -14,7 +16,10 @@ interface CardProps {
   isPending: boolean;
 };
 
-export default function JobCard ({ jobData, isPending = false }: CardProps) {
+
+export default function JobCard ({ jobData, isPending = false, }: CardProps) {
+  const setSelectedJobId = useJobStore((state) => state.setSelectedJobId);
+  const selectedJobId = useJobStore((state) => state.selectedJobId);
 
   if (isPending) {
     return (
@@ -35,7 +40,8 @@ export default function JobCard ({ jobData, isPending = false }: CardProps) {
     { jobData?.map((job: Job) => (
       <Card 
         key={job.id}
-        className="min-w-full min-h-[250px] flex flex-col"
+        className={`min-w-full cursor-pointer min-h-[250px] flex flex-col ${selectedJobId === job.id ? "border-blue-600 border-2" : ""}`}
+        onClick={() => setSelectedJobId(job.id)}
       >
       
         {/* <Icon
