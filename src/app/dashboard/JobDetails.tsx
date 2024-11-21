@@ -1,5 +1,6 @@
 "use client";
 import useJobStore from "../stores/useJobStore";
+import purify from "dompurify";
 import { Job } from "./types";
 
 type Props = {
@@ -13,9 +14,9 @@ export function JobDetails ({ className }: Props) {
   const selectedJob = jobState.find((job) => job.id === selectedJobId);
 
  return (
-  <div className={`${className} bg-green-100 w-full h-full flex items-center justify-center`} >
+  <div className={`${className} w-full h-full flex items-center justify-center`} >
     {selectedJob?.description ? (
-      <p className="text-md">{selectedJob.description}</p>
+      <div dangerouslySetInnerHTML={{ __html: purify.sanitize(selectedJob?.description) }} />
     ) : (
       <p className="text-md">No Job Description</p>
     )}
