@@ -11,7 +11,7 @@ type Props = {
   className?: string;
 }
 
-export default function DashboardMain ({ className }: Props) {
+export default function Main ({ className }: Props) {
   const setJobs = useJobStore((state) => state.setJobs);
   const jobState = useJobStore((state) => state.jobs);
   
