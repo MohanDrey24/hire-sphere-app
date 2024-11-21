@@ -16,11 +16,9 @@ type Props = {
   className?: string
 }
 
-export function DashboardNavBar ({ className }: Props) {
+export function NavBar ({ className }: Props) {
   const setUser = useUserStore((state) => state.setUser);
   const userState = useUserStore((state) => state.user);
-
-  const router = useRouter();
 
   const { mutate } = useMutationAPI('/auth/signout');
 
