@@ -1,4 +1,5 @@
 "use client";
+
 import useJobStore from "../stores/useJobStore";
 import purify from "dompurify";
 import { Job } from "./types";
