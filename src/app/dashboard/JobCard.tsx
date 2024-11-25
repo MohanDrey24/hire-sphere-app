@@ -1,4 +1,5 @@
 "use client";
+
 import { 
   Card, 
   CardContent, 
@@ -16,8 +17,7 @@ interface CardProps {
   isPending: boolean;
 };
 
-
-export default function JobCard ({ jobData, isPending = false, }: CardProps) {
+export default function JobCard ({ jobData, isPending = false }: CardProps) {
   const setSelectedJobId = useJobStore((state) => state.setSelectedJobId);
   const selectedJobId = useJobStore((state) => state.selectedJobId);
 
@@ -37,7 +37,7 @@ export default function JobCard ({ jobData, isPending = false, }: CardProps) {
 
   return (
     <div className="grid gap-4 p-4">
-    { jobData?.map((job: Job) => (
+    {jobData?.map((job: Job) => (
       <Card 
         key={job.id}
         className={`min-w-full cursor-pointer min-h-[250px] flex flex-col ${selectedJobId === job.id ? "border-blue-600 border-2" : ""}`}
