@@ -25,7 +25,7 @@ export default function Dashboard() {
         className={`
           overflow-y-auto col-span-8 row-span-7 row-start-2
           sm:col-span-5 sm:row-span-7 sm:col-start-4
-          hidden sm:block
+          ${selectedJobId ? "block" : "hidden sm:block"}
         `}
       />
 
