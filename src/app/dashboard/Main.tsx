@@ -27,7 +27,7 @@ export default function Main ({ className }: Props) {
   }, [jobsSuccess, jobsData, setJobs]);
 
   return (
-    <div className={`${className} w-full bg-red-100`}>
+    <div className={`${className} w-full`}>
       <JobCard
         jobData={jobState} 
         isPending={isPending}
