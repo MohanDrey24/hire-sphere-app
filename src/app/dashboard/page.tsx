@@ -10,25 +10,25 @@ export default function Dashboard() {
 
   return (
     <div className="grid grid-cols-8 grid-rows-8 h-screen w-screen">
-
       <NavBar className="col-span-8" />
 
       <Main 
         className={`
-          overflow-y-auto col-span-8 row-span-7
-          sm:col-span-3 sm:row-span-7 sm:row-start-2
-          ${selectedJobId ? "hidden sm:block" : ""}
+          col-span-8 row-span-7 row-start-2
+          overflow-y-auto
+          ${selectedJobId ? 'hidden' : 'block'}
+          sm:block sm:col-span-3
         `}
       />
 
       <JobDetails 
         className={`
-          overflow-y-auto col-span-8 row-span-7 row-start-2
-          sm:col-span-5 sm:row-span-7 sm:col-start-4
-          ${selectedJobId ? "block" : "hidden sm:block"}
+          col-span-8 row-span-7 row-start-2
+          ${selectedJobId ? 'block' : 'hidden'}
+          sm:block sm:col-span-5 sm:col-start-4 sm:row-start-2
+          bg-white
         `}
       />
-
     </div>
   );
 }
