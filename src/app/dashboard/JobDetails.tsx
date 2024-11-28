@@ -15,12 +15,16 @@ export function JobDetails ({ className }: Props) {
   const selectedJob = jobState.find((job) => job.id === selectedJobId);
 
  return (
-  <div className={`${className} w-full h-full flex items-center justify-center`} >
-    {selectedJob?.description ? (
-      <div dangerouslySetInnerHTML={{ __html: purify.sanitize(selectedJob?.description) }} />
-    ) : (
-      <p className="text-md">No Job Description</p>
-    )}
+  <div className={`${className} w-full h-full`}>
+    <div className="w-full h-full overflow-y-auto p-4 pt-6">
+      {selectedJob?.description ? (
+        <div dangerouslySetInnerHTML={{ __html: purify.sanitize(selectedJob?.description) }} />
+      ) : (
+        <div className="h-full w-full flex items-center justify-center">
+          <p className="text-md">No Job Description</p>
+        </div>
+      )}
+    </div>
   </div>
  )
 }
