@@ -16,7 +16,7 @@ export default function Dashboard() {
         className={`
           col-span-8 row-span-7 row-start-2
           overflow-y-auto
-          ${selectedJobId ? 'hidden' : 'block'}
+          ${selectedJobId ? "hidden" : "block"}
           sm:block sm:col-span-3
         `}
       />
@@ -24,7 +24,7 @@ export default function Dashboard() {
       <JobDetails 
         className={`
           col-span-8 row-span-7 row-start-2
-          ${selectedJobId ? 'block' : 'hidden'}
+          ${selectedJobId ? "block" : "hidden"}
           sm:block sm:col-span-5 sm:col-start-4 sm:row-start-2
           bg-white
         `}
