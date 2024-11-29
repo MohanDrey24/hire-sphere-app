@@ -1,16 +1,14 @@
 "use client"
 
-import Icon from "@/components/Icon";
-import { Input } from "@/components/ui/input";
 import useMutationAPI from "@/hooks/useMutationAPI";
 import { motion } from "framer-motion";
-import { useRouter } from "next/navigation";
 import useUserStore from "../stores/useUserStore";
 import { useQuery } from "@tanstack/react-query";
 import useFetch from "@/hooks/useFetch";
 import type { User } from "./types";
 import { useEffect } from "react";
 import HDropdown from "@/components/HDropDown";
+import SearchBar from "@/components/SearchBar";
 
 type Props = {
   className?: string
@@ -52,24 +50,7 @@ export function NavBar ({ className }: Props) {
       <div className="fixed flex justify-between bg-slate-100 h-24 min-w-full items-center">
         <div className="border-none ml-5 sm:ml-10 bg-red-100 w-10 h-10 rounded-full" />
 
-        <div className="flex flex-row relative">
-          <Input
-            className="w-44 sm:w-80"
-            placeholder="Search for jobs"
-          >
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.8 }}
-            >
-              <Icon
-                alt="search"
-                src="/icons/search.svg"
-                height="20px"
-                width="20px"
-              />
-            </motion.button>
-          </Input>
-        </div>
+        <SearchBar />
 
         <motion.div
           className="mr-8 cursor-pointer flex"
