@@ -2,15 +2,14 @@
 
 import useJobStore from "../stores/useJobStore";
 import purify from "dompurify";
-import { Job } from "./types";
 
 type Props = {
   className?: string;
 }
 
 export function JobDetails ({ className }: Props) {
-  const selectedJobId: string = useJobStore((state) => state.selectedJobId);
-  const jobState: Job[] = useJobStore((state) => state.jobs)
+  const selectedJobId = useJobStore((state) => state.selectedJobId);
+  const jobState = useJobStore((state) => state.jobs)
 
   const selectedJob = jobState.find((job) => job.id === selectedJobId);
 
