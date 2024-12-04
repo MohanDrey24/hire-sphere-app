@@ -10,7 +10,6 @@ import {
 import useJobStore from "../stores/useJobStore";
 import { computeDaysAgo } from "../utils/computeTimeAgo";
 import { type Job } from "./types";
-// import Icon from "@/components/Icon";
 
 interface CardProps {
   jobData?: Job[];
@@ -43,14 +42,6 @@ export default function JobCard ({ jobData, isPending = false }: CardProps) {
         className={`min-w-full cursor-pointer min-h-[250px] flex flex-col ${selectedJobId === job.id ? "border-blue-600 border-2" : ""}`}
         onClick={() => setSelectedJobId(job.id)}
       >
-      
-        {/* <Icon
-          className="cursor-pointer self-end"
-          alt="bookmark"
-          src="/icons/bookmark-outline.svg"
-          height="20px"
-          width="20px"
-        /> */}
 
         <CardHeader>
           <CardTitle>{job.position}</CardTitle>
