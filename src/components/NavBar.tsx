@@ -4,10 +4,10 @@ import { Button } from "./ui/button";
 interface Props {
   className?: string | undefined;
   onClickLogin?: MouseEventHandler<HTMLButtonElement>;
-  onClickSignin?: MouseEventHandler<HTMLButtonElement>;
+  onClickSignUp?: MouseEventHandler<HTMLButtonElement>;
 }
 
-export default function NavBar ({ className, onClickLogin, onClickSignin }: Props) {
+export default function NavBar ({ className, onClickLogin, onClickSignUp }: Props) {
   return (
     <div className={`flex items-center border-gray border-b-2 ${className}`}>
       <div className="border-none ml-10 bg-red-100 w-10 h-10 rounded-full" />
@@ -18,7 +18,7 @@ export default function NavBar ({ className, onClickLogin, onClickSignin }: Prop
         >
           Log in
         </Button>
-        <Button onClick={onClickSignin}>
+        <Button onClick={onClickSignUp}>
           Sign Up
         </Button>
       </div>
