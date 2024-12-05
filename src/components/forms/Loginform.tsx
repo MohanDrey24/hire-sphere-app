@@ -1,6 +1,7 @@
 "use client"
 
 import * as zod from 'zod';
+import { memo } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Form } from '@/components/ui/form';
@@ -27,7 +28,7 @@ type LoginFormProps = {
   onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
-export default function LoginForm({ className, onClick }: LoginFormProps) {
+function LoginForm({ className, onClick }: LoginFormProps) {
   const form = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -152,3 +153,5 @@ export default function LoginForm({ className, onClick }: LoginFormProps) {
     </div> 
   );
 }
+
+export default memo(LoginForm);
