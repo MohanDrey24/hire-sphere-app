@@ -1,6 +1,7 @@
 "use client"
 
 import * as zod from 'zod';
+import { memo } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Form } from '../ui/form';
@@ -28,7 +29,7 @@ type SignupFormProps = {
   onClick?: MouseEventHandler<HTMLInputElement>;
 };
 
-export default function SignupForm({ onClick }: SignupFormProps) {
+function SignupForm({ onClick }: SignupFormProps) {
   const router = useRouter()
   const form = useForm<SignupData>({
     resolver: zodResolver(signupSchema),
@@ -137,3 +138,5 @@ export default function SignupForm({ onClick }: SignupFormProps) {
     </div>
   );
 }
+
+export default memo(SignupForm);
