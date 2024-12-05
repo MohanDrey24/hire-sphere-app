@@ -12,6 +12,8 @@ import { MouseEventHandler } from "react";
 
 const signupSchema = zod.object({
   email: zod.string().email(),
+  firstName: zod.string(),
+  lastName: zod.string(),
   password: zod.string(),
   confirmPassword: zod.string(),
 }).refine((data) => data.password === data.confirmPassword, {
@@ -32,6 +34,8 @@ export default function SignupForm({ onClick }: SignupFormProps) {
     resolver: zodResolver(signupSchema),
     defaultValues: {
       email: "",
+      firstName: "",
+      lastName: "",
       password: "",
       confirmPassword: ""
     },
@@ -76,6 +80,26 @@ export default function SignupForm({ onClick }: SignupFormProps) {
             name="email"
             type="email"
             placeholder="Enter your email here"
+            disabled={status}
+            onClick={onClick}
+          />
+
+          <HFormField 
+            control={control}
+            label="First Name"
+            name="firstName"
+            type="text"
+            placeholder="Enter your First Name"
+            disabled={status}
+            onClick={onClick}
+          />
+
+          <HFormField 
+            control={control}
+            label="Last Name"
+            name="lastName"
+            type="text"
+            placeholder="Enter your Last Name"
             disabled={status}
             onClick={onClick}
           />
