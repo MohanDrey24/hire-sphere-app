@@ -28,7 +28,7 @@ export default function Home() {
       newParams.set("page", PAGES.LOGIN);
     }
 
-    if (searchParams.toString() !== newParams.toString()) {
+    if (searchParams.toString().toLowerCase() !== newParams.toString()) {
       router.replace(`${pathName}?${newParams.toString()}`);
       return PAGES.LOGIN;
     }
