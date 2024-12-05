@@ -1,13 +1,14 @@
+import { memo } from "react";
 import { MouseEventHandler } from "react";
 import { Button } from "./ui/button";
 
-interface Props {
+interface NavBarProps {
   className?: string | undefined;
   onClickLogin?: MouseEventHandler<HTMLButtonElement>;
   onClickSignUp?: MouseEventHandler<HTMLButtonElement>;
 }
 
-export default function NavBar ({ className, onClickLogin, onClickSignUp }: Props) {
+function NavBar ({ className, onClickLogin, onClickSignUp }: NavBarProps) {
   return (
     <div className={`flex items-center border-gray border-b-2 ${className}`}>
       <div className="border-none ml-10 bg-red-100 w-10 h-10 rounded-full" />
@@ -25,3 +26,5 @@ export default function NavBar ({ className, onClickLogin, onClickSignUp }: Prop
     </div>
   );
 }
+
+export default memo(NavBar);
