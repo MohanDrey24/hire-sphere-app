@@ -56,8 +56,7 @@ function SignupForm({ onClick }: SignupFormProps) {
   const onSubmit = (value: SignupData) => {
     mutate(value, {
       onSuccess: () => {
-        // change state to login in index page
-        router.push('/')
+        window.location.reload();
       },
       onError: () => {
         setError('root', { message: undefined })
