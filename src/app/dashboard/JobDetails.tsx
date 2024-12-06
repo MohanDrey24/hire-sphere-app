@@ -3,13 +3,13 @@
 import useJobStore from "../stores/useJobStore";
 import purify from "dompurify";
 
-type Props = {
+type JobDetailsProp = {
   className?: string;
 }
 
-export function JobDetails ({ className }: Props) {
+export function JobDetails ({ className }: JobDetailsProp) {
   const selectedJobId = useJobStore((state) => state.selectedJobId);
-  const jobState = useJobStore((state) => state.jobs)
+  const jobState = useJobStore((state) => state.jobs);
 
   const selectedJob = jobState.find((job) => job.id === selectedJobId);
 
@@ -26,4 +26,4 @@ export function JobDetails ({ className }: Props) {
     </div>
   </div>
  )
-}
+};
