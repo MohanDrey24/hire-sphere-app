@@ -10,11 +10,11 @@ import { useEffect } from "react";
 import HDropdown from "@/components/HDropDown";
 import SearchBar from "@/components/SearchBar";
 
-type Props = {
+type NavBarProps = {
   className?: string
 }
 
-export function NavBar ({ className }: Props) {
+export function NavBar ({ className }: NavBarProps) {
   const setUser = useUserStore((state) => state.setUser);
   const userState = useUserStore((state) => state.user);
 
