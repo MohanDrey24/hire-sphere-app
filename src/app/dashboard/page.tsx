@@ -16,8 +16,8 @@ export default function Dashboard() {
   const jobState = useJobStore((state) => state.jobs);
   
   const { isPending, data: jobsData, isSuccess: jobsSuccess } = useQuery<Job[]>({
-    queryKey: ['jobs'],
-    queryFn: () => useFetch('/jobs/all')
+    queryKey: ["jobs"],
+    queryFn: () => useFetch("/jobs/all")
   })
 
   useEffect(() => {
