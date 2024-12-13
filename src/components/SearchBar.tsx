@@ -7,14 +7,8 @@ import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import useFetch from "@/hooks/useFetch";
 import { debounce } from "lodash";
-interface JobAutocomplete {
-  id: string;
-  companyId: string;
-  position: string;
-  company: {
-    name: string;
-  },
-};
+import type { JobAutocomplete } from "@/app/dashboard/types";
+import useJobStore from "@/app/stores/useJobStore";
 
 export default function SearchBar() {
   const [displayInput, setDisplayInput] = useState("");
@@ -64,7 +58,6 @@ export default function SearchBar() {
         </motion.button>
       </div>
 
-      {/* Position dropdown absolutely */}
       {(isPending || isSuccess) && displayInput.length > 0 && (
         <div className="absolute top-full left-0 w-full mt-1 bg-white border rounded-md shadow-lg max-h-60 overflow-y-auto z-50">
           {isPending && <div className="p-2">Loading...</div>}
