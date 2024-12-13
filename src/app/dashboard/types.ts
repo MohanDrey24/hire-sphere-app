@@ -41,3 +41,12 @@ export interface User {
   updatedAt: string;
   accounts: Account[];
 };
+
+export interface JobAutocomplete {
+  id: string;
+  companyId: string;
+  position: string;
+  company: {
+    name: string;
+  },
+};
