@@ -7,14 +7,14 @@ import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import useFetch from "@/hooks/useFetch";
 import { debounce } from "lodash";
-import type { JobAutocomplete } from "@/app/dashboard/types";
+import type { Job } from "@/app/dashboard/types";
 import useJobStore from "@/app/stores/useJobStore";
 
 export default function SearchBar() {
   const [displayInput, setDisplayInput] = useState("");
   const [queryInput, setQueryInput] = useState("");
 
-  const { isPending, data, isSuccess } = useQuery<JobAutocomplete[]>({
+  const { isPending, data, isSuccess } = useQuery<Job[]>({
     queryKey: ["search", queryInput],
     queryFn: () => useFetch(`/jobs/autocomplete?position=${queryInput}`),
     enabled: queryInput.length > 0,
@@ -63,7 +63,7 @@ export default function SearchBar() {
           {isPending && <div className="p-2">Loading...</div>}
           {isSuccess && data?.length > 0 && (
             <div className="py-1">
-              {data.map((item: JobAutocomplete, index: number) => (
+              {data.map((item: Job, index: number) => (
                 <div
                   key={index}
                   className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
