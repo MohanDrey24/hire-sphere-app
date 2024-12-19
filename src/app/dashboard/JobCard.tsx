@@ -48,17 +48,17 @@ export default function JobCard ({ className, jobData, isPending = false }: Card
           >
 
             <CardHeader>
-              <CardTitle>{job.position}</CardTitle>
-              <CardDescription>{job.company.name}</CardDescription>
+              <CardTitle>{job?.position}</CardTitle>
+              <CardDescription>{job?.company?.name}</CardDescription>
             </CardHeader>
 
             <CardContent className="flex-grow text-sm">
-              <p>${job.salary}</p>
-              <p>{job.type}</p>
-              <p>{job.country}</p>
+              <p>${job?.salary}</p>
+              <p>{job?.type}</p>
+              <p>{job?.country}</p>
             </CardContent>
             <p className="text-muted-foreground text-xs ml-6 mb-2">
-              {computeDaysAgo(job.createdAt)}
+              {computeDaysAgo(job?.createdAt)}
             </p>
           </Card>
           ))
