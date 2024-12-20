@@ -8,15 +8,21 @@ import { useQuery } from "@tanstack/react-query";
 import useFetch from "@/hooks/useFetch";
 import { debounce } from "lodash";
 import type { Job } from "@/app/dashboard/types";
-import useJobStore from "@/app/stores/useJobStore";
+import { useSearchParams, useRouter } from "next/navigation";
 
-export default function SearchBar() {
+interface SearchBarProps {
+  queryKey: string;
+}
+
+export default function SearchBar({ queryKey }: SearchBarProps) {
+  const searchParams = useSearchParams();
+  const router = useRouter();
   const [displayInput, setDisplayInput] = useState("");
   const [queryInput, setQueryInput] = useState("");
 
   const { isPending, data, isSuccess } = useQuery<Job[]>({
     queryKey: ["search", queryInput],
-    queryFn: () => useFetch(`/jobs/autocomplete?position=${queryInput}`),
+    queryFn: () => useFetch(`/jobs/autocomplete?${queryKey}=${queryInput}`),
     enabled: queryInput.length > 0,
     staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 10,
@@ -29,9 +35,22 @@ export default function SearchBar() {
     []
   );
 
+  const setQueryParameter = (value: string) => {
+    const params = new URLSearchParams(searchParams.toString())
+    
+    if (value) {
+      params.set(queryKey, value)
+    } else {
+      params.delete(queryKey)
+    }
+
+    router.push(`?${params.toString()}`)
+  }
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDisplayInput(e.target.value);
     debouncedSearch(e.target.value);
+    setQueryParameter(e.target.value);
   }
 
   return (
