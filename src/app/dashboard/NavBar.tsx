@@ -50,7 +50,7 @@ export function NavBar ({ className }: NavBarProps) {
       <div className="fixed flex justify-between bg-slate-100 h-24 min-w-full items-center">
         <div className="border-none ml-5 sm:ml-10 bg-red-100 w-10 h-10 rounded-full" />
 
-        <SearchBar />
+        <SearchBar queryKey="position"/>
 
         <motion.div
           className="mr-8 cursor-pointer flex"
