@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Icon from "./Icon";
 import { Input } from "./ui/input";
 import { motion } from "framer-motion";
@@ -9,16 +9,14 @@ import useFetch from "@/hooks/useFetch";
 import { debounce } from "lodash";
 import type { Job } from "@/app/dashboard/types";
 import { useSearchParams, useRouter } from "next/navigation";
+import useJobStore from "@/app/stores/useJobStore";
 
-interface SearchBarProps {
-  queryKey: string;
-}
-
-export default function SearchBar({ queryKey }: SearchBarProps) {
+export default function SearchBar({ queryKey }: { queryKey: string }) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [displayInput, setDisplayInput] = useState("");
   const [queryInput, setQueryInput] = useState("");
+  const setJobs = useJobStore((state) => state.setJobs);
 
   const { isPending, data, isSuccess } = useQuery<Job[]>({
     queryKey: ["search", queryInput],
@@ -27,6 +25,12 @@ export default function SearchBar({ queryKey }: SearchBarProps) {
     staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 10,
   });
+  
+  useEffect(() => {
+    if (isSuccess) {
+      setJobs(data)
+    }
+  }, [isSuccess, data, setJobs]);
 
   const debouncedSearch = useCallback(
     debounce((query: string) => {
@@ -89,6 +93,7 @@ export default function SearchBar({ queryKey }: SearchBarProps) {
                   onClick={() => {
                     setDisplayInput(item.position);
                     setQueryInput(item.position);
+                    setQueryParameter(item.position);
                   }}
                 >
                   {item.position}
