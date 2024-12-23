@@ -14,14 +14,36 @@ import useJobStore from "@/app/stores/useJobStore";
 export default function SearchBar({ queryKey }: { queryKey: string }) {
   const searchParams = useSearchParams();
   const router = useRouter();
+
+  const searchParamsValue = searchParams.get(queryKey)?.toString();
+
   const [displayInput, setDisplayInput] = useState("");
-  const [queryInput, setQueryInput] = useState("");
   const setJobs = useJobStore((state) => state.setJobs);
+  const setShowAutocomplete = useJobStore((state) => state.setShowAutocomplete);
+  const showAutocomplete = useJobStore((state) => state.showAutocomplete);
+
+  const setQueryParameter = useCallback((value: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    
+    if (value) {
+      params.set(queryKey, value);
+    } else {
+      params.delete(queryKey);
+    }
+
+    router.push(`?${params.toString()}`);
+  }, [searchParams,queryKey, router]);
+
+  const debouncedSearch = useCallback(
+    debounce((query: string) => {
+      setQueryParameter(query)
+    }, 300),
+    [setQueryParameter]
+  );
 
   const { isPending, data, isSuccess } = useQuery<Job[]>({
-    queryKey: ["search", queryInput],
-    queryFn: () => useFetch(`/jobs/autocomplete?${queryKey}=${queryInput}`),
-    enabled: queryInput.length > 0,
+    queryKey: ["search", searchParamsValue],
+    queryFn: () => useFetch(`/jobs?${queryKey}=${searchParamsValue}`),
     staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 10,
   });
@@ -32,29 +54,15 @@ export default function SearchBar({ queryKey }: { queryKey: string }) {
     }
   }, [isSuccess, data, setJobs]);
 
-  const debouncedSearch = useCallback(
-    debounce((query: string) => {
-      setQueryInput(query);
-    }, 300),
-    []
-  );
-
-  const setQueryParameter = (value: string) => {
-    const params = new URLSearchParams(searchParams.toString())
-    
-    if (value) {
-      params.set(queryKey, value)
-    } else {
-      params.delete(queryKey)
+  useEffect(() => {
+    if (searchParamsValue) {
+      setDisplayInput(searchParamsValue)
     }
-
-    router.push(`?${params.toString()}`)
-  }
+  }, [])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDisplayInput(e.target.value);
     debouncedSearch(e.target.value);
-    setQueryParameter(e.target.value);
+    setDisplayInput(e.target.value);
   }
 
   return (
@@ -65,6 +73,7 @@ export default function SearchBar({ queryKey }: { queryKey: string }) {
           placeholder="Search for jobs"
           value={displayInput}
           onChange={handleInputChange}
+          onClick={() => setShowAutocomplete(true)}
         />
 
         <motion.button
@@ -81,7 +90,7 @@ export default function SearchBar({ queryKey }: { queryKey: string }) {
         </motion.button>
       </div>
 
-      {(isPending || isSuccess) && displayInput.length > 0 && (
+      {(isPending || isSuccess) && searchParamsValue !== undefined && showAutocomplete && (
         <div className="absolute top-full left-0 w-full mt-1 bg-white border rounded-md shadow-lg max-h-60 overflow-y-auto z-50">
           {isPending && <div className="p-2">Loading...</div>}
           {isSuccess && data?.length > 0 && (
@@ -92,8 +101,8 @@ export default function SearchBar({ queryKey }: { queryKey: string }) {
                   className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
                   onClick={() => {
                     setDisplayInput(item.position);
-                    setQueryInput(item.position);
                     setQueryParameter(item.position);
+                    setShowAutocomplete(false);
                   }}
                 >
                   {item.position}
