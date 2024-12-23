@@ -23,9 +23,6 @@ export interface Account {
   userId: string;
   provider: string;
   providerAccountId: string;
-  password?: string;
-  refresh_token?: string;
-  access_token?: string;
   expires_at?: number;
 };
 
