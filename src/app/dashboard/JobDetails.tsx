@@ -5,12 +5,11 @@ import purify from "dompurify";
 
 type JobDetailsProp = {
   className?: string;
+  selectedJobId: string | null;
 }
 
-export function JobDetails ({ className }: JobDetailsProp) {
-  const selectedJobId = useJobStore((state) => state.selectedJobId);
+export function JobDetails ({ className, selectedJobId }: JobDetailsProp) {
   const jobState = useJobStore((state) => state.jobs);
-
   const selectedJob = jobState.find((job) => job.id === selectedJobId);
 
  return (
@@ -20,7 +19,7 @@ export function JobDetails ({ className }: JobDetailsProp) {
         <div dangerouslySetInnerHTML={{ __html: purify.sanitize(selectedJob?.description) }} />
       ) : (
         <div className="h-full w-full flex items-center justify-center">
-          <p className="text-md">No Job Description</p>
+          <p>No Job Description</p>
         </div>
       )}
     </div>
