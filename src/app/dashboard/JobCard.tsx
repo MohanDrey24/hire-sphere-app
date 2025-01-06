@@ -7,7 +7,7 @@ import {
   CardHeader, 
   CardTitle 
 } from "../../components/ui/card";
-import useJobStore from "../stores/useJobStore";
+import { useRouter, useSearchParams } from "next/navigation";
 import { computeDaysAgo } from "../utils/computeTimeAgo";
 import { type Job } from "./types";
 import { cn } from "@/lib/utils";
@@ -16,11 +16,24 @@ interface CardProps {
   className?: string;
   jobData?: Job[];
   isPending: boolean;
+  selectedJobId: string | null;
 };
 
-export default function JobCard ({ className, jobData, isPending = false }: CardProps) {
-  const setSelectedJobId = useJobStore((state) => state.setSelectedJobId);
-  const selectedJobId = useJobStore((state) => state.selectedJobId);
+export default function JobCard ({ className, jobData, isPending = false, selectedJobId }: CardProps) {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  const setQueryParameter = (id: string | null) => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    if (id) {
+      params.set("job-id", id)
+    } else {
+      params.delete("job-id")
+    }
+
+    router.push(`?${params.toString()}`);
+  }
 
   // usbonon kay bati
   if (isPending) {
@@ -44,7 +57,7 @@ export default function JobCard ({ className, jobData, isPending = false }: Card
           <Card 
             key={job.id}
             className={`min-w-full cursor-pointer min-h-[250px] flex flex-col ${selectedJobId === job.id ? "border-blue-600 border-2" : ""}`}
-            onClick={() => setSelectedJobId(job.id)}
+            onClick={() => setQueryParameter(job.id)}
           >
 
             <CardHeader>
