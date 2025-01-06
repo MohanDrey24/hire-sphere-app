@@ -7,7 +7,7 @@ import {
   CardHeader, 
   CardTitle 
 } from "../../components/ui/card";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { computeDaysAgo } from "../utils/computeTimeAgo";
 import { type Job } from "./types";
 import { cn } from "@/lib/utils";
@@ -20,11 +20,10 @@ interface CardProps {
 };
 
 export default function JobCard ({ className, jobData, isPending = false, selectedJobId }: CardProps) {
-  const searchParams = useSearchParams();
   const router = useRouter();
 
   const setQueryParameter = (id: string | null) => {
-    const params = new URLSearchParams(searchParams.toString());
+    const params = new URLSearchParams();
 
     if (id) {
       params.set("job-id", id)
