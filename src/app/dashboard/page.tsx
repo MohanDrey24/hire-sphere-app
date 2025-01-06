@@ -4,9 +4,11 @@ import { NavBar } from "./NavBar";
 import { JobDetails } from "./JobDetails";
 import JobCard from "./JobCard";
 import useJobStore from "../stores/useJobStore";
+import { useSearchParams } from "next/navigation";
 
 export default function Dashboard() {
-  const selectedJobId = useJobStore((state) => state.selectedJobId);
+  const searchParams = useSearchParams();
+  const selectedJobId = searchParams.get("job-id");
 
   const jobState = useJobStore((state) => state.jobs);
   
@@ -22,6 +24,7 @@ export default function Dashboard() {
           sm:block sm:col-span-3
         `}
         jobData={jobState}
+        selectedJobId={selectedJobId}
         isPending={false}
       />
 
@@ -32,6 +35,7 @@ export default function Dashboard() {
           sm:block sm:col-span-5 sm:col-start-4 sm:row-start-2
           bg-white
         `}
+        selectedJobId={selectedJobId}
       />
     </div>
   );
