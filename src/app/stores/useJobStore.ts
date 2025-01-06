@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 import type { Job } from '../dashboard/types';
 
 type JobState = {
@@ -13,13 +14,21 @@ type JobAction = {
   setShowAutocomplete: (condition: boolean) => void;
 };
 
-const useJobStore = create<JobState & JobAction>((set) => ({
-  jobs: [],
-  selectedJobId: "",
-  showAutocomplete: true,
-  setJobs: (jobs: Job[]) => set({ jobs }),
-  setSelectedJobId: (id: string) => set({ selectedJobId: id }),
-  setShowAutocomplete: (condition) => set({ showAutocomplete: condition }),
-}))
+const useJobStore = create<JobAction & JobState>()(
+  persist(
+    (set) => ({
+      jobs: [],
+      selectedJobId: "",
+      showAutocomplete: true,
+      setJobs: (jobs: Job[]) => set({ jobs }),
+      setSelectedJobId: (id: string) => set({ selectedJobId: id }),
+      setShowAutocomplete: (condition: boolean) => set({ showAutocomplete: condition }),
+    }),
+    {
+      name: 'show-autocomplete-storage',
+      partialize: (state) => ({ showAutocomplete: state.showAutocomplete }),
+    }
+  )
+);
 
 export default useJobStore;
