@@ -7,10 +7,11 @@ import {
   CardHeader, 
   CardTitle 
 } from "../../components/ui/card";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { computeDaysAgo } from "../utils/computeTimeAgo";
 import { type Job } from "./types";
 import { cn } from "@/lib/utils";
+import { useCallback } from "react";
 
 interface CardProps {
   className?: string;
@@ -21,9 +22,10 @@ interface CardProps {
 
 export default function JobCard ({ className, jobData, isPending = false, selectedJobId }: CardProps) {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
-  const setQueryParameter = (id: string | null) => {
-    const params = new URLSearchParams();
+  const setQueryParameter = useCallback((id: string | null) => {
+    const params = new URLSearchParams(searchParams.toString());
 
     if (id) {
       params.set("job-id", id)
@@ -32,7 +34,7 @@ export default function JobCard ({ className, jobData, isPending = false, select
     }
 
     router.push(`?${params.toString()}`);
-  }
+  }, [searchParams]);
 
   // usbonon kay bati
   if (isPending) {
