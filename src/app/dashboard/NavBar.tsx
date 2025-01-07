@@ -7,6 +7,8 @@ import { useQuery } from "@tanstack/react-query";
 import useFetch from "@/hooks/useFetch";
 import type { User } from "./types";
 import { useEffect } from "react";
+import { ChevronLeft } from "lucide-react";
+import { useRouter } from "next/navigation";
 import HDropdown from "@/components/HDropDown";
 import SearchBar from "@/components/SearchBar";
 
@@ -15,6 +17,7 @@ type NavBarProps = {
 }
 
 export function NavBar ({ className }: NavBarProps) {
+  const router = useRouter();
   const setUser = useUserStore((state) => state.setUser);
   const userState = useUserStore((state) => state.user);
 
@@ -31,10 +34,10 @@ export function NavBar ({ className }: NavBarProps) {
     }
   }, [userDataSuccess, userData, setUser]);
 
-  const handleLogout = (): void => {
+  const handleLogout = () => {
     mutate(undefined, { 
       onSuccess: () => {
-        window.location.reload();
+        router.refresh();
       },
       onError: () => {
         // improve error handling in the future
@@ -48,18 +51,26 @@ export function NavBar ({ className }: NavBarProps) {
   return (
     <div className={className}>
       <div className="fixed flex justify-between bg-slate-100 h-24 min-w-full items-center">
-        <div className="border-none ml-5 sm:ml-10 bg-red-100 w-10 h-10 rounded-full" />
+
+        <div className="flex ml-5 sm:ml-10">
+          <div className="hidden md:block border-none bg-red-100 w-10 h-10 rounded-full" />
+
+          <button onClick={() => router.back()} aria-label="back-button">
+            <ChevronLeft className="block sm:hidden" size={32}/>
+          </button>
+        </div>
 
         <SearchBar queryKey="position"/>
 
         <motion.div
           className="mr-8 cursor-pointer flex"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.8 }}
+          whileHover={{scale: 1.1}}
+          whileTap={{scale: 0.8}}
         >
           <HDropdown
             userState={userState}
             label="My Account"
+            aria-label="drop-down"
             items={DropdownItems}
             onLogout={handleLogout}
           />
