@@ -30,7 +30,7 @@ type SignupFormProps = {
 };
 
 function SignupForm({ onClick }: SignupFormProps) {
-  const router = useRouter()
+  const router = useRouter();
   const form = useForm<SignupData>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
@@ -56,7 +56,7 @@ function SignupForm({ onClick }: SignupFormProps) {
   const onSubmit = (value: SignupData) => {
     mutate(value, {
       onSuccess: () => {
-        window.location.reload();
+        router.refresh();
       },
       onError: () => {
         setError('root', { message: undefined })
