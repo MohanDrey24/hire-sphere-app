@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import useFetch from "@/hooks/useFetch";
 import { debounce } from "lodash";
-import type { Job } from "@/app/dashboard/types";
+import { type SearchResponse } from "@/app/dashboard/types";
 import { useSearchParams, useRouter } from "next/navigation";
 import useJobStore from "@/app/stores/useJobStore";
 
@@ -15,24 +15,23 @@ export default function SearchBar({ queryKey }: { queryKey: string }) {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const searchParamsValue = searchParams.get(queryKey)?.toString();
+  const searchParamsValue = searchParams.get("query")?.toString();
 
   const [displayInput, setDisplayInput] = useState("");
   const setJobs = useJobStore((state) => state.setJobs);
   const setShowAutocomplete = useJobStore((state) => state.setShowAutocomplete);
-  const showAutocomplete = useJobStore((state) => state.showAutocomplete);
 
   const setQueryParameter = useCallback((value: string) => {
     const params = new URLSearchParams(searchParams.toString());
     
-    if (value) {
-      params.set(queryKey, value);
+    if (value.trim()) {
+      params.set("query", value);
     } else {
-      params.delete(queryKey);
+      params.delete("query");
     }
 
     router.push(`?${params.toString()}`);
-  }, [searchParams,queryKey, router]);
+  }, [searchParams, queryKey, router]);
 
   const debouncedSearch = useCallback(
     debounce((query: string) => {
@@ -41,16 +40,22 @@ export default function SearchBar({ queryKey }: { queryKey: string }) {
     [setQueryParameter]
   );
 
-  const { isPending, data, isSuccess } = useQuery<Job[]>({
+  const { isPending, data, isSuccess } = useQuery<SearchResponse>({
     queryKey: ["search", searchParamsValue],
-    queryFn: () => useFetch(`/jobs?${queryKey}=${searchParamsValue}`),
+    queryFn: () => {
+      const url = searchParamsValue 
+        ? `/jobs/search?query=${searchParamsValue}`
+        : "/jobs/search"
+      
+      return useFetch(url)
+    },
     staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 10,
   });
   
   useEffect(() => {
     if (isSuccess) {
-      setJobs(data)
+      setJobs(data.jobs)
     }
   }, [isSuccess, data, setJobs]);
 
@@ -90,12 +95,12 @@ export default function SearchBar({ queryKey }: { queryKey: string }) {
         </motion.button>
       </div>
 
-      {(isPending || isSuccess) && searchParamsValue !== undefined && showAutocomplete && (
+      {/* {(isPending || isSuccess) && searchParamsValue !== undefined && showAutocomplete && (
         <div className="absolute top-full left-0 w-full mt-1 bg-white border rounded-md shadow-lg max-h-60 overflow-y-auto z-50">
           {isPending && <div className="p-2">Loading...</div>}
-          {isSuccess && data?.length > 0 && (
+          {isSuccess && data.jobs?.length > 0 && (
             <div className="py-1">
-              {data.map((item: Job, index: number) => (
+              {data.jobs?.map((item: Job, index: number) => (
                 <div
                   key={index}
                   className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
@@ -110,11 +115,11 @@ export default function SearchBar({ queryKey }: { queryKey: string }) {
               ))}
             </div>
           )}
-          {isSuccess && data?.length === 0 && (
+          {isSuccess && data.jobs?.length === 0 && (
             <div className="p-2 text-gray-500">No results found</div>
           )}
         </div>
-      )}
+      )} */}
     </div>
   );
 }
