@@ -12,7 +12,7 @@ type JobDetailsProp = {
 export function JobDetails ({ className, selectedJobId }: JobDetailsProp) {
   const searchParams = useSearchParams();
   const jobState = useJobStore((state) => state.jobs);
-  const selectedJob = jobState.find((job) => job.id === selectedJobId);
+  const selectedJob = jobState.find((job) => job?.id === selectedJobId);
 
   const renderContent = () => {
     if (selectedJob?.description) {
