@@ -19,6 +19,16 @@ export interface Job {
   description?: string;
 };
 
+export interface SearchResponse {
+  jobs: Job[];
+  pagination: {
+    total: number;
+    pages: number;
+    currentPage: number;
+    perPage: number;
+  };
+};
+
 export interface Account {
   userId: string;
   provider: string;
