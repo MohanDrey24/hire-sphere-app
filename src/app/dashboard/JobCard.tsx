@@ -15,7 +15,7 @@ import { useCallback } from "react";
 
 interface CardProps {
   className?: string;
-  jobData?: Job[];
+  jobData: Job[];
   isPending: boolean;
   selectedJobId: string | null;
 };
@@ -36,25 +36,11 @@ export default function JobCard ({ className, jobData, isPending = false, select
     router.push(`?${params.toString()}`);
   }, [searchParams]);
 
-  // usbonon kay bati
-  if (isPending) {
-    return (
-      <div className={cn("grid gap-4 p-4 w-full", className)}>
-        <Card className="min-w-full min-h-[250px] flex flex-col">
-          <div className="animate-pulse flex flex-col gap-2 p-4">
-            {Array.from({ length: 8 }, (_, index) => (
-              <div key={index} className="bg-slate-200 h-5 w-full rounded" />
-            ))}
-          </div>
-        </Card>
-      </div>
-    );
-  }
 
   return (
     <div className={cn("w-full", className)}>
       <div className="grid gap-4 p-4">
-        {jobData?.map((job: Job) => (
+        {jobData.map((job: Job) => (
           <Card 
             key={job.id}
             className={`min-w-full cursor-pointer min-h-[250px] flex flex-col ${selectedJobId === job.id ? "border-blue-600 border-2" : ""}`}
