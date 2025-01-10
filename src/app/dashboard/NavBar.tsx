@@ -23,16 +23,7 @@ export function NavBar ({ className }: NavBarProps) {
 
   const { mutate } = useMutationAPI('/auth/signout');
 
-  const { data: userData, isSuccess: userDataSuccess} = useQuery<User>({
-    queryKey: ['users'],
-    queryFn: () => useFetch('/users/current')
-  })
-
-  useEffect(() => {
-    if (userDataSuccess) {
-      setUser(userData)
-    }
-  }, [userDataSuccess, userData, setUser]);
+  setUser()
 
   const handleLogout = () => {
     mutate(undefined, { 
