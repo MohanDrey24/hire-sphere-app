@@ -1,9 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import Icon from "./Icon";
+import { Search } from "lucide-react";
 import { Input } from "./ui/input";
-import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import useFetch from "@/hooks/useFetch";
 import { debounce } from "lodash";
@@ -71,28 +70,20 @@ export default function SearchBar({ queryKey }: { queryKey: string }) {
   }
 
   return (
-    <div className="relative">
-      <div className="flex border rounded-md focus-within:border-blue-500 focus-within:border-2">
+    <div className="relative">  
+      <div className="flex border-2 border-slate-300 focus-within:border-black rounded-full items-center bg-white">
+          
+        <div className="pl-3">
+          <Search size={20} />
+        </div>
+
         <Input
-          className="w-44 sm:w-80 pr-0 border-0 shadow-none focus-visible:ring-0 focus-visible:ring-none"
+          className="w-44 sm:w-80 pr-3 border-0 shadow-none focus-visible:ring-0 focus-visible:ring-none"
           placeholder="Search for jobs"
           value={displayInput}
           onChange={handleInputChange}
           onClick={() => setShowAutocomplete(true)}
         />
-
-        <motion.button
-          className="p-3"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.8 }}
-        >
-          <Icon
-            alt="search"
-            src="/icons/search.svg"
-            height="20px"
-            width="20px"
-          />
-        </motion.button>
       </div>
 
       {/* {(isPending || isSuccess) && searchParamsValue !== undefined && showAutocomplete && (
