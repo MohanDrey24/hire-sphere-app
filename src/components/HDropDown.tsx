@@ -7,6 +7,8 @@ import {
 } from "./ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "./ui/avatar";
 import type { User } from "@/app/dashboard/types";
+import { useRouter } from "next/navigation";
+import { getInitials } from "@/app/utils/getInitials";
 
 interface Props {
   userState: User | null;
@@ -16,29 +18,14 @@ interface Props {
 }
 
 export default function HDropdown ({ userState, label, items, onLogout }: Props) {
-  const getInitials = (user: User | null): string => {
-    if (!user) return '';
+  const router = useRouter();
 
-    if (user.name?.trim()) {
-      return user.name
-        .trim()
-        .split(' ')
-        .filter(Boolean)
-        .map(word => word[0]?.toUpperCase())
-        .join('')
-    }
-    
-    return (
-      (user.firstName?.[0] || '') +
-      (user.lastName?.[0] || '')
-    ).toUpperCase();
-  }
-
-
-  const handleLogout = (item: string): void => {
+  const handleDropDown = (item: string): void => {
     if (item.toLowerCase() === 'logout' && onLogout) {
       onLogout();
-    };
+    } else if (item.toLowerCase() === 'profile') {
+      router.push('/profile')
+    }
   }
 
   return(
@@ -60,7 +47,7 @@ export default function HDropdown ({ userState, label, items, onLogout }: Props)
           {items.map(item => (
             <DropdownMenuItem
               key={item}
-              onClick={() => handleLogout(item)}
+              onClick={() => handleDropDown(item)}
             >
               {item}
             </DropdownMenuItem>
