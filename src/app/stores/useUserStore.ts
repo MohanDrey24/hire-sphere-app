@@ -16,7 +16,7 @@ const useUserStore = create<UserState & UserAction>((set) => ({
   setUser: () => {
     const { data } = useQuery<User>({
       queryKey: ['users'],
-      queryFn: () => useFetch('/users/current')
+      queryFn: () => useFetch('/users/current'),
     })
 
     if (data) {
