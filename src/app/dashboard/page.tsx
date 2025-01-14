@@ -11,9 +11,9 @@ export default function Dashboard() {
   const selectedJobId = searchParams.get("job-id");
 
   const jobState = useJobStore((state) => state.jobs);
-  
+
   return (
-    <div className="grid grid-cols-8 grid-rows-8 h-screen w-screen">
+    <div className="grid grid-cols-8 grid-rows-8 h-screen w-screen relative">
       <NavBar className="col-span-8" />
 
       <JobCard
