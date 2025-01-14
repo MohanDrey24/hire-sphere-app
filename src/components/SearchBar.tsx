@@ -10,7 +10,7 @@ import { type SearchResponse } from "@/app/dashboard/types";
 import { useSearchParams, useRouter } from "next/navigation";
 import useJobStore from "@/app/stores/useJobStore";
 
-export default function SearchBar({ queryKey }: { queryKey: string }) {
+export default function SearchBar() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -18,6 +18,8 @@ export default function SearchBar({ queryKey }: { queryKey: string }) {
 
   const [displayInput, setDisplayInput] = useState("");
   const setJobs = useJobStore((state) => state.setJobs);
+  const isLoading = useJobStore((state) => state.isLoading);
+  const setIsLoading = useJobStore((state) => state.setIsLoading);
   const setShowAutocomplete = useJobStore((state) => state.setShowAutocomplete);
 
   const setQueryParameter = useCallback((value: string) => {
@@ -30,7 +32,7 @@ export default function SearchBar({ queryKey }: { queryKey: string }) {
     }
 
     router.push(`?${params.toString()}`);
-  }, [searchParams, queryKey, router]);
+  }, [searchParams, router]);
 
   const debouncedSearch = useCallback(
     debounce((query: string) => {
@@ -39,8 +41,8 @@ export default function SearchBar({ queryKey }: { queryKey: string }) {
     [setQueryParameter]
   );
 
-  const { isPending, data, isSuccess } = useQuery<SearchResponse>({
-    queryKey: ["search", searchParamsValue],
+  const { isPending, data } = useQuery<SearchResponse>({
+    queryKey: ["search", searchParamsValue ?? "all"],
     queryFn: () => {
       const url = searchParamsValue 
         ? `/jobs/search?query=${searchParamsValue}`
@@ -53,10 +55,15 @@ export default function SearchBar({ queryKey }: { queryKey: string }) {
   });
   
   useEffect(() => {
-    if (isSuccess) {
-      setJobs(data.jobs)
+    if (isPending) {
+      setIsLoading(isPending)
     }
-  }, [isSuccess, data, setJobs]);
+
+    if (data) {
+      setJobs(data.jobs)
+      setIsLoading(false)
+    }
+  }, [data, setJobs, isPending, setIsLoading, isLoading]);
 
   useEffect(() => {
     if (searchParamsValue) {
