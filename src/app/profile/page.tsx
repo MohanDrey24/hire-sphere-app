@@ -3,7 +3,7 @@
 import useUserStore from "../stores/useUserStore"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { getInitials } from "../utils/getInitials";
-import dayjs from "dayjs";
+import { formatDate } from "../utils/formatDate";
 
 export default function Profile () {
   const userState = useUserStore((state) => state.user);
@@ -44,7 +44,7 @@ export default function Profile () {
             </li>
             <li className="flex items-center gap-2">
               <span className="text-gray-700">Joined at:</span>
-              <p className="font-bold">{dayjs(userState?.createdAt).format("MM/DD/YYYY")}</p>
+              <p className="font-bold">{formatDate(userState?.createdAt, "MM/DD/YYYY")}</p>
             </li>
           </ul>
         </div>
