@@ -3,11 +3,6 @@
 import useMutationAPI from "@/hooks/useMutationAPI";
 import { motion } from "framer-motion";
 import useUserStore from "../stores/useUserStore";
-import { useQuery } from "@tanstack/react-query";
-import useFetch from "@/hooks/useFetch";
-import type { User } from "./types";
-import { useEffect } from "react";
-import { ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import HDropdown from "@/components/HDropDown";
 import SearchBar from "@/components/SearchBar";
@@ -43,15 +38,9 @@ export function NavBar ({ className }: NavBarProps) {
     <div className={className}>
       <div className="fixed flex justify-between bg-slate-100 h-24 min-w-full items-center">
 
-        <div className="flex ml-5 sm:ml-10">
-          <div className="hidden md:block border-none bg-red-100 w-10 h-10 rounded-full" />
+        <div className="ml-5 sm:ml-10 border-none bg-red-100 w-10 h-10 rounded-full" />
 
-          <button onClick={() => router.back()} aria-label="back-button">
-            <ChevronLeft className="block sm:hidden" size={32}/>
-          </button>
-        </div>
-
-        <SearchBar queryKey="position"/>
+        <SearchBar />
 
         <motion.div
           className="mr-8 cursor-pointer flex"
