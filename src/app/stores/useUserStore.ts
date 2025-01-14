@@ -4,7 +4,8 @@ import useFetch from '@/hooks/useFetch';
 import { useQuery } from '@tanstack/react-query';
 
 type UserState = {
-  user: User | null
+  user: User | null;
+  isLoading: boolean;
 }
 
 type UserAction = {
@@ -13,14 +14,19 @@ type UserAction = {
 
 const useUserStore = create<UserState & UserAction>((set) => ({
   user: null,
+  isLoading: false,
   setUser: () => {
-    const { data } = useQuery<User>({
+    const { data, isPending: isLoading } = useQuery<User>({
       queryKey: ['users'],
       queryFn: () => useFetch('/users/current'),
     })
 
     if (data) {
       set({ user: data })
+    }
+
+    if (isLoading) {
+      set({ isLoading })
     }
   }
 }))
