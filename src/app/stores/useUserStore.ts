@@ -19,6 +19,7 @@ const useUserStore = create<UserState & UserAction>((set) => ({
     const { data, isPending: isLoading } = useQuery<User>({
       queryKey: ['users'],
       queryFn: () => useFetch('/users/current'),
+      staleTime: 1000 * 60 * 5,
     })
 
     if (data) {
