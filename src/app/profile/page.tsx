@@ -7,6 +7,7 @@ import { getInitials } from "../utils/getInitials";
 import { formatDate } from "../utils/formatDate";
 import { UserPenIcon, SquareXIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import ProfileField from "./ProfileField";
 
 export default function Profile () {
   const [isEditing, setEditingMode] = useState(false);
@@ -31,10 +32,16 @@ export default function Profile () {
         </Avatar>
 
         <div>
-          <div className="flex items-center *:text-2xl gap-2">
+          <ProfileField 
+            label="Display Name"
+            name="Display Name"
+            isEditing={isEditing}
+            value={userState?.name}
+          />
+          {/* <div className="flex items-center *:text-2xl gap-2">
             <span className="text-gray-700">Display Name:</span>
             <p className="font-bold">{userState?.name}</p>
-          </div>
+          </div> */}
 
           <div className="flex items-center *:text-2xl gap-2">
             <span className="text-gray-700">First Name:</span>
