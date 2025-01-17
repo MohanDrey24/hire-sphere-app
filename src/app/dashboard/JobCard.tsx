@@ -15,6 +15,7 @@ import { cn } from "@/lib/utils";
 import { useCallback } from "react";
 import useJobStore from "../stores/useJobStore";
 import { Bookmark, BookmarkCheck } from "lucide-react";
+import useFavoriteStore from "../stores/useFavoriteStore";
 
 interface CardProps {
   className?: string;
@@ -28,6 +29,12 @@ export default function JobCard ({ className, jobData, selectedJobId }: CardProp
 
   const [isBookmarked, setBookmark] = useState(false);
   const isJobLoading = useJobStore((state) => state.isLoading);
+  const favorites = useFavoriteStore((state) => state.favorites);
+  const setFavorites = useFavoriteStore((state) => state.setFavorites);
+
+  setFavorites();
+
+  console.log(favorites)
 
   const setQueryParameter = useCallback((id: string | null) => {
     const params = new URLSearchParams(searchParams.toString());
