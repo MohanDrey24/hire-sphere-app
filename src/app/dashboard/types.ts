@@ -57,3 +57,10 @@ export interface JobAutocomplete {
     name: string;
   },
 };
+
+export interface Favorites {
+  id: string;
+  userId: string;
+  jobId: string;
+  createdAt: string;
+}
