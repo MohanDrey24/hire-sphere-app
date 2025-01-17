@@ -25,7 +25,6 @@ export default function Dashboard() {
         `}
         jobData={jobState}
         selectedJobId={selectedJobId}
-        isPending={false}
       />
 
       <JobDetails
