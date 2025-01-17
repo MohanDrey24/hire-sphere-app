@@ -78,7 +78,7 @@ export default function SearchBar() {
 
   return (
     <div className="relative">  
-      <div className="flex border-2 border-slate-300 focus-within:border-black rounded-full items-center bg-white">
+      <div className="flex border-2 border-slate-300 focus-within:border-blue-700 rounded-full items-center bg-white">
           
         <div className="pl-3">
           <Search size={20} />
