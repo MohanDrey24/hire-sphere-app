@@ -16,7 +16,6 @@ import useJobStore from "../stores/useJobStore";
 import { Bookmark, BookmarkCheck } from "lucide-react";
 import useFavoriteStore from "../stores/useFavoriteStore";
 import { useQueryClient } from "@tanstack/react-query";
-import useUserStore from "../stores/useUserStore";
 import { useMutationAPI } from "@/hooks/useMutationAPI";
 
 interface CardProps {
@@ -33,8 +32,6 @@ export default function JobCard ({ className, jobData, selectedJobId }: CardProp
   const isJobLoading = useJobStore((state) => state.isLoading);
   const favorites = useFavoriteStore((state) => state.favorites);
   const fetchFavorites = useFavoriteStore((state) => state.fetchFavorites);
-  // not necessary
-  const userId = useUserStore((state) => state.user?.id)
 
   fetchFavorites();
 
@@ -60,18 +57,7 @@ export default function JobCard ({ className, jobData, selectedJobId }: CardProp
   })
 
   const handleFavorite = (jobId: string) => {
-    setFavorites({
-      user: {
-        connect: {
-          id: userId,
-        },
-      },
-      job: {
-        connect: {
-          id: jobId,
-        },
-      },
-    })
+    setFavorites({ jobId })
   };
 
   const setQueryParameter = useCallback((id: string | null) => {
