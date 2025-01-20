@@ -64,3 +64,16 @@ export interface Favorites {
   jobId: string;
   createdAt: string;
 }
+
+export interface FavoritePayload {
+  user: {
+    connect: {
+      id?: string
+    }
+  },
+  job: {
+    connect: {
+      id: string;
+    }
+  }
+}
