@@ -122,7 +122,7 @@ export default function JobCard ({ className, jobData, selectedJobId }: CardProp
                 onClick={() => handleFavorite(job.id)}
               >
                 {favorites.some((fav: Favorites) => fav.jobId === job.id) ? (
-                  <BookmarkCheck />
+                  <BookmarkCheck color="blue"/>
                 ) : (
                   <Bookmark />
                 )}
