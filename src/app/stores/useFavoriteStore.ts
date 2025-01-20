@@ -9,13 +9,13 @@ type State = {
 }
 
 type Action = {
-  setFavorites: () => void;
+  fetchFavorites: () => void;
 }
 
 const useFavoriteStore = create<State & Action>((set) => ({
   favorites: [],
   isLoading: false,
-  setFavorites: () => {
+  fetchFavorites: () => {
     const {data, isPending} = useQuery<Favorites[]>({
       queryKey: ["favorites"],
       queryFn: () =>  useFetch("/favorites"),
