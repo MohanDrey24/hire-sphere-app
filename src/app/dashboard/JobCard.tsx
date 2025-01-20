@@ -7,15 +7,17 @@ import {
   CardHeader, 
   CardTitle 
 } from "../../components/ui/card";
-import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { computeDaysAgo } from "../utils/computeTimeAgo";
-import { type Job } from "./types";
+import type { Favorites, FavoritePayload, Job } from "./types";
 import { cn } from "@/lib/utils";
 import { useCallback } from "react";
 import useJobStore from "../stores/useJobStore";
 import { Bookmark, BookmarkCheck } from "lucide-react";
 import useFavoriteStore from "../stores/useFavoriteStore";
+import { useQueryClient } from "@tanstack/react-query";
+import useUserStore from "../stores/useUserStore";
+import { useMutationAPI } from "@/hooks/useMutationAPI";
 
 interface CardProps {
   className?: string;
@@ -26,15 +28,51 @@ interface CardProps {
 export default function JobCard ({ className, jobData, selectedJobId }: CardProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const queryClient = useQueryClient();
 
-  const [isBookmarked, setBookmark] = useState(false);
   const isJobLoading = useJobStore((state) => state.isLoading);
   const favorites = useFavoriteStore((state) => state.favorites);
-  const setFavorites = useFavoriteStore((state) => state.setFavorites);
+  const fetchFavorites = useFavoriteStore((state) => state.fetchFavorites);
+  // not necessary
+  const userId = useUserStore((state) => state.user?.id)
 
-  setFavorites();
+  fetchFavorites();
 
-  console.log(favorites)
+  const {mutate: setFavorites} = useMutationAPI("/favorites", "POST", {
+    mutationOptions: {
+      onMutate: async (data: FavoritePayload) => {
+        // cancel ongoing queries so that it will not override our optimistic update
+        await queryClient.cancelQueries({ queryKey: ["favorites"] });
+  
+        // snapshot the previous value
+        const previousFavorites = queryClient.getQueryData<Favorites[]>(["favorites"]);
+  
+        // optimistic update
+        queryClient.setQueryData(["favorites"], (old: Favorites[]) => [...old, data]);
+  
+        // return previous value as context
+        return { previousFavorites }
+      },
+      onSettled: () => {
+        return queryClient.invalidateQueries({ queryKey: ["favorites"] });
+      }
+    }
+  })
+
+  const handleFavorite = (jobId: string) => {
+    setFavorites({
+      user: {
+        connect: {
+          id: userId,
+        },
+      },
+      job: {
+        connect: {
+          id: jobId,
+        },
+      },
+    })
+  };
 
   const setQueryParameter = useCallback((id: string | null) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -95,9 +133,13 @@ export default function JobCard ({ className, jobData, selectedJobId }: CardProp
                 type="button"
                 aria-label="Bookmark"
                 className="self-start"
-                onClick={() => setBookmark(!isBookmarked)}
+                onClick={() => handleFavorite(job.id)}
               >
-                {isBookmarked ? <BookmarkCheck/> : <Bookmark/>}
+                {favorites.some((fav: Favorites) => fav.jobId === job.id) ? (
+                  <BookmarkCheck />
+                ) : (
+                  <Bookmark />
+                )}
               </button>
             </CardHeader>
 
