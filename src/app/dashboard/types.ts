@@ -65,15 +65,6 @@ export interface Favorites {
   createdAt: string;
 }
 
-export interface FavoritePayload {
-  user: {
-    connect: {
-      id?: string
-    }
-  },
-  job: {
-    connect: {
-      id: string;
-    }
-  }
+export type FavoritePayload = {
+  jobId: string
 }
