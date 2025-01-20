@@ -32,7 +32,8 @@ export function useMutationAPI<TData = unknown, TError = unknown, TVariables = u
       }
 
       return response.json();
-    }
+    },
+    ...options.mutationOptions
   })
 }
 
