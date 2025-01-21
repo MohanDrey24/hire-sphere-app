@@ -118,7 +118,7 @@ export default function JobCard ({ className, jobData, selectedJobId }: CardProp
               <button
                 type="button"
                 aria-label="Bookmark"
-                className="self-start"
+                className="self-start hover:scale-125 duration-200 ease-in-out"
                 onClick={() => handleFavorite(job.id)}
               >
                 {favorites.some((fav: Favorites) => fav.jobId === job.id) ? (
