@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import TanstackProvider from "@/providers/TanstackProvider";
 import AuthProvider from "@/providers/AuthProvider";
+import PageTransition from "@/components/PageTransition";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -33,7 +34,7 @@ export default function RootLayout({
       >
         <AuthProvider>
           <TanstackProvider>
-            <div>{children}</div>
+            <PageTransition>{children}</PageTransition>
           </TanstackProvider>
         </AuthProvider>
       </body>
