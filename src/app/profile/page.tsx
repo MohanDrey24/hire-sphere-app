@@ -20,6 +20,7 @@ export default function Profile () {
 
   return (
     <div>
+      <p className="text-4xl">PROFILE:</p>
       <div className="flex items-center gap-20">
         <Avatar className="w-40 h-40">
           <AvatarImage
@@ -31,26 +32,28 @@ export default function Profile () {
           </AvatarFallback>
         </Avatar>
 
-        <div>
+        <div className="flex flex-col gap-2">
           <ProfileField 
             label="Display Name"
             name="Display Name"
             isEditing={isEditing}
             value={userState?.name}
           />
-          {/* <div className="flex items-center *:text-2xl gap-2">
-            <span className="text-gray-700">Display Name:</span>
-            <p className="font-bold">{userState?.name}</p>
-          </div> */}
 
-          <div className="flex items-center *:text-2xl gap-2">
-            <span className="text-gray-700">First Name:</span>
-            <p className="font-bold">{userState?.firstName}</p>
-          </div>
+          <div className="flex gap-2">
+            <ProfileField 
+              label="First Name"
+              name="First Name"
+              isEditing={isEditing}
+              value={userState?.firstName}
+            />
 
-          <div className="flex items-center *:text-2xl gap-2">
-            <span className="text-gray-700">Last Name:</span>
-            <p className="font-bold">{userState?.lastName}</p>
+            <ProfileField 
+              label="Last Name"
+              name="Last Name"
+              isEditing={isEditing}
+              value={userState?.lastName}
+            />
           </div>
         </div>
       </div>
