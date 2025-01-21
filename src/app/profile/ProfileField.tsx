@@ -12,7 +12,7 @@ export default function ProfileField ({ value, label, isEditing, name }: Profile
     <div className="*:text-2xl gap-2">
       <span className="text-gray-700">{label}:</span>
       <Input
-        className="max-w-xs"
+        className="w-full"
         name={name}
         disabled={!isEditing}
         value={value}
