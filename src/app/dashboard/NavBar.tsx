@@ -35,7 +35,7 @@ export function NavBar ({ className }: NavBarProps) {
   const DropdownItems = ["Profile", "Logout"];
 
   return (
-    <div className={className}>
+    <nav className={className}>
       <div className="fixed flex justify-between bg-slate-100 h-24 min-w-full items-center">
 
         <div className="ml-5 sm:ml-10 border-none bg-red-100 w-10 h-10 rounded-full" />
@@ -56,6 +56,6 @@ export function NavBar ({ className }: NavBarProps) {
           />
         </motion.div>
       </div>
-    </div>
+    </nav>
   );
 }
