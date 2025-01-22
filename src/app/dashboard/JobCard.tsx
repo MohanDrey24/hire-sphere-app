@@ -70,7 +70,7 @@ export default function JobCard ({ className, jobData, selectedJobId }: CardProp
     }
 
     router.push(`?${params.toString()}`);
-  }, [searchParams]);
+  }, [searchParams, router]);
 
   if (isJobLoading) {
     return (
