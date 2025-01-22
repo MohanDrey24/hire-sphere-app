@@ -4,6 +4,7 @@ import "./globals.css";
 import TanstackProvider from "@/providers/TanstackProvider";
 import AuthProvider from "@/providers/AuthProvider";
 import PageTransition from "@/components/PageTransition";
+// import StairTransition from "@/components/StairAnimation";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -34,6 +35,7 @@ export default function RootLayout({
       >
         <AuthProvider>
           <TanstackProvider>
+            {/* <StairTransition /> */}
             <PageTransition>{children}</PageTransition>
           </TanstackProvider>
         </AuthProvider>
