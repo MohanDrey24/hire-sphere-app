@@ -105,28 +105,28 @@ export default function JobCard ({ className, jobData, selectedJobId }: CardProp
         {jobData.map((job: Job) => (
           <Card 
             key={job.id}
-            className={`min-w-full min-h-[250px] flex flex-col ${selectedJobId === job.id ? "border-blue-600 border-2" : ""}`}
+            className={`relative min-w-full min-h-[250px] flex flex-col ${selectedJobId === job.id ? "border-blue-600 border-2" : ""}`}
             onClick={() => setQueryParameter(job.id)}
           >
+
+            <button
+              type="button"
+              aria-label="Bookmark"
+              className="absolute right-4 top-4 hover:scale-125 ease-in-out duration-150"
+              onClick={() => handleFavorite(job.id)}
+            >
+              {favorites.some((fav: Favorites) => fav.jobId === job.id) ? (
+                <BookmarkCheck size={24} color="blue"/>
+              ) : (
+                <Bookmark size={24} />
+              )}
+            </button>
 
             <CardHeader className="flex flex-row justify-between items-center">
               <div>
                 <CardTitle>{job?.position}</CardTitle>
                 <CardDescription>{job?.company?.name}</CardDescription>
               </div>
-
-              <button
-                type="button"
-                aria-label="Bookmark"
-                className="self-start hover:scale-125 duration-200 ease-in-out"
-                onClick={() => handleFavorite(job.id)}
-              >
-                {favorites.some((fav: Favorites) => fav.jobId === job.id) ? (
-                  <BookmarkCheck color="blue"/>
-                ) : (
-                  <Bookmark />
-                )}
-              </button>
             </CardHeader>
 
             <CardContent className="flex-grow text-sm">
