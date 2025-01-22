@@ -1,6 +1,6 @@
 import { JWTPayload, jwtVerify } from "jose";
 
-const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+const secret = new TextEncoder().encode(process.env.AUTH_SECRET);
 
 export async function decryptJWT(session: string | undefined = ''): Promise<JWTPayload | null> {
   try {
