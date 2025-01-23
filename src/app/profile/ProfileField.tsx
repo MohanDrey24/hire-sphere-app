@@ -2,6 +2,7 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
 interface ProfileFieldProps {
+  id?: string;
   value?: string;
   label: string;
   isEditing: boolean;
@@ -10,6 +11,7 @@ interface ProfileFieldProps {
 }
 
 export default function ProfileField({
+  id,
   value,
   label,
   isEditing,
@@ -18,8 +20,9 @@ export default function ProfileField({
 }: ProfileFieldProps) {
   return (
     <div className={cn("flex w-full flex-col gap-1", className)}>
-      <span className="text-md text-gray-700">{label}</span>
+      <label className="text-md text-gray-700">{label}</label>
       <Input
+        id={id}
         className="w-full focus-visible:ring-2 focus-visible:ring-blue-300 focus-visible:ring-offset-1"
         name={name}
         disabled={!isEditing}
