@@ -22,70 +22,72 @@ export default function SearchBar() {
   const setIsLoading = useJobStore((state) => state.setIsLoading);
   const setShowAutocomplete = useJobStore((state) => state.setShowAutocomplete);
 
-  const setQueryParameter = useCallback((value: string) => {
-    const params = new URLSearchParams(searchParams.toString());
-    
-    if (value.trim()) {
-      params.set("query", value);
-    } else {
-      params.delete("query");
-    }
+  const setQueryParameter = useCallback(
+    (value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
 
-    router.push(`?${params.toString()}`);
-  }, [searchParams, router]);
+      if (value.trim()) {
+        params.set("query", encodeURIComponent(value));
+      } else {
+        params.delete("query");
+      }
+
+      router.push(`?${params.toString()}`);
+    },
+    [searchParams, router],
+  );
 
   const debouncedSearch = useCallback(
     debounce((query: string) => {
-      setQueryParameter(query)
+      setQueryParameter(query);
     }, 300),
-    [setQueryParameter]
+    [setQueryParameter],
   );
 
   const { isPending, data } = useQuery<SearchResponse>({
     queryKey: ["search", searchParamsValue ?? "all"],
     queryFn: () => {
-      const url = searchParamsValue 
+      const url = searchParamsValue
         ? `/jobs/search?query=${searchParamsValue}`
-        : "/jobs/search"
-      
-      return useFetch(url)
+        : "/jobs/search";
+
+      return useFetch(url);
     },
     staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 10,
   });
-  
+
   useEffect(() => {
     if (isPending) {
-      setIsLoading(isPending)
+      setIsLoading(isPending);
     }
 
     if (data) {
-      setJobs(data.jobs)
-      setIsLoading(false)
+      setJobs(data.jobs);
+      setIsLoading(false);
     }
   }, [data, setJobs, isPending, setIsLoading, isLoading]);
 
   useEffect(() => {
     if (searchParamsValue) {
-      setDisplayInput(searchParamsValue)
+      setDisplayInput(searchParamsValue);
     }
-  }, [])
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     debouncedSearch(e.target.value);
     setDisplayInput(e.target.value);
-  }
+  };
 
   return (
-    <div className="relative">  
-      <div className="flex border-2 border-slate-300 focus-within:border-blue-700 rounded-full items-center bg-white">
-          
+    <div className="relative">
+      <div className="flex items-center rounded-full border-2 border-slate-300 bg-white focus-within:ring-2 focus-within:ring-blue-600 focus-within:ring-offset-1">
         <div className="pl-3">
           <Search size={20} />
         </div>
 
         <Input
-          className="w-44 sm:w-80 pr-3 border-0 shadow-none focus-visible:ring-0 focus-visible:ring-none"
+          className="focus-visible:ring-none w-44 border-0 pr-3 shadow-none focus-visible:ring-0 sm:w-80"
           placeholder="Search for jobs"
           value={displayInput}
           onChange={handleInputChange}
