@@ -1,11 +1,11 @@
 "use client";
 
-import { 
-  Card, 
-  CardContent, 
-  CardDescription, 
-  CardHeader, 
-  CardTitle 
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
 } from "../../components/ui/card";
 import { useRouter, useSearchParams } from "next/navigation";
 import { computeDaysAgo } from "../utils/computeTimeAgo";
@@ -22,9 +22,13 @@ interface CardProps {
   className?: string;
   jobData: Job[];
   selectedJobId: string | null;
-};
+}
 
-export default function JobCard ({ className, jobData, selectedJobId }: CardProps) {
+export default function JobCard({
+  className,
+  jobData,
+  selectedJobId,
+}: CardProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const queryClient = useQueryClient();
@@ -35,62 +39,73 @@ export default function JobCard ({ className, jobData, selectedJobId }: CardProp
 
   fetchFavorites();
 
-  const {mutate: setFavorites} = useMutationAPI("/favorites", "POST", {
+  const { mutate: setFavorites } = useMutationAPI("/favorites", "POST", {
     mutationOptions: {
       onMutate: async (data: FavoritePayload) => {
         // cancel ongoing queries so that it will not override our optimistic update
         await queryClient.cancelQueries({ queryKey: ["favorites"] });
-  
+
         // snapshot the previous value
-        const previousFavorites = queryClient.getQueryData<Favorites[]>(["favorites"]);
-  
+        const previousFavorites = queryClient.getQueryData<Favorites[]>([
+          "favorites",
+        ]);
+
         // optimistic update
-        queryClient.setQueryData(["favorites"], (old: Favorites[]) => [...old, data]);
-  
+        queryClient.setQueryData(["favorites"], (old: Favorites[]) => [
+          ...old,
+          data,
+        ]);
+
         // return previous value as context
-        return { previousFavorites }
+        return { previousFavorites };
       },
       onSettled: () => {
         return queryClient.invalidateQueries({ queryKey: ["favorites"] });
-      }
-    }
-  })
+      },
+    },
+  });
 
   const handleFavorite = (jobId: string) => {
-    setFavorites({ jobId })
+    setFavorites({ jobId });
   };
 
-  const setQueryParameter = useCallback((id: string | null) => {
-    const params = new URLSearchParams(searchParams.toString());
+  const setQueryParameter = useCallback(
+    (id: string | null) => {
+      const params = new URLSearchParams(searchParams.toString());
 
-    if (id) {
-      params.set("job-id", id)
-    } else {
-      params.delete("job-id")
-    }
+      if (id) {
+        params.set("job-id", id);
+      } else {
+        params.delete("job-id");
+      }
 
-    router.push(`?${params.toString()}`);
-  }, [searchParams, router]);
+      router.push(`?${params.toString()}`);
+    },
+    [searchParams, router],
+  );
 
   if (isJobLoading) {
     return (
-      <div className={cn("grid gap-4 p-4 w-full", className)}>
+      <div className={cn("grid w-full gap-4 p-4", className)}>
         {Array.from({ length: 3 }, (_, index) => (
-          <div key={index} className="min-w-full min-h-[250px] flex flex-col animate-pulse">
-            <Card className="flex flex-col min-h-full">
-              <div className="p-4 flex flex-col gap-2">
-                <div className="bg-slate-200 h-5 w-3/4 rounded" />
-                <div className="bg-slate-200 h-5 w-3/4 rounded" />
+          <div
+            key={index}
+            className="flex min-h-[250px] min-w-full animate-pulse flex-col"
+          >
+            <Card className="flex min-h-full flex-col">
+              <div className="flex flex-col gap-2 p-4">
+                <div className="h-5 w-3/4 rounded bg-slate-200" />
+                <div className="h-5 w-3/4 rounded bg-slate-200" />
               </div>
-  
-              <div className="p-4 flex flex-col gap-2 flex-grow">
-                <div className="bg-slate-200 h-5 w-full rounded" />
-                <div className="bg-slate-200 h-5 w-full rounded" />
-                <div className="bg-slate-200 h-5 w-full rounded" />
+
+              <div className="flex flex-grow flex-col gap-2 p-4">
+                <div className="h-5 w-full rounded bg-slate-200" />
+                <div className="h-5 w-full rounded bg-slate-200" />
+                <div className="h-5 w-full rounded bg-slate-200" />
               </div>
-  
-              <div className="text-muted-foreground text-xs ml-4 mb-4">
-                <div className="bg-slate-200 h-5 w-1/4 rounded" />
+
+              <div className="mb-4 ml-4 text-xs text-muted-foreground">
+                <div className="h-5 w-1/4 rounded bg-slate-200" />
               </div>
             </Card>
           </div>
@@ -98,31 +113,30 @@ export default function JobCard ({ className, jobData, selectedJobId }: CardProp
       </div>
     );
   }
-  
+
   return (
     <div className={cn("w-full", className)}>
       <div className="grid gap-4 p-4">
         {jobData.map((job: Job) => (
-          <Card 
+          <Card
             key={job.id}
-            className={`relative min-w-full min-h-[250px] flex flex-col ${selectedJobId === job.id ? "border-blue-600 border-2" : ""}`}
+            className={`relative flex min-h-[250px] min-w-full flex-col ${selectedJobId === job.id ? "ring-2 ring-inset ring-blue-600" : ""}`}
             onClick={() => setQueryParameter(job.id)}
           >
-
             <button
               type="button"
               aria-label="Bookmark"
-              className="absolute right-4 top-4 hover:scale-125 ease-in-out duration-150"
+              className="absolute right-4 top-4 duration-150 ease-in-out hover:scale-125"
               onClick={() => handleFavorite(job.id)}
             >
               {favorites.some((fav: Favorites) => fav.jobId === job.id) ? (
-                <BookmarkCheck size={24} color="blue"/>
+                <BookmarkCheck size={24} color="blue" />
               ) : (
                 <Bookmark size={24} />
               )}
             </button>
 
-            <CardHeader className="flex flex-row justify-between items-center">
+            <CardHeader className="flex flex-row items-center justify-between">
               <div>
                 <CardTitle>{job?.position}</CardTitle>
                 <CardDescription>{job?.company?.name}</CardDescription>
@@ -134,12 +148,11 @@ export default function JobCard ({ className, jobData, selectedJobId }: CardProp
               <p>{job?.type}</p>
               <p>{job?.country}</p>
             </CardContent>
-            <p className="text-muted-foreground text-xs ml-6 mb-2">
+            <p className="mb-2 ml-6 text-xs text-muted-foreground">
               {computeDaysAgo(job?.createdAt)}
             </p>
           </Card>
-          ))
-        }
+        ))}
       </div>
     </div>
   );
