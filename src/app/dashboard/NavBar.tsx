@@ -1,34 +1,31 @@
-"use client"
+"use client";
 
 import useMutationAPI from "@/hooks/useMutationAPI";
 import { motion } from "framer-motion";
-import useUserStore from "../stores/useUserStore";
 import { useRouter } from "next/navigation";
 import HDropdown from "@/components/HDropDown";
 import SearchBar from "@/components/SearchBar";
+import { useCurrentUser } from "@/lib/auth";
 
 type NavBarProps = {
-  className?: string
-}
+  className?: string;
+};
 
-export function NavBar ({ className }: NavBarProps) {
+export function NavBar({ className }: NavBarProps) {
   const router = useRouter();
-  const setUser = useUserStore((state) => state.setUser);
-  const userState = useUserStore((state) => state.user);
+  const currentUser = useCurrentUser();
 
-  const { mutate } = useMutationAPI('/auth/signout');
-
-  setUser()
+  const { mutate } = useMutationAPI("/auth/signout");
 
   const handleLogout = () => {
-    mutate(undefined, { 
+    mutate(undefined, {
       onSuccess: () => {
         router.refresh();
       },
       onError: () => {
         // improve error handling in the future
-        console.log('log out failed')
-      }
+        console.log("log out failed");
+      },
     });
   };
 
@@ -36,19 +33,18 @@ export function NavBar ({ className }: NavBarProps) {
 
   return (
     <nav className={className}>
-      <div className="fixed flex justify-between bg-slate-100 h-24 min-w-full items-center">
-
-        <div className="ml-5 sm:ml-10 border-none bg-red-100 w-10 h-10 rounded-full" />
+      <div className="fixed flex h-24 min-w-full items-center justify-between bg-slate-100">
+        <div className="ml-5 h-10 w-10 rounded-full border-none bg-red-100 sm:ml-10" />
 
         <SearchBar />
 
         <motion.div
-          className="mr-8 cursor-pointer flex"
-          whileHover={{scale: 1.1}}
-          whileTap={{scale: 0.8}}
+          className="mr-8 flex cursor-pointer"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.8 }}
         >
           <HDropdown
-            userState={userState}
+            userState={currentUser.data ?? null}
             label="My Account"
             aria-label="drop-down"
             items={DropdownItems}
