@@ -1,20 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import useUserStore from "../stores/useUserStore";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { getInitials } from "../utils/getInitials";
 import { formatDate } from "../utils/formatDate";
 import { UserPenIcon, SquareXIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ProfileField from "./ProfileField";
+import { useCurrentUser } from "@/lib/auth";
 
 export default function Profile() {
   const [isEditing, setEditingMode] = useState(false);
-  const userState = useUserStore((state) => state.user);
-  const setUser = useUserStore((state) => state.setUser);
-
-  setUser();
+  const { data: userState } = useCurrentUser();
 
   return (
     <div className="flex h-screen w-screen flex-col items-center justify-center gap-10 p-5 sm:p-20">
@@ -23,7 +20,7 @@ export default function Profile() {
         <Avatar className="h-40 w-40">
           <AvatarImage alt="Avatar" src={userState?.image} />
           <AvatarFallback className="text-5xl font-bold text-white">
-            {getInitials(userState)}
+            {getInitials(userState ?? null)}
           </AvatarFallback>
         </Avatar>
 
