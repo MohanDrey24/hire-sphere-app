@@ -1,28 +1,13 @@
-"use client"
+"use client";
 
-import * as zod from 'zod';
-import { memo } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod'
-import { Form } from '../ui/form';
-import HFormField from '@/components/forms/HFormField';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Form } from "../ui/form";
+import HFormField from "@/components/forms/HFormField";
 import { Button } from "../ui/button";
-import { useMutationAPI } from "@/hooks/useMutationAPI";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 import { MouseEventHandler } from "react";
-
-const signupSchema = zod.object({
-  email: zod.string().email(),
-  firstName: zod.string(),
-  lastName: zod.string(),
-  password: zod.string(),
-  confirmPassword: zod.string(),
-}).refine((data) => data.password === data.confirmPassword, {
-  message: "Passwords should match",
-  path: ["confirmPassword"]
-});
-
-type SignupData = zod.infer<typeof signupSchema>;
+import { signupSchema, SignupData, useRegisterUser } from "@/lib/auth";
 
 type SignupFormProps = {
   className?: string;
@@ -31,6 +16,10 @@ type SignupFormProps = {
 
 function SignupForm({ onClick }: SignupFormProps) {
   const router = useRouter();
+
+  const { status: signupStatus, mutate } = useRegisterUser();
+  const status = signupStatus === "pending";
+
   const form = useForm<SignupData>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
@@ -38,41 +27,39 @@ function SignupForm({ onClick }: SignupFormProps) {
       firstName: "",
       lastName: "",
       password: "",
-      confirmPassword: ""
+      confirmPassword: "",
     },
-    mode: 'onChange'
-  })
+    mode: "onChange",
+  });
 
   const {
     handleSubmit,
     control,
     setError,
-    formState: { errors }
-  } = form
+    formState: { errors },
+  } = form;
 
-  const { status: signupStatus , mutate } = useMutationAPI("/auth")
-
-  const status = signupStatus === 'pending'
   const onSubmit = (value: SignupData) => {
     mutate(value, {
       onSuccess: () => {
         router.refresh();
       },
       onError: () => {
-        setError('root', { message: undefined })
-      }
-    })
-  }
+        setError("root", { message: undefined });
+      },
+    });
+  };
 
   return (
-    <div className="w-full lg:w-1/2 flex flex-col items-center justify-center space-y-6">
+    <div className="flex w-full flex-col items-center justify-center space-y-6 lg:w-1/2">
       <Form {...form}>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="lg:w-3/4 sm:max-md:w-[60%] w-[60%] space-y-6"
+          className="w-[60%] space-y-6 sm:max-md:w-[60%] lg:w-3/4"
         >
-
-          <h1 className="text-2xl font-bold text-center">Sign Up to Hire Sphere</h1>
+          <h1 className="text-center text-2xl font-bold">
+            Sign Up to Hire Sphere
+          </h1>
 
           <HFormField
             control={control}
@@ -84,7 +71,7 @@ function SignupForm({ onClick }: SignupFormProps) {
             onClick={onClick}
           />
 
-          <HFormField 
+          <HFormField
             control={control}
             label="First Name"
             name="firstName"
@@ -94,7 +81,7 @@ function SignupForm({ onClick }: SignupFormProps) {
             onClick={onClick}
           />
 
-          <HFormField 
+          <HFormField
             control={control}
             label="Last Name"
             name="lastName"
@@ -106,7 +93,7 @@ function SignupForm({ onClick }: SignupFormProps) {
 
           <HFormField
             control={control}
-            label="Password" 
+            label="Password"
             name="password"
             type="password"
             placeholder="Enter your password here"
@@ -114,7 +101,7 @@ function SignupForm({ onClick }: SignupFormProps) {
             onClick={onClick}
           />
 
-          <HFormField 
+          <HFormField
             control={control}
             label="Confirm Password"
             name="confirmPassword"
@@ -127,10 +114,10 @@ function SignupForm({ onClick }: SignupFormProps) {
           <Button
             type="submit"
             variant="default"
-            className="w-full h-12"
+            className="h-12 w-full"
             disabled={status || !!errors.confirmPassword}
           >
-            { status ? "Loading..." : "Sign Up" }
+            {status ? "Loading..." : "Sign Up"}
           </Button>
         </form>
       </Form>
@@ -138,4 +125,4 @@ function SignupForm({ onClick }: SignupFormProps) {
   );
 }
 
-export default memo(SignupForm);
+export default SignupForm;
