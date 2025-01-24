@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useCallback } from "react";
@@ -11,7 +11,7 @@ const PAGES = {
   SIGNUP: "signup",
 } as const;
 
-type PageType = typeof PAGES[keyof typeof PAGES]
+type PageType = (typeof PAGES)[keyof typeof PAGES];
 
 export default function Home() {
   const searchParams = useSearchParams();
@@ -33,42 +33,44 @@ export default function Home() {
       return PAGES.LOGIN;
     }
 
-    return currentPage as PageType || PAGES.LOGIN;
+    return (currentPage as PageType) || PAGES.LOGIN;
   }, [searchParams, router, pathName]);
 
-  const handleNavigation = useCallback((page: PageType) => {
-    const params = new URLSearchParams({ page })
-    router.push(`?${params.toString()}`)
-  }, [router])
+  const handleNavigation = useCallback(
+    (page: PageType) => {
+      const params = new URLSearchParams({ page });
+      router.push(`?${params.toString()}`);
+    },
+    [router],
+  );
 
   const currentPage = cleanQueryParams();
 
   return (
-    <div className="h-screen flex flex-col">
-
-      <NavBar 
+    <div className="flex h-screen flex-col">
+      <NavBar
         onClickLogin={() => handleNavigation(PAGES.LOGIN)}
         onClickSignUp={() => handleNavigation(PAGES.SIGNUP)}
         className="h-16"
       />
 
-      <div className="flex-1 flex flex-row">
-        <div className="hidden sm:hidden lg:block w-0 lg:w-1/2 xl:w-1/2 relative overflow-hidden">
-          <img 
-            className="absolute inset-0 w-full h-full object-cover"
+      <div className="flex flex-1 flex-row">
+        <div className="relative hidden w-0 overflow-hidden sm:hidden lg:block lg:w-1/2 xl:w-1/2">
+          <img
+            className="absolute inset-0 h-full w-full object-cover"
             src="/images/palette-ball.png"
             alt="Palette ball"
           />
         </div>
 
-        { currentPage === PAGES.LOGIN ? 
-          <Loginform 
-            className="w-full lg:w-1/2 flex flex-col items-center justify-center space-y-6" 
+        {currentPage === PAGES.LOGIN ? (
+          <Loginform
+            className="flex w-full flex-col items-center justify-center space-y-6 lg:w-1/2"
             onClick={() => handleNavigation(PAGES.SIGNUP)}
-          /> : 
+          />
+        ) : (
           <SignupForm />
-        }
-
+        )}
       </div>
     </div>
   );
