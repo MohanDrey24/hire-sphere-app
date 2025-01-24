@@ -1,6 +1,7 @@
-"use client"
+"use client";
 
 import StairTransition from "@/components/StairAnimation";
+import { useJob } from "@/lib/jobs";
 import React from "react";
 
 // import { motion } from "framer-motion"
@@ -11,7 +12,7 @@ import React from "react";
 // export default function Sample () {
 //   return (
 //     // <div className="flex flex-col h-screen w-screen justify-center">
-//     //   <motion.img 
+//     //   <motion.img
 //     //     initial={{ opacity: 0, x: 0, rotateX: '0deg'}}
 //     //     animate={{ x: 360, opacity: 1, rotateX: '360deg' }}
 //     //     transition={{
@@ -19,7 +20,7 @@ import React from "react";
 //     //       ease: "backInOut"
 //     //     }}
 //     //     className="w-[750px]"
-//     //     src="/images/WELCOME_NEW.svg" 
+//     //     src="/images/WELCOME_NEW.svg"
 //     //   />
 //     //   <motion.img
 //     //     initial={{ opacity: 0, x: 0, rotateX: '0deg'}}
@@ -64,11 +65,13 @@ import React from "react";
 // }
 
 const Sample = () => {
+  const job = useJob();
   return (
     <div>
-      <StairTransition />
+      {/* <StairTransition /> */}
+      {JSON.stringify(job.data)}
     </div>
-  )
-}
+  );
+};
 
 export default Sample;
