@@ -35,9 +35,9 @@ export default function JobCard({
 
   const isJobLoading = useJobStore((state) => state.isLoading);
   const favorites = useFavoriteStore((state) => state.favorites);
-  const fetchFavorites = useFavoriteStore((state) => state.fetchFavorites);
+  // const fetchFavorites = useFavoriteStore((state) => state.fetchFavorites);
 
-  fetchFavorites();
+  // fetchFavorites();
 
   const { mutate: setFavorites } = useMutationAPI("/favorites", "POST", {
     mutationOptions: {
