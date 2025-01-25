@@ -1,18 +1,26 @@
 import { useQuery, queryOptions } from "@tanstack/react-query";
 import { api } from "./api-client";
-import { Job } from "@/app/dashboard/types";
+import { Job, SearchResponse } from "@/app/dashboard/types";
 
-export const getJobs = async (): Promise<Job[]> => {
-  return await api.get<Job[]>("/jobs/all");
-};
-
-const jobQueryKey = ["jobs"];
-
-const getJobsQueryOptions = () => {
+const getJobQueryOptions = () => {
   return queryOptions({
-    queryKey: jobQueryKey,
-    queryFn: getJobs,
+    queryKey: ["jobs"],
+    queryFn: async () => await api.get<Job[]>("/jobs/all"),
   });
 };
 
-export const useJob = () => useQuery(getJobsQueryOptions());
+export const useJob = () => useQuery(getJobQueryOptions());
+
+export const searchJobQueryOptions = (searchParamsValue?: string) => {
+  const url = searchParamsValue
+    ? `/jobs/search?query=${searchParamsValue}`
+    : "/jobs/search";
+
+  return queryOptions({
+    queryKey: ["search", searchParamsValue ?? "all"],
+    queryFn: async () => await api.get<SearchResponse>(url),
+  });
+};
+
+export const useSearchJobs = (searchParamsValue?: string) =>
+  useQuery(searchJobQueryOptions(searchParamsValue));
