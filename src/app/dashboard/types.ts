@@ -3,13 +3,13 @@ export interface Company {
   name: string;
   description?: string;
   website?: string;
-};
+}
 
 export interface Job {
   id: string;
   companyId: string;
   position: string;
-  type: 'REMOTE' | 'ONSITE' | 'HYBRID';
+  type: "REMOTE" | "ONSITE" | "HYBRID";
   country?: string;
   salary: number;
   isAvailable: boolean;
@@ -17,7 +17,7 @@ export interface Job {
   updatedAt: string;
   company: Company;
   description?: string;
-};
+}
 
 export interface SearchResponse {
   jobs: Job[];
@@ -27,14 +27,14 @@ export interface SearchResponse {
     currentPage: number;
     perPage: number;
   };
-};
+}
 
 export interface Account {
   userId: string;
   provider: string;
   providerAccountId: string;
   expires_at?: number;
-};
+}
 
 export interface User {
   id: string;
@@ -47,7 +47,7 @@ export interface User {
   createdAt: string;
   updatedAt: string;
   accounts: Account[];
-};
+}
 
 export interface JobAutocomplete {
   id: string;
@@ -55,8 +55,8 @@ export interface JobAutocomplete {
   position: string;
   company: {
     name: string;
-  },
-};
+  };
+}
 
 export interface Favorites {
   id: string;
@@ -66,5 +66,5 @@ export interface Favorites {
 }
 
 export type FavoritePayload = {
-  jobId: string
-}
+  jobId: string;
+};
