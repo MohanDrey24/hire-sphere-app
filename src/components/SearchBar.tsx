@@ -4,11 +4,11 @@ import { useCallback, useEffect, useState } from "react";
 import { Search } from "lucide-react";
 import { Input } from "./ui/input";
 import { useQuery } from "@tanstack/react-query";
-import useFetch from "@/hooks/useFetch";
 import { debounce } from "lodash";
 import { type SearchResponse } from "@/app/dashboard/types";
 import { useSearchParams, useRouter } from "next/navigation";
 import useJobStore from "@/app/stores/useJobStore";
+import { api } from "@/lib/api-client";
 
 export default function SearchBar() {
   const searchParams = useSearchParams();
@@ -46,12 +46,12 @@ export default function SearchBar() {
 
   const { isPending, data } = useQuery<SearchResponse>({
     queryKey: ["search", searchParamsValue ?? "all"],
-    queryFn: () => {
+    queryFn: async () => {
       const url = searchParamsValue
         ? `/jobs/search?query=${searchParamsValue}`
         : "/jobs/search";
 
-      return useFetch(url);
+      return await api.get<SearchResponse>(url);
     },
     staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 10,
@@ -70,7 +70,7 @@ export default function SearchBar() {
 
   useEffect(() => {
     if (searchParamsValue) {
-      setDisplayInput(searchParamsValue);
+      setDisplayInput(decodeURIComponent(searchParamsValue));
     }
   }, []);
 
