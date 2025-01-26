@@ -26,7 +26,7 @@ export default function ProfileField({
         className="w-full focus-visible:ring-2 focus-visible:ring-blue-300 focus-visible:ring-offset-1"
         name={name}
         disabled={!isEditing}
-        value={value}
+        value={value ?? ""}
       />
     </div>
   );
