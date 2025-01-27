@@ -17,6 +17,7 @@ import { Bookmark, BookmarkCheck } from "lucide-react";
 import useFavoriteStore from "../stores/useFavoriteStore";
 import { useQueryClient } from "@tanstack/react-query";
 import { useMutationAPI } from "@/hooks/useMutationAPI";
+import { useGetFavorites } from "@/lib/favorites";
 
 interface CardProps {
   className?: string;
@@ -32,9 +33,9 @@ export default function JobCard({
   const router = useRouter();
   const searchParams = useSearchParams();
   const queryClient = useQueryClient();
+  const favorites = useGetFavorites();
 
   const isJobLoading = useJobStore((state) => state.isLoading);
-  const favorites = useFavoriteStore((state) => state.favorites);
 
   const { mutate: setFavorites } = useMutationAPI("/favorites", "POST", {
     mutationOptions: {
@@ -126,7 +127,9 @@ export default function JobCard({
               className="absolute right-4 top-4 duration-150 ease-in-out hover:scale-125"
               onClick={() => handleFavorite(job.id)}
             >
-              {favorites.some((fav: Favorites) => fav.jobId === job.id) ? (
+              {favorites.data?.some(
+                (fav: Favorites) => fav.jobId === job.id,
+              ) ? (
                 <BookmarkCheck size={24} color="blue" />
               ) : (
                 <Bookmark size={24} />
