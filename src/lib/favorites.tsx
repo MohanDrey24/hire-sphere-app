@@ -3,7 +3,7 @@ import { useQuery, queryOptions } from "@tanstack/react-query";
 import { api } from "./api-client";
 
 export const getFavorites = async () => {
-  return api.get<Favorites>("/favorites");
+  return api.get<Favorites[]>("/favorites");
 };
 
 const favoritesQuerykey = ["favorites"];
