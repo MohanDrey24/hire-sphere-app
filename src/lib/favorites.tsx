@@ -1,5 +1,5 @@
-import { Favorites } from "@/app/dashboard/types";
-import { useQuery, queryOptions } from "@tanstack/react-query";
+import { FavoritePayload, Favorites } from "@/app/dashboard/types";
+import { useQuery, queryOptions, useMutation } from "@tanstack/react-query";
 import { api } from "./api-client";
 
 export const getFavorites = async () => {
@@ -16,3 +16,13 @@ export const getFavoritesQueryOptions = () => {
 };
 
 export const useGetFavorites = () => useQuery(getFavoritesQueryOptions());
+
+export const toggleFavorite = async (data: FavoritePayload) => {
+  return api.post("/favorites", data);
+};
+
+export const useToggleFavorite = async () => {
+  return useMutation({
+    mutationFn: toggleFavorite,
+  });
+};
