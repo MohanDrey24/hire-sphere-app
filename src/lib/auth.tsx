@@ -57,7 +57,7 @@ export const signupSchema = zod
 export type SignupData = zod.infer<typeof signupSchema>;
 
 export const registerUserAPI = async (data: SignupData) => {
-  return await api.post("/auth");
+  return await api.post("/auth", data);
 };
 
 export const useRegisterUser = () => {
