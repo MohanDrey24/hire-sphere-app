@@ -107,9 +107,9 @@ function LoginForm({ className, onClick }: LoginFormProps) {
 
       <>
         <div className="relative flex w-[60%] items-center justify-center sm:max-md:w-[60%] lg:w-3/4">
-          <div className="flex-grow border-t border-black"></div>
-          <span className="flex-shrink p-2">or</span>
-          <div className="flex-grow border-t border-black"></div>
+          <div className="grow border-t border-black"></div>
+          <span className="shrink p-2">or</span>
+          <div className="grow border-t border-black"></div>
         </div>
 
         <Button

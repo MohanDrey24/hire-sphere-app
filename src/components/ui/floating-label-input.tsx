@@ -21,7 +21,7 @@ const FloatingLabelInput = forwardRef<
         className={cn(
           "peer w-full rounded-md border-2 px-4 py-3 text-gray-900",
           "border-gray-200 bg-transparent transition-colors",
-          "placeholder-transparent focus:border-blue-500 focus:outline-none",
+          "placeholder-transparent focus:border-blue-500 focus:outline-hidden",
           "disabled:cursor-not-allowed disabled:opacity-50",
           error && "border-red-500 focus:border-red-500",
           className,

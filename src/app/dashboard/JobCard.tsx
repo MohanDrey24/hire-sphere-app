@@ -96,13 +96,13 @@ export default function JobCard({
                 <div className="h-5 w-3/4 rounded bg-slate-200" />
               </div>
 
-              <div className="flex flex-grow flex-col gap-2 p-4">
+              <div className="flex grow flex-col gap-2 p-4">
                 <div className="h-5 w-full rounded bg-slate-200" />
                 <div className="h-5 w-full rounded bg-slate-200" />
                 <div className="h-5 w-full rounded bg-slate-200" />
               </div>
 
-              <div className="mb-4 ml-4 text-xs text-muted-foreground">
+              <div className="text-muted-foreground mb-4 ml-4 text-xs">
                 <div className="h-5 w-1/4 rounded bg-slate-200" />
               </div>
             </Card>
@@ -118,13 +118,13 @@ export default function JobCard({
         {jobData.map((job: Job) => (
           <Card
             key={job.id}
-            className={`relative flex min-h-[250px] min-w-full flex-col bg-mintGreen-dark ${selectedJobId === job.id ? "ring-4 ring-inset ring-[#D96AC4]" : ""}`}
+            className={`bg-mint-green-dark relative flex min-h-[250px] min-w-full flex-col ${selectedJobId === job.id ? "ring-4 ring-[#D96AC4] ring-inset" : ""}`}
             onClick={() => setQueryParameter(job.id)}
           >
             <button
               type="button"
               aria-label="Bookmark"
-              className="absolute right-4 top-4 duration-150 ease-in-out hover:scale-125"
+              className="absolute top-4 right-4 duration-150 ease-in-out hover:scale-125"
               onClick={() => handleFavorite(job.id)}
             >
               {favorites.data?.some(
@@ -143,12 +143,12 @@ export default function JobCard({
               </div>
             </CardHeader>
 
-            <CardContent className="flex-grow text-sm">
+            <CardContent className="grow text-sm">
               <p>${job?.salary}</p>
               <p>{job?.type}</p>
               <p>{job?.country}</p>
             </CardContent>
-            <p className="mb-2 ml-6 text-xs text-muted-foreground">
+            <p className="text-muted-foreground mb-2 ml-6 text-xs">
               {computeDaysAgo(job?.createdAt)}
             </p>
           </Card>
