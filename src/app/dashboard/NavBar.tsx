@@ -33,8 +33,15 @@ export function NavBar({ className }: NavBarProps) {
 
   return (
     <nav className={className}>
-      <div className="fixed flex h-24 min-w-full items-center justify-between bg-slate-100">
-        <div className="ml-5 h-10 w-10 rounded-full border-none bg-red-100 sm:ml-10" />
+      <div className="fixed flex h-24 min-w-full items-center justify-between">
+        <img
+          src="/icons/hire_sphere_logo.svg"
+          className="ml-5 hidden w-60 sm:block"
+        />
+        <img
+          src="/icons/sphere.svg"
+          className="ml-5 block w-[70px] sm:hidden"
+        />
 
         <SearchBar />
 
