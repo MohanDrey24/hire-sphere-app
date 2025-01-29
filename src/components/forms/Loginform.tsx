@@ -64,7 +64,7 @@ function LoginForm({ className, onClick }: LoginFormProps) {
           className="w-[60%] space-y-6 sm:max-md:w-[60%] lg:w-3/4"
         >
           <h1 className="text-center text-2xl font-bold">
-            Welcome to Hire Sphere
+            Welcome to <span className="text-fuchsia-dark">Hire Sphere</span>
           </h1>
 
           <HFormField
@@ -84,16 +84,19 @@ function LoginForm({ className, onClick }: LoginFormProps) {
             type="password"
             placeholder="Enter your password here"
             disabled={status}
+            required={true}
             onClick={() => setError("root", { message: undefined })}
           />
 
           <Button
             type="submit"
-            variant="default"
+            variant="mintGreen"
             className="h-12 w-full"
             disabled={status}
           >
-            {status ? "Loading..." : "Log in"}
+            <span className="font-bold">
+              {status ? "Loading..." : "Log in"}
+            </span>
           </Button>
         </form>
       </Form>
