@@ -51,7 +51,6 @@ export default function Home() {
       <NavBar
         onClickLogin={() => handleNavigation(PAGES.LOGIN)}
         onClickSignUp={() => handleNavigation(PAGES.SIGNUP)}
-        className="h-16"
       />
 
       <div className="flex flex-1 flex-row">
