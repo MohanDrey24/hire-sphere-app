@@ -118,7 +118,7 @@ export default function JobCard({
         {jobData.map((job: Job) => (
           <Card
             key={job.id}
-            className={`relative flex min-h-[250px] min-w-full flex-col ${selectedJobId === job.id ? "ring-2 ring-inset ring-blue-600" : ""}`}
+            className={`relative flex min-h-[250px] min-w-full flex-col bg-mintGreen-dark ${selectedJobId === job.id ? "ring-4 ring-inset ring-[#D96AC4]" : ""}`}
             onClick={() => setQueryParameter(job.id)}
           >
             <button
