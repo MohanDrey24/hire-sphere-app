@@ -10,11 +10,8 @@ export async function decryptJWT(
       algorithms: ["HS256"],
     });
 
-    console.log("payload", payload);
-
     return payload;
   } catch (error) {
-    console.log("error", error);
     return null;
   }
 }
