@@ -31,10 +31,6 @@ export default function HFormField({
   className,
   onClick,
 }: HFormFieldProps) {
-  const { invalid } = useFormField();
-
-  console.log(invalid);
-
   return (
     <FormField
       control={control}
