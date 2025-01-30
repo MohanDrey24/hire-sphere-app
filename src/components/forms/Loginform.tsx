@@ -63,9 +63,10 @@ function LoginForm({ className, onClick }: LoginFormProps) {
           onSubmit={handleSubmit(onSubmit)}
           className="w-[60%] space-y-6 sm:max-md:w-[60%] lg:w-3/4"
         >
-          <h1 className="text-center text-2xl font-bold">
-            Welcome to <span className="text-fuchsia-dark">Hire Sphere</span>
-          </h1>
+          <div className="flex flex-col items-center justify-center gap-2 text-2xl font-bold sm:flex-row">
+            <span>Welcome to</span>
+            <span className="text-fuchsia-dark font-anta">Hire Sphere</span>
+          </div>
 
           <HFormField
             control={control}
@@ -113,7 +114,7 @@ function LoginForm({ className, onClick }: LoginFormProps) {
         </div>
 
         <Button
-          className="flex space-x-2"
+          className="flex cursor-pointer space-x-2"
           variant="outline"
           disabled={status}
           onClick={navigateToGoogleRedirectURI}
