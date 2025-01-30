@@ -57,9 +57,10 @@ function SignupForm({ onClick }: SignupFormProps) {
           onSubmit={handleSubmit(onSubmit)}
           className="w-[60%] space-y-6 sm:max-md:w-[60%] lg:w-3/4"
         >
-          <h1 className="text-center text-2xl font-bold">
-            Sign Up to Hire Sphere
-          </h1>
+          <div className="flex flex-col items-center justify-center gap-2 text-2xl font-bold sm:flex-row">
+            <span>Welcome to</span>
+            <span className="text-fuchsia-dark">Hire Sphere</span>
+          </div>
 
           <HFormField
             control={control}
