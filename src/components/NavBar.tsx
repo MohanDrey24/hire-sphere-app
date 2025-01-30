@@ -2,6 +2,7 @@ import { memo } from "react";
 import { MouseEventHandler } from "react";
 import { Button } from "./ui/button";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 interface NavBarProps {
   onClickLogin?: MouseEventHandler<HTMLButtonElement>;
@@ -9,27 +10,32 @@ interface NavBarProps {
 }
 
 function NavBar({ onClickLogin, onClickSignUp }: NavBarProps) {
+  const router = useRouter();
   return (
-    <nav className="flex h-24 items-center">
-      <Image
-        src="/icons/hire_sphere_logo.svg"
-        width={240}
-        height={240}
-        alt="HS Logo"
-        className="ml-5 hidden sm:block"
-      />
-      <Image
-        src="/icons/sphere.svg"
-        width={70}
-        height={70}
-        alt="Sphere Logo"
-        className="ml-5 block sm:hidden"
-      />
-      <div className="ml-auto flex space-x-4 px-12 *:h-8 *:w-20">
-        <Button variant="fuchsia" onClick={onClickLogin}>
-          <span className="font-bold text-fuchsia-light">Log in</span>
+    <nav className="flex h-24 items-center px-6 md:px-12">
+      {/* Logo and Brand */}
+      <Button
+        variant="clean"
+        className="flex cursor-pointer items-center justify-center gap-4"
+        onClick={() => router.push("/")}
+      >
+        <Image
+          src="/icons/sphere.svg"
+          width={40}
+          height={40}
+          alt="Sphere Logo"
+        />
+        <h1 className="font-anta text-fuchsia-dark text-3xl font-bold">
+          Hire Sphere
+        </h1>
+      </Button>
+
+      {/* Navigation buttons */}
+      <div className="ml-auto flex space-x-6 md:space-x-8">
+        <Button variant="fuchsia" onClick={onClickLogin} className="px-4 py-2">
+          <span className="text-fuchsia-light font-bold">Log in</span>
         </Button>
-        <Button variant="brown" onClick={onClickSignUp}>
+        <Button variant="brown" onClick={onClickSignUp} className="px-4 py-2">
           <span className="font-bold">Sign Up</span>
         </Button>
       </div>
