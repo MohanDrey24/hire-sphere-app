@@ -20,10 +20,12 @@ const buttonVariants = cva(
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
         fuchsia:
-          "border-fuchsia-light rounded-none border-2 hover:bg-accent duration-150 ease-in-out hover:scale-125",
+          "border-fuchsia-light rounded-none border-2 hover:bg-accent transition duration-125 ease-in-out hover:scale-125 cursor-pointer",
         brown:
-          "border-brown rounded-none bg-brown duration-150 ease-in-out hover:scale-125",
-        mintGreen: "bg-mint-green-light hover:bg-mint-green-dark",
+          "border-brown rounded-none bg-brown transition duration-150 ease-in-out hover:scale-125 cursor-pointer",
+        mintGreen:
+          "bg-mint-green-dark hover:bg-mint-green-light cursor-pointer",
+        clean: "cursor-pointer",
       },
       size: {
         default: "h-9 px-4 py-2",
