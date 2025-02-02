@@ -14,10 +14,10 @@ import { cn } from "@/lib/utils";
 import { useCallback } from "react";
 import useJobStore from "../stores/useJobStore";
 import { Bookmark, BookmarkCheck } from "lucide-react";
-import useFavoriteStore from "../stores/useFavoriteStore";
+// import useFavoriteStore from "../stores/useFavoriteStore";
 import { useQueryClient } from "@tanstack/react-query";
-import { useMutationAPI } from "@/hooks/useMutationAPI";
-import { useGetFavorites } from "@/lib/favorites";
+// import { useMutationAPI } from "@/hooks/useMutationAPI";
+import { useGetFavorites, useToggleFavorite } from "@/lib/favorites";
 
 interface CardProps {
   className?: string;
@@ -37,29 +37,31 @@ export default function JobCard({
 
   const isJobLoading = useJobStore((state) => state.isLoading);
 
-  const { mutate: setFavorites } = useMutationAPI("/favorites", "POST", {
-    mutationOptions: {
-      onMutate: async (data: FavoritePayload) => {
-        // cancel ongoing queries so that it will not override our optimistic update
-        await queryClient.cancelQueries({ queryKey: ["favorites"] });
+  const { mutate: setFavorites } = useToggleFavorite({
+    onMutate: async (newFavorite: FavoritePayload) => {
+      // cancel ongoing queries so that it will not override our optimistic update
+      await queryClient.cancelQueries({ queryKey: ["favorites"] });
+      // get a snapshot of the previous data
+      const previousFavorites = queryClient.getQueryData<Favorites[]>([
+        "favorites",
+      ]);
+      // optimistically update the cache
+      await queryClient.setQueryData(["favorites"], (old: Favorites[]) =>
+        old ? [...old, newFavorite] : [newFavorite],
+      );
 
-        // snapshot the previous value
-        const previousFavorites = queryClient.getQueryData<Favorites[]>([
-          "favorites",
-        ]);
-
-        // optimistic update
-        queryClient.setQueryData(["favorites"], (old: Favorites[]) => [
-          ...old,
-          data,
-        ]);
-
-        // return previous value as context
-        return { previousFavorites };
-      },
-      onSettled: () => {
-        return queryClient.invalidateQueries({ queryKey: ["favorites"] });
-      },
+      // return previous value as context
+      return { previousFavorites };
+    },
+    // if error, set the current cache to the previous favorites
+    onError: (_err, _newFavorite, context) => {
+      if (context?.previousFavorites) {
+        queryClient.setQueryData(["favorites"], context.previousFavorites);
+      }
+    },
+    onSettled: async () => {
+      // update the cache again when the API is successful
+      await queryClient.invalidateQueries({ queryKey: ["favorites"] });
     },
   });
 
