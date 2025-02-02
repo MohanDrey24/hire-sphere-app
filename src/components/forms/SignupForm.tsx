@@ -114,7 +114,7 @@ function SignupForm({ onClick }: SignupFormProps) {
 
           <Button
             type="submit"
-            variant="default"
+            variant="mintGreen"
             className="h-12 w-full"
             disabled={status || !!errors.confirmPassword}
           >
