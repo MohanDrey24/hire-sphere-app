@@ -68,3 +68,7 @@ export interface Favorites {
 export type FavoritePayload = {
   jobId: string;
 };
+
+export interface FavoriteMutationContext {
+  previousFavorites?: FavoritePayload[];
+}
