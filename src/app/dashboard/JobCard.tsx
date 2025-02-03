@@ -14,9 +14,7 @@ import { cn } from "@/lib/utils";
 import { useCallback } from "react";
 import useJobStore from "../stores/useJobStore";
 import { Bookmark, BookmarkCheck } from "lucide-react";
-// import useFavoriteStore from "../stores/useFavoriteStore";
 import { useQueryClient } from "@tanstack/react-query";
-// import { useMutationAPI } from "@/hooks/useMutationAPI";
 import { useGetFavorites, useToggleFavorite } from "@/lib/favorites";
 
 interface CardProps {
