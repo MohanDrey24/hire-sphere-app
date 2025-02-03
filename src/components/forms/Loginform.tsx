@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import Icon from "../Icon";
 import { MouseEventHandler } from "react";
 import { loginSchema, LoginFormData, useLogin } from "@/lib/auth";
+import { cn } from "@/lib/utils";
 
 type LoginFormProps = {
   className?: string;
@@ -57,7 +58,12 @@ function LoginForm({ className, onClick }: LoginFormProps) {
   };
 
   return (
-    <div className={className}>
+    <div
+      className={cn(
+        "flex w-full flex-col items-center justify-center space-y-6",
+        className,
+      )}
+    >
       <Form {...form}>
         <form
           onSubmit={handleSubmit(onSubmit)}
