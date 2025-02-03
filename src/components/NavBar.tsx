@@ -25,7 +25,7 @@ function NavBar({ onClickLogin, onClickSignUp }: NavBarProps) {
           height={40}
           alt="Sphere Logo"
         />
-        <h1 className="font-anta text-fuchsia-dark text-3xl font-bold">
+        <h1 className="font-anta text-fuchsia-dark xs:block hidden text-3xl font-bold">
           Hire Sphere
         </h1>
       </Button>
