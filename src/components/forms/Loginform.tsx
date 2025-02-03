@@ -65,10 +65,7 @@ function LoginForm({ className, onClick }: LoginFormProps) {
       )}
     >
       <Form {...form}>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="w-[60%] space-y-6 sm:max-md:w-[60%] lg:w-3/4"
-        >
+        <form onSubmit={handleSubmit(onSubmit)} className="w-3/4 space-y-6">
           <div className="flex flex-col items-center justify-center gap-2 text-2xl font-bold sm:flex-row">
             <span>Welcome to</span>
             <span className="text-fuchsia-dark font-anta">Hire Sphere</span>

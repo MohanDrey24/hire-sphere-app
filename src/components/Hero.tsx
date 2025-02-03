@@ -7,8 +7,8 @@ type HeroProps = {
 
 const Hero = ({ className }: HeroProps) => {
   return (
-    <div className={cn("relative w-0 overflow-hidden", className)}>
-      <div className="flex h-full w-full flex-col justify-center gap-10 p-20">
+    <div className={cn("relative", className)}>
+      <div className="flex h-full w-full flex-col justify-center gap-10 p-10 sm:p-20">
         <div className="flex flex-col justify-center">
           <h2 className="text-fuchsia-dark font-anta text-5xl leading-tight font-bold">
             Hire Sphere &ndash;

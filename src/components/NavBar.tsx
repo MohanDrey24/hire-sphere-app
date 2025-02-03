@@ -12,8 +12,7 @@ interface NavBarProps {
 function NavBar({ onClickLogin, onClickSignUp }: NavBarProps) {
   const router = useRouter();
   return (
-    <nav className="flex h-24 items-center px-6 md:px-12">
-      {/* Logo and Brand */}
+    <nav className="flex min-h-24 items-center px-6 sm:px-12">
       <Button
         variant="clean"
         className="flex cursor-pointer items-center justify-center gap-4"
@@ -30,7 +29,6 @@ function NavBar({ onClickLogin, onClickSignUp }: NavBarProps) {
         </h1>
       </Button>
 
-      {/* Navigation buttons */}
       <div className="ml-auto flex space-x-6 md:space-x-8">
         <Button variant="fuchsia" onClick={onClickLogin} className="px-4 py-2">
           <span className="text-fuchsia-light font-bold">Log in</span>

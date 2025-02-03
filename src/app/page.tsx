@@ -54,8 +54,8 @@ export default function Home() {
         onClickSignUp={() => handleNavigation(PAGES.SIGNUP)}
       />
 
-      <div className="flex flex-1 flex-row">
-        <Hero className="hidden sm:hidden lg:block lg:w-1/2" />
+      <div className="flex flex-1 shrink-0 flex-col lg:flex-row">
+        <Hero className="lg:w-1/2" />
 
         {currentPage === PAGES.LOGIN ? (
           <Loginform
