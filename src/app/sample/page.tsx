@@ -1,8 +1,9 @@
 "use client";
 
+import React from "react";
+
 import StairTransition from "@/components/StairAnimation";
 import { useJob } from "@/lib/jobs";
-import React from "react";
 
 // import { motion } from "framer-motion"
 // import Hexagon from "@/components/Hexagon";

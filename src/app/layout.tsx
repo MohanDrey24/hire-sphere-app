@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+
 import "./globals.css";
-import TanstackProvider from "@/providers/TanstackProvider";
-import AuthProvider from "@/providers/AuthProvider";
+
 import PageTransition from "@/components/PageTransition";
+import AuthProvider from "@/providers/AuthProvider";
+import TanstackProvider from "@/providers/TanstackProvider";
+
 // import StairTransition from "@/components/StairAnimation";
 
 const geistSans = localFont({
@@ -29,13 +32,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-      ></meta>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <AuthProvider>
           <TanstackProvider>
             {/* <StairTransition /> */}

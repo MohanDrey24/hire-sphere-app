@@ -1,14 +1,15 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { Search } from "lucide-react";
-import { Input } from "./ui/input";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { debounce } from "lodash";
+import { Search } from "lucide-react";
+
 import { type SearchResponse } from "@/app/dashboard/types";
-import { useSearchParams, useRouter } from "next/navigation";
 import useJobStore from "@/app/stores/useJobStore";
 import { api } from "@/lib/api-client";
+import { Input } from "./ui/input";
 
 export default function SearchBar() {
   const searchParams = useSearchParams();
@@ -34,22 +35,20 @@ export default function SearchBar() {
 
       router.push(`?${params.toString()}`);
     },
-    [searchParams, router],
+    [searchParams, router]
   );
 
   const debouncedSearch = useCallback(
     debounce((query: string) => {
       setQueryParameter(query);
     }, 300),
-    [setQueryParameter],
+    [setQueryParameter]
   );
 
   const { isPending, data } = useQuery<SearchResponse>({
     queryKey: ["search", searchParamsValue ?? "all"],
     queryFn: async () => {
-      const url = searchParamsValue
-        ? `/jobs/search?query=${searchParamsValue}`
-        : "/jobs/search";
+      const url = searchParamsValue ? `/jobs/search?query=${searchParamsValue}` : "/jobs/search";
 
       return await api.get<SearchResponse>(url);
     },

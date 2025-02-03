@@ -4,6 +4,6 @@ export const formatDate = (date: string | undefined, format: string) => {
   if (date) {
     return dayjs(date).format(format);
   } else {
-    return null
+    return null;
   }
-}
+};

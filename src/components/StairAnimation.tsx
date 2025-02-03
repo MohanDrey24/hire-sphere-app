@@ -1,7 +1,8 @@
 "use client";
 
-import { AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
+import { AnimatePresence } from "framer-motion";
+
 import Stair from "./Stair";
 
 const StairTransition = () => {
@@ -18,6 +19,6 @@ const StairTransition = () => {
       </AnimatePresence>
     </>
   );
-}
+};
 
 export default StairTransition;

@@ -1,6 +1,6 @@
-import { NextResponse } from "next/server";
-import { NextRequest } from "next/server";
 import { cookies } from "next/headers";
+import { NextRequest, NextResponse } from "next/server";
+
 import { decryptJWT } from "./app/auth/jwt";
 
 const protectedRoutes = ["/dashboard"];
@@ -25,11 +25,7 @@ export async function middleware(request: NextRequest) {
   /**
    * if you have a session then you are forced to redirect to dashboard
    */
-  if (
-    isPublicRoute &&
-    isLoggedIn?.id &&
-    !request.nextUrl.pathname.startsWith("/dashboard")
-  ) {
+  if (isPublicRoute && isLoggedIn?.id && !request.nextUrl.pathname.startsWith("/dashboard")) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 

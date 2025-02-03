@@ -1,7 +1,8 @@
-import type { User } from "@/app/dashboard/types";
-import { useMutation, useQuery, queryOptions } from "@tanstack/react-query";
-import { api } from "./api-client";
+import { queryOptions, useMutation, useQuery } from "@tanstack/react-query";
 import * as zod from "zod";
+
+import type { User } from "@/app/dashboard/types";
+import { api } from "./api-client";
 
 // for getting the current user
 export const getCurrentUser = async (): Promise<User> => {
@@ -22,9 +23,7 @@ export const useCurrentUser = () => useQuery(currentUserOptions());
 // for logging in
 export const loginSchema = zod.object({
   email: zod.string().email({ message: "Email should have valid format" }),
-  password: zod
-    .string({ required_error: "Password is required" })
-    .min(1, { message: "Password is required" }),
+  password: zod.string({ required_error: "Password is required" }).min(1, { message: "Password is required" }),
 });
 
 export type LoginFormData = zod.infer<typeof loginSchema>;

@@ -1,3 +1,8 @@
+import { useRouter } from "next/navigation";
+
+import type { User } from "@/app/dashboard/types";
+import { getInitials } from "@/app/utils/getInitials";
+import { Avatar, AvatarFallback } from "./ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -5,10 +10,6 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { Avatar, AvatarFallback } from "./ui/avatar";
-import type { User } from "@/app/dashboard/types";
-import { useRouter } from "next/navigation";
-import { getInitials } from "@/app/utils/getInitials";
 
 interface Props {
   userState: User | null;
@@ -17,12 +18,7 @@ interface Props {
   onLogout?: () => void;
 }
 
-export default function HDropdown({
-  userState,
-  label,
-  items,
-  onLogout,
-}: Props) {
+export default function HDropdown({ userState, label, items, onLogout }: Props) {
   const router = useRouter();
 
   const handleDropDown = (item: string): void => {

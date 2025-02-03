@@ -1,10 +1,10 @@
-import dayjs from 'dayjs'
+import dayjs from "dayjs";
 
 export const computeDaysAgo = (createdAt: string): string => {
   const currentDate = dayjs();
   const createdDate = dayjs(createdAt);
 
-  const diffMinutes = currentDate.diff(createdDate, 'minute');
+  const diffMinutes = currentDate.diff(createdDate, "minute");
 
   if (diffMinutes < 1) {
     return "Just Now";
@@ -28,4 +28,4 @@ export const computeDaysAgo = (createdAt: string): string => {
 
   const diffYears = currentDate.diff(createdDate, "year");
   return `${diffYears} ${diffYears === 1 ? "year" : "years"} ago`;
-}
+};

@@ -1,7 +1,8 @@
-import { create } from "zustand";
-import { Favorites } from "../dashboard/types";
-import useFetch from "@/hooks/useFetch";
 import { useQuery } from "@tanstack/react-query";
+import { create } from "zustand";
+
+import useFetch from "@/hooks/useFetch";
+import { Favorites } from "../dashboard/types";
 
 type State = {
   favorites: Favorites[];

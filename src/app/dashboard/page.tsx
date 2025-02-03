@@ -1,10 +1,11 @@
 "use client";
 
-import { NavBar } from "./NavBar";
-import { JobDetails } from "./JobDetails";
-import JobCard from "./JobCard";
-import useJobStore from "../stores/useJobStore";
 import { useSearchParams } from "next/navigation";
+
+import useJobStore from "../stores/useJobStore";
+import JobCard from "./JobCard";
+import { JobDetails } from "./JobDetails";
+import { NavBar } from "./NavBar";
 
 export default function Dashboard() {
   const searchParams = useSearchParams();

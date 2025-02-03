@@ -1,11 +1,12 @@
 "use client";
 
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useCallback } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+
 import Loginform from "@/components/forms/Loginform";
-import NavBar from "@/components/NavBar";
 import SignupForm from "@/components/forms/SignupForm";
 import Hero from "@/components/Hero";
+import NavBar from "@/components/NavBar";
 
 const PAGES = {
   LOGIN: "login",
@@ -42,26 +43,20 @@ export default function Home() {
       const params = new URLSearchParams({ page });
       router.push(`?${params.toString()}`);
     },
-    [router],
+    [router]
   );
 
   const currentPage = cleanQueryParams();
 
   return (
     <div className="flex h-screen flex-col">
-      <NavBar
-        onClickLogin={() => handleNavigation(PAGES.LOGIN)}
-        onClickSignUp={() => handleNavigation(PAGES.SIGNUP)}
-      />
+      <NavBar onClickLogin={() => handleNavigation(PAGES.LOGIN)} onClickSignUp={() => handleNavigation(PAGES.SIGNUP)} />
 
       <div className="flex flex-1 shrink-0 flex-col lg:flex-row">
         <Hero className="lg:w-1/2" />
 
         {currentPage === PAGES.LOGIN ? (
-          <Loginform
-            className="lg:w-1/2"
-            onClick={() => handleNavigation(PAGES.SIGNUP)}
-          />
+          <Loginform className="lg:w-1/2" onClick={() => handleNavigation(PAGES.SIGNUP)} />
         ) : (
           <SignupForm />
         )}

@@ -24,27 +24,27 @@ Ensure you have the following installed:
 
 1. Clone the repository:
 
-    ```bash
-    git clone https://github.com/your-username/hire-sphere-client.git
-    ```
+   ```bash
+   git clone https://github.com/your-username/hire-sphere-client.git
+   ```
 
 2. Navigate to the project directory:
 
-    ```bash
-    cd hire-sphere-client
-    ```
+   ```bash
+   cd hire-sphere-client
+   ```
 
 3. Install dependencies:
 
-    ```bash
-    npm install
-    ```
+   ```bash
+   npm install
+   ```
 
 4. Create a `.env.local` file to configure your environment variables:
 
-    ```bash
-    NEXT_PUBLIC_API_URL=http://localhost:4000/api
-    ```
+   ```bash
+   NEXT_PUBLIC_API_URL=http://localhost:4000/api
+   ```
 
 ### Running the Application
 
@@ -52,3 +52,4 @@ To start the development server:
 
 ```bash
 npm run dev
+```

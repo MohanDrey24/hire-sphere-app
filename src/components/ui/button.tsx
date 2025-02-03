@@ -9,22 +9,16 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default:
-          "bg-primary text-primary-foreground shadow-sm hover:bg-primary/90",
-        destructive:
-          "bg-destructive text-destructive-foreground shadow-xs hover:bg-destructive/90",
-        outline:
-          "border border-input bg-background shadow-xs hover:bg-accent hover:text-accent-foreground",
-        secondary:
-          "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
+        default: "bg-primary text-primary-foreground shadow-sm hover:bg-primary/90",
+        destructive: "bg-destructive text-destructive-foreground shadow-xs hover:bg-destructive/90",
+        outline: "border border-input bg-background shadow-xs hover:bg-accent hover:text-accent-foreground",
+        secondary: "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
         fuchsia:
           "border-fuchsia-light rounded-none border-2 hover:bg-accent transition duration-125 ease-in-out hover:scale-125 cursor-pointer",
-        brown:
-          "border-brown rounded-none bg-brown transition duration-150 ease-in-out hover:scale-125 cursor-pointer",
-        mintGreen:
-          "bg-mint-green-dark hover:bg-mint-green-light cursor-pointer",
+        brown: "border-brown rounded-none bg-brown transition duration-150 ease-in-out hover:scale-125 cursor-pointer",
+        mintGreen: "bg-mint-green-dark hover:bg-mint-green-light cursor-pointer",
         clean: "cursor-pointer",
       },
       size: {
@@ -38,7 +32,7 @@ const buttonVariants = cva(
       variant: "default",
       size: "default",
     },
-  },
+  }
 );
 
 export interface ButtonProps
@@ -50,14 +44,8 @@ export interface ButtonProps
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : "button";
-    return (
-      <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
-        ref={ref}
-        {...props}
-      />
-    );
-  },
+    return <Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props} />;
+  }
 );
 Button.displayName = "Button";
 

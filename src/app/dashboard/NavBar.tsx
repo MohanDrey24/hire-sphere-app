@@ -1,10 +1,11 @@
 "use client";
 
-import useMutationAPI from "@/hooks/useMutationAPI";
-import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
+
 import HDropdown from "@/components/HDropDown";
 import SearchBar from "@/components/SearchBar";
+import useMutationAPI from "@/hooks/useMutationAPI";
 import { useCurrentUser } from "@/lib/auth";
 
 type NavBarProps = {
@@ -34,22 +35,12 @@ export function NavBar({ className }: NavBarProps) {
   return (
     <nav className={className}>
       <div className="fixed flex h-24 min-w-full items-center justify-between">
-        <img
-          src="/icons/hire_sphere_logo.svg"
-          className="ml-5 hidden w-60 sm:block"
-        />
-        <img
-          src="/icons/sphere.svg"
-          className="ml-5 block w-[70px] sm:hidden"
-        />
+        <img src="/icons/hire_sphere_logo.svg" className="ml-5 hidden w-60 sm:block" />
+        <img src="/icons/sphere.svg" className="ml-5 block w-[70px] sm:hidden" />
 
         <SearchBar />
 
-        <motion.div
-          className="mr-8 flex cursor-pointer"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.8 }}
-        >
+        <motion.div className="mr-8 flex cursor-pointer" whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.8 }}>
           <HDropdown
             userState={currentUser.data ?? null}
             label="My Account"

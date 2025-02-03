@@ -1,14 +1,6 @@
-import {
-  FavoritePayload,
-  Favorites,
-  FavoriteMutationContext,
-} from "@/app/dashboard/types";
-import {
-  useQuery,
-  queryOptions,
-  useMutation,
-  UseMutationOptions,
-} from "@tanstack/react-query";
+import { queryOptions, useMutation, UseMutationOptions, useQuery } from "@tanstack/react-query";
+
+import { FavoriteMutationContext, FavoritePayload, Favorites } from "@/app/dashboard/types";
 import { api } from "./api-client";
 
 export const getFavorites = async () => {
@@ -31,12 +23,7 @@ export const toggleFavorite = async (data: FavoritePayload) => {
 };
 
 export const useToggleFavorite = (
-  options?: UseMutationOptions<
-    unknown,
-    Error,
-    FavoritePayload,
-    FavoriteMutationContext
-  >,
+  options?: UseMutationOptions<unknown, Error, FavoritePayload, FavoriteMutationContext>
 ) => {
   return useMutation({
     mutationFn: toggleFavorite,
