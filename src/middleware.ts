@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
-import { decryptJWT } from "./app/auth/jwt";
+import { verifyJwt } from "./app/auth/jwt";
 
 const protectedRoutes = ["/dashboard"];
 const publicRoutes = ["/"];
@@ -12,7 +12,7 @@ export async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
   const isProtectedRoute = protectedRoutes.includes(path);
   const isPublicRoute = publicRoutes.includes(path);
-  const isLoggedIn = await decryptJWT(session);
+  const isLoggedIn = await verifyJwt(session);
 
   /**
    * if there is no session and they try to access a
