@@ -1,7 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
 import { create } from "zustand";
 
-import useFetch from "@/hooks/useFetch";
 import { Favorites } from "../dashboard/types";
 
 type State = {
@@ -13,24 +11,10 @@ type Action = {
   fetchFavorites: () => void;
 };
 
-const useFavoriteStore = create<State & Action>((set) => ({
+const useFavoriteStore = create<State & Action>(() => ({
   favorites: [],
   isLoading: false,
-  fetchFavorites: () => {
-    const { data, isPending } = useQuery<Favorites[]>({
-      queryKey: ["favorites"],
-      queryFn: () => useFetch("/favorites"),
-      staleTime: 1000 * 60 * 5,
-    });
-
-    if (data) {
-      set({ favorites: data });
-    }
-
-    if (isPending) {
-      set({ isLoading: isPending });
-    }
-  },
+  fetchFavorites: () => {},
 }));
 
 export default useFavoriteStore;

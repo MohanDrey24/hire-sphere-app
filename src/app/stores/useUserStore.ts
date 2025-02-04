@@ -7,7 +7,7 @@ type UserState = {
   isLoading: boolean;
 };
 
-const useUserStore = create<UserState>((set) => ({
+const useUserStore = create<UserState>(() => ({
   user: null,
   isLoading: false,
 }));

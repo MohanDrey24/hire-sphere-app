@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 
@@ -35,13 +36,19 @@ export function NavBar({ className }: NavBarProps) {
   return (
     <nav className={className}>
       <div className="fixed flex h-24 min-w-full items-center justify-between">
-        <img
+        <Image
           src="/icons/hire_sphere_logo.svg"
           className="ml-5 hidden w-60 sm:block"
+          alt="hire_sphere_logo"
+          width={240}
+          height={96}
         />
-        <img
+        <Image
           src="/icons/sphere.svg"
           className="ml-5 block w-[70px] sm:hidden"
+          alt="sphere_logo"
+          width={70}
+          height={96}
         />
 
         <SearchBar />

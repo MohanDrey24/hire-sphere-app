@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import StairTransition from "@/components/StairAnimation";
+// import StairTransition from "@/components/StairAnimation";
 import { useJob } from "@/lib/jobs";
 
 // import { motion } from "framer-motion"

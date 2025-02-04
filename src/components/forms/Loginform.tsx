@@ -126,8 +126,8 @@ function LoginForm({ className, onClick }: LoginFormProps) {
           <Icon
             src="/icons/google.svg"
             alt="google-icon"
-            height="20px"
-            width="20px"
+            height={20}
+            width={20}
           />
           <p>Continue with Google</p>
         </Button>

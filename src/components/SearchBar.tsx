@@ -38,11 +38,12 @@ export default function SearchBar() {
     [searchParams, router]
   );
 
+  // eslint-disable-next-line
   const debouncedSearch = useCallback(
     debounce((query: string) => {
       setQueryParameter(query);
     }, 300),
-    [setQueryParameter]
+    []
   );
 
   const { isPending, data } = useQuery<SearchResponse>({
@@ -73,7 +74,7 @@ export default function SearchBar() {
     if (searchParamsValue) {
       setDisplayInput(decodeURIComponent(searchParamsValue));
     }
-  }, []);
+  }, [searchParamsValue]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     debouncedSearch(e.target.value);

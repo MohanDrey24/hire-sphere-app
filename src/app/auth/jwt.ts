@@ -12,6 +12,7 @@ export async function decryptJWT(
 
     return payload;
   } catch (error) {
+    console.warn("JWT verification failed", error);
     return null;
   }
 }
