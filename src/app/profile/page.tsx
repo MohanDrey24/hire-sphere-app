@@ -20,13 +20,20 @@ export default function Profile() {
       <div className="flex w-3/4 flex-col items-center gap-10 sm:w-3/4 md:flex-row">
         <Avatar className="h-40 w-40">
           <AvatarImage alt="Avatar" src={userState?.image} />
-          <AvatarFallback className="text-5xl font-bold text-white">{getInitials(userState ?? null)}</AvatarFallback>
+          <AvatarFallback className="text-5xl font-bold text-white">
+            {getInitials(userState ?? null)}
+          </AvatarFallback>
         </Avatar>
 
         <div className="flex w-full flex-col gap-2">
           {!isEditing && (
             <div className="self-end">
-              <Button variant="ghost" size="icon" aria-label="Edit Profile" onClick={() => setEditingMode(!isEditing)}>
+              <Button
+                variant="ghost"
+                size="icon"
+                aria-label="Edit Profile"
+                onClick={() => setEditingMode(!isEditing)}
+              >
                 <UserPenIcon />
               </Button>
             </div>
@@ -68,7 +75,9 @@ export default function Profile() {
           </li>
           <li className="flex items-center gap-2">
             <span className="text-gray-700">Joined at:</span>
-            <p className="font-bold">{formatDate(userState?.createdAt, "MM/DD/YYYY")}</p>
+            <p className="font-bold">
+              {formatDate(userState?.createdAt, "MM/DD/YYYY")}
+            </p>
           </li>
         </ul>
       </div>
@@ -76,7 +85,12 @@ export default function Profile() {
       {isEditing && (
         <div className="flex gap-4">
           <Button type="submit">Save Changes</Button>
-          <Button variant="ghost" size="icon" type="button" onClick={() => setEditingMode(false)}>
+          <Button
+            variant="ghost"
+            size="icon"
+            type="button"
+            onClick={() => setEditingMode(false)}
+          >
             <SquareXIcon />
           </Button>
         </div>

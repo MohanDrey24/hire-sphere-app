@@ -18,8 +18,15 @@ function NavBar({ onClickLogin, onClickSignUp }: NavBarProps) {
         className="flex cursor-pointer items-center justify-center gap-4"
         onClick={() => router.push("/")}
       >
-        <Image src="/icons/sphere.svg" width={40} height={40} alt="Sphere Logo" />
-        <h1 className="font-anta text-fuchsia-dark xs:block hidden text-3xl font-bold">Hire Sphere</h1>
+        <Image
+          src="/icons/sphere.svg"
+          width={40}
+          height={40}
+          alt="Sphere Logo"
+        />
+        <h1 className="font-anta text-fuchsia-dark xs:block hidden text-3xl font-bold">
+          Hire Sphere
+        </h1>
       </Button>
 
       <div className="ml-auto flex space-x-6 md:space-x-8">

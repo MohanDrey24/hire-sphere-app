@@ -50,13 +50,19 @@ export default function Home() {
 
   return (
     <div className="flex h-screen flex-col">
-      <NavBar onClickLogin={() => handleNavigation(PAGES.LOGIN)} onClickSignUp={() => handleNavigation(PAGES.SIGNUP)} />
+      <NavBar
+        onClickLogin={() => handleNavigation(PAGES.LOGIN)}
+        onClickSignUp={() => handleNavigation(PAGES.SIGNUP)}
+      />
 
       <div className="flex flex-1 shrink-0 flex-col lg:flex-row">
         <Hero className="lg:w-1/2" />
 
         {currentPage === PAGES.LOGIN ? (
-          <Loginform className="lg:w-1/2" onClick={() => handleNavigation(PAGES.SIGNUP)} />
+          <Loginform
+            className="lg:w-1/2"
+            onClick={() => handleNavigation(PAGES.SIGNUP)}
+          />
         ) : (
           <SignupForm />
         )}

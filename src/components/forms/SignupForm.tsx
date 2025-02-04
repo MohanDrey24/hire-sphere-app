@@ -54,7 +54,10 @@ function SignupForm({ onClick }: SignupFormProps) {
   return (
     <div className="flex w-full flex-col items-center justify-center space-y-6 lg:w-1/2">
       <Form {...form}>
-        <form onSubmit={handleSubmit(onSubmit)} className="w-[60%] space-y-6 sm:max-md:w-[60%] lg:w-3/4">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="w-[60%] space-y-6 sm:max-md:w-[60%] lg:w-3/4"
+        >
           <div className="flex flex-col items-center justify-center gap-2 text-2xl font-bold sm:flex-row">
             <span>Welcome to</span>
             <span className="text-fuchsia-dark">Hire Sphere</span>

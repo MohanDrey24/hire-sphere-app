@@ -16,8 +16,18 @@ export const GoogleSignIn = async ({ status }: Props) => {
           await signIn("google");
         }}
       >
-        <Button className="flex space-x-2" variant="outline" type="submit" disabled={status}>
-          <Icon src="/icons/google.svg" alt="google-icon" height="20px" width="20px" />
+        <Button
+          className="flex space-x-2"
+          variant="outline"
+          type="submit"
+          disabled={status}
+        >
+          <Icon
+            src="/icons/google.svg"
+            alt="google-icon"
+            height="20px"
+            width="20px"
+          />
           <p>Continue with Google</p>
         </Button>
       </form>

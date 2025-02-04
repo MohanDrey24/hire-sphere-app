@@ -7,7 +7,12 @@ interface HexagonProps {
   className?: string;
 }
 
-const Hexagon = ({ size = "md", color = "orange", children, className }: HexagonProps) => {
+const Hexagon = ({
+  size = "md",
+  color = "orange",
+  children,
+  className,
+}: HexagonProps) => {
   const sizeClasses = {
     sm: "w-16 h-14",
     smOutside: "w-[68px] h-[60px]",
@@ -36,7 +41,10 @@ const Hexagon = ({ size = "md", color = "orange", children, className }: Hexagon
           ease: "easeInOut",
         }}
         exit={{ opacity: 0 }}
-        style={{ clipPath: "polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)" }}
+        style={{
+          clipPath:
+            "polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)",
+        }}
       >
         <div
           className={`
@@ -46,7 +54,8 @@ const Hexagon = ({ size = "md", color = "orange", children, className }: Hexagon
             ${className}
           `}
           style={{
-            clipPath: "polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)",
+            clipPath:
+              "polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)",
           }}
         >
           {children}

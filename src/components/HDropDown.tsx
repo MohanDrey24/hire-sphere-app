@@ -18,7 +18,12 @@ interface Props {
   onLogout?: () => void;
 }
 
-export default function HDropdown({ userState, label, items, onLogout }: Props) {
+export default function HDropdown({
+  userState,
+  label,
+  items,
+  onLogout,
+}: Props) {
   const router = useRouter();
 
   const handleDropDown = (item: string): void => {

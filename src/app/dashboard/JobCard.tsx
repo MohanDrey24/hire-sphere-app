@@ -7,7 +7,13 @@ import { Bookmark, BookmarkCheck } from "lucide-react";
 
 import { useGetFavorites, useToggleFavorite } from "@/lib/favorites";
 import { cn } from "@/lib/utils";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../../components/ui/card";
 import useJobStore from "../stores/useJobStore";
 import { computeDaysAgo } from "../utils/computeTimeAgo";
 import type { FavoritePayload, Favorites, Job } from "./types";
@@ -18,7 +24,11 @@ interface CardProps {
   selectedJobId: string | null;
 }
 
-export default function JobCard({ className, jobData, selectedJobId }: CardProps) {
+export default function JobCard({
+  className,
+  jobData,
+  selectedJobId,
+}: CardProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const queryClient = useQueryClient();
@@ -31,7 +41,9 @@ export default function JobCard({ className, jobData, selectedJobId }: CardProps
       // cancel ongoing queries so that it will not override our optimistic update
       await queryClient.cancelQueries({ queryKey: ["favorites"] });
       // get a snapshot of the previous data
-      const previousFavorites = queryClient.getQueryData<Favorites[]>(["favorites"]);
+      const previousFavorites = queryClient.getQueryData<Favorites[]>([
+        "favorites",
+      ]);
       // optimistically update the cache
       await queryClient.setQueryData(["favorites"], (old: Favorites[]) =>
         old ? [...old, newFavorite] : [newFavorite]
@@ -75,7 +87,10 @@ export default function JobCard({ className, jobData, selectedJobId }: CardProps
     return (
       <div className={cn("grid w-full gap-4 p-4", className)}>
         {Array.from({ length: 3 }, (_, index) => (
-          <div key={index} className="flex min-h-[250px] min-w-full animate-pulse flex-col">
+          <div
+            key={index}
+            className="flex min-h-[250px] min-w-full animate-pulse flex-col"
+          >
             <Card className="flex min-h-full flex-col">
               <div className="flex flex-col gap-2 p-4">
                 <div className="h-5 w-3/4 rounded bg-slate-200" />
@@ -113,7 +128,9 @@ export default function JobCard({ className, jobData, selectedJobId }: CardProps
               className="absolute top-4 right-4 duration-150 ease-in-out hover:scale-125"
               onClick={() => handleFavorite(job.id)}
             >
-              {favorites.data?.some((fav: Favorites) => fav.jobId === job.id) ? (
+              {favorites.data?.some(
+                (fav: Favorites) => fav.jobId === job.id
+              ) ? (
                 <BookmarkCheck size={24} color="blue" />
               ) : (
                 <Bookmark size={24} />
@@ -132,7 +149,9 @@ export default function JobCard({ className, jobData, selectedJobId }: CardProps
               <p>{job?.type}</p>
               <p>{job?.country}</p>
             </CardContent>
-            <p className="text-muted-foreground mb-2 ml-6 text-xs">{computeDaysAgo(job?.createdAt)}</p>
+            <p className="text-muted-foreground mb-2 ml-6 text-xs">
+              {computeDaysAgo(job?.createdAt)}
+            </p>
           </Card>
         ))}
       </div>

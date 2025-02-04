@@ -8,20 +8,27 @@ type RequestOptions = {
   next?: NextFetchRequestConfig;
 };
 
-function buildUrlWithParams(url: string, params?: RequestOptions["params"]): string {
+function buildUrlWithParams(
+  url: string,
+  params?: RequestOptions["params"]
+): string {
   // If no params are provided, return the original URL
   if (!params) return url;
 
   // Filter out undefined and null values from the params object
   const filteredParams = Object.fromEntries(
-    Object.entries(params).filter(([, value]) => value !== undefined && value !== null)
+    Object.entries(params).filter(
+      ([, value]) => value !== undefined && value !== null
+    )
   );
 
   // If no valid params remain after filtering, return the original URL
   if (Object.keys(filteredParams).length === 0) return url;
 
   // Convert the filtered params to a URL-encoded query string
-  const queryString = new URLSearchParams(filteredParams as Record<string, string>).toString();
+  const queryString = new URLSearchParams(
+    filteredParams as Record<string, string>
+  ).toString();
 
   // Combine the original URL with the query string
   return `${url}?${queryString}`;
@@ -46,15 +53,29 @@ export function getServerSideCookies() {
   });
 }
 
-async function fetchApi<T>(url: string, options: RequestOptions = {}): Promise<T> {
-  const { method = "GET", headers = {}, body, cookie, params, cache = "no-store", next } = options;
+async function fetchApi<T>(
+  url: string,
+  options: RequestOptions = {}
+): Promise<T> {
+  const {
+    method = "GET",
+    headers = {},
+    body,
+    cookie,
+    params,
+    cache = "no-store",
+    next,
+  } = options;
 
   let cookieHeader = cookie;
   if (typeof window !== undefined && !cookie) {
     cookieHeader = await getServerSideCookies();
   }
 
-  const fullUrl = buildUrlWithParams(`${process.env.NEXT_PUBLIC_API_URL}${url}`, params);
+  const fullUrl = buildUrlWithParams(
+    `${process.env.NEXT_PUBLIC_API_URL}${url}`,
+    params
+  );
 
   const response = await fetch(fullUrl, {
     method,
@@ -83,13 +104,25 @@ export const api = {
   get<T>(url: string, options?: RequestOptions): Promise<T> {
     return fetchApi<T>(url, { ...options, method: "GET" });
   },
-  post<T>(url: string, body?: RequestOptions["body"], options?: RequestOptions): Promise<T> {
+  post<T>(
+    url: string,
+    body?: RequestOptions["body"],
+    options?: RequestOptions
+  ): Promise<T> {
     return fetchApi<T>(url, { ...options, method: "POST", body });
   },
-  put<T>(url: string, body?: RequestOptions["body"], options?: RequestOptions): Promise<T> {
+  put<T>(
+    url: string,
+    body?: RequestOptions["body"],
+    options?: RequestOptions
+  ): Promise<T> {
     return fetchApi<T>(url, { ...options, method: "PUT", body });
   },
-  patch<T>(url: string, body?: RequestOptions["body"], options?: RequestOptions): Promise<T> {
+  patch<T>(
+    url: string,
+    body?: RequestOptions["body"],
+    options?: RequestOptions
+  ): Promise<T> {
     return fetchApi<T>(url, { ...options, method: "PATCH", body });
   },
   delete<T>(url: string, options?: RequestOptions): Promise<T> {

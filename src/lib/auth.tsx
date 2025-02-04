@@ -23,7 +23,9 @@ export const useCurrentUser = () => useQuery(currentUserOptions());
 // for logging in
 export const loginSchema = zod.object({
   email: zod.string().email({ message: "Email should have valid format" }),
-  password: zod.string({ required_error: "Password is required" }).min(1, { message: "Password is required" }),
+  password: zod
+    .string({ required_error: "Password is required" })
+    .min(1, { message: "Password is required" }),
 });
 
 export type LoginFormData = zod.infer<typeof loginSchema>;

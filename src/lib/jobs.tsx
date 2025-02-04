@@ -13,7 +13,9 @@ const getJobQueryOptions = () => {
 export const useJob = () => useQuery(getJobQueryOptions());
 
 export const searchJobQueryOptions = (searchParamsValue?: string) => {
-  const url = searchParamsValue ? `/jobs/search?query=${searchParamsValue}` : "/jobs/search";
+  const url = searchParamsValue
+    ? `/jobs/search?query=${searchParamsValue}`
+    : "/jobs/search";
 
   return queryOptions({
     queryKey: ["search", searchParamsValue ?? "all"],
@@ -21,4 +23,5 @@ export const searchJobQueryOptions = (searchParamsValue?: string) => {
   });
 };
 
-export const useSearchJobs = (searchParamsValue?: string) => useQuery(searchJobQueryOptions(searchParamsValue));
+export const useSearchJobs = (searchParamsValue?: string) =>
+  useQuery(searchJobQueryOptions(searchParamsValue));

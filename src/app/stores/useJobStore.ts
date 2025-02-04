@@ -27,7 +27,8 @@ const useJobStore = create<JobAction & JobState>()(
       setJobs: (jobs: Job[]) => set({ jobs }),
       setSelectedJobId: (id: string) => set({ selectedJobId: id }),
       setIsLoading: (condition: boolean) => set({ isLoading: condition }),
-      setShowAutocomplete: (condition: boolean) => set({ showAutocomplete: condition }),
+      setShowAutocomplete: (condition: boolean) =>
+        set({ showAutocomplete: condition }),
     }),
     {
       name: "show-autocomplete-storage",

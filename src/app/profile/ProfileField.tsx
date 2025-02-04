@@ -10,7 +10,14 @@ interface ProfileFieldProps {
   className?: string;
 }
 
-export default function ProfileField({ id, value, label, isEditing, name, className }: ProfileFieldProps) {
+export default function ProfileField({
+  id,
+  value,
+  label,
+  isEditing,
+  name,
+  className,
+}: ProfileFieldProps) {
   return (
     <div className={cn("flex w-full flex-col gap-1", className)}>
       <label className="text-md text-gray-700">{label}</label>

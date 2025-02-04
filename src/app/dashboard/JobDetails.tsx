@@ -26,7 +26,9 @@ export function JobDetails({ className, selectedJobId }: JobDetailsProp) {
       );
     }
 
-    const message = searchParams.has("job-id") ? "No Job Description" : "Select a Job";
+    const message = searchParams.has("job-id")
+      ? "No Job Description"
+      : "Select a Job";
 
     return (
       <div className="flex h-full w-full items-center justify-center">
@@ -37,7 +39,9 @@ export function JobDetails({ className, selectedJobId }: JobDetailsProp) {
 
   return (
     <div className={`${className} h-full w-full`}>
-      <div className="h-full w-full overflow-y-auto p-4 pt-6">{renderContent()}</div>
+      <div className="h-full w-full overflow-y-auto p-4 pt-6">
+        {renderContent()}
+      </div>
     </div>
   );
 }

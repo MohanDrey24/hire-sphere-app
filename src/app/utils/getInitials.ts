@@ -12,5 +12,7 @@ export const getInitials = (user: User | null): string => {
       .join("");
   }
 
-  return ((user.firstName?.[0] || "") + (user.lastName?.[0] || "")).toUpperCase();
+  return (
+    (user.firstName?.[0] || "") + (user.lastName?.[0] || "")
+  ).toUpperCase();
 };

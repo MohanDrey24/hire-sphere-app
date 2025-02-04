@@ -48,7 +48,9 @@ export default function SearchBar() {
   const { isPending, data } = useQuery<SearchResponse>({
     queryKey: ["search", searchParamsValue ?? "all"],
     queryFn: async () => {
-      const url = searchParamsValue ? `/jobs/search?query=${searchParamsValue}` : "/jobs/search";
+      const url = searchParamsValue
+        ? `/jobs/search?query=${searchParamsValue}`
+        : "/jobs/search";
 
       return await api.get<SearchResponse>(url);
     },

@@ -4,12 +4,19 @@ type HttpMethods = "POST" | "PATCH" | "DELETE";
 
 interface CustomMutationOptions<TData, TError, TVariables> {
   headers?: Record<string, string>;
-  mutationOptions?: Omit<UseMutationOptions<TData, TError, TVariables>, "mutationFn">;
+  mutationOptions?: Omit<
+    UseMutationOptions<TData, TError, TVariables>,
+    "mutationFn"
+  >;
 }
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
-export function useMutationAPI<TData = unknown, TError = unknown, TVariables = unknown>(
+export function useMutationAPI<
+  TData = unknown,
+  TError = unknown,
+  TVariables = unknown,
+>(
   endpoint: string,
   method: HttpMethods = "POST",
   options: CustomMutationOptions<TData, TError, TVariables> = {}

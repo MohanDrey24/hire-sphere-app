@@ -59,7 +59,12 @@ function LoginForm({ className, onClick }: LoginFormProps) {
   };
 
   return (
-    <div className={cn("flex w-full flex-col items-center justify-center space-y-6", className)}>
+    <div
+      className={cn(
+        "flex w-full flex-col items-center justify-center space-y-6",
+        className
+      )}
+    >
       <Form {...form}>
         <form onSubmit={handleSubmit(onSubmit)} className="w-3/4 space-y-6">
           <div className="flex flex-col items-center justify-center gap-2 text-2xl font-bold sm:flex-row">
@@ -88,13 +93,22 @@ function LoginForm({ className, onClick }: LoginFormProps) {
             onClick={() => setError("root", { message: undefined })}
           />
 
-          <Button type="submit" variant="mintGreen" className="h-12 w-full" disabled={status}>
-            <span className="font-bold">{status ? "Loading..." : "Log in"}</span>
+          <Button
+            type="submit"
+            variant="mintGreen"
+            className="h-12 w-full"
+            disabled={status}
+          >
+            <span className="font-bold">
+              {status ? "Loading..." : "Log in"}
+            </span>
           </Button>
         </form>
       </Form>
 
-      {errors.root?.message && <div className="text-center text-red-500">{errors.root.message}</div>}
+      {errors.root?.message && (
+        <div className="text-center text-red-500">{errors.root.message}</div>
+      )}
 
       <>
         <div className="relative flex w-[60%] items-center justify-center sm:max-md:w-[60%] lg:w-3/4">
@@ -109,13 +123,22 @@ function LoginForm({ className, onClick }: LoginFormProps) {
           disabled={status}
           onClick={navigateToGoogleRedirectURI}
         >
-          <Icon src="/icons/google.svg" alt="google-icon" height="20px" width="20px" />
+          <Icon
+            src="/icons/google.svg"
+            alt="google-icon"
+            height="20px"
+            width="20px"
+          />
           <p>Continue with Google</p>
         </Button>
 
         <div>
           <span>Don&apos;t have an account?</span>
-          <Button variant="link" className="cursor-pointer p-1.5 text-blue-600 underline" onClick={onClick}>
+          <Button
+            variant="link"
+            className="cursor-pointer p-1.5 text-blue-600 underline"
+            onClick={onClick}
+          >
             Sign up
           </Button>
         </div>
