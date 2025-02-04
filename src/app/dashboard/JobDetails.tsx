@@ -3,15 +3,17 @@
 import { useSearchParams } from "next/navigation";
 import purify from "dompurify";
 
+import { cn } from "@/lib/utils";
 import useJobStore from "../stores/useJobStore";
 
 type JobDetailsProp = {
   className?: string;
-  selectedJobId: string | null;
 };
 
-export function JobDetails({ className, selectedJobId }: JobDetailsProp) {
+export function JobDetails({ className }: JobDetailsProp) {
   const searchParams = useSearchParams();
+
+  const selectedJobId = searchParams.get("job-id");
   const jobState = useJobStore((state) => state.jobs);
   const selectedJob = jobState.find((job) => job?.id === selectedJobId);
 
@@ -38,7 +40,12 @@ export function JobDetails({ className, selectedJobId }: JobDetailsProp) {
   };
 
   return (
-    <div className={`${className} h-full w-full`}>
+    <div
+      className={cn(
+        `h-full w-full ${selectedJobId ? "block" : "hidden"}`,
+        className
+      )}
+    >
       <div className="h-full w-full overflow-y-auto p-4 pt-6">
         {renderContent()}
       </div>

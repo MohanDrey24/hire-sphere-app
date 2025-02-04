@@ -20,21 +20,17 @@ import type { FavoritePayload, Favorites, Job } from "./types";
 
 interface CardProps {
   className?: string;
-  jobData: Job[];
-  selectedJobId: string | null;
 }
 
-export default function JobCard({
-  className,
-  jobData,
-  selectedJobId,
-}: CardProps) {
+export default function JobCard({ className }: CardProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const queryClient = useQueryClient();
   const favorites = useGetFavorites();
 
+  const selectedJobId = searchParams.get("job-id");
   const isJobLoading = useJobStore((state) => state.isLoading);
+  const jobState = useJobStore((state) => state.jobs);
 
   const { mutate: setFavorites } = useToggleFavorite({
     onMutate: async (newFavorite: FavoritePayload) => {
@@ -85,7 +81,12 @@ export default function JobCard({
 
   if (isJobLoading) {
     return (
-      <div className={cn("grid w-full gap-4 p-4", className)}>
+      <div
+        className={cn(
+          `grid w-full gap-4 p-4 ${selectedJobId ? "hidden" : "block"}`,
+          className
+        )}
+      >
         {Array.from({ length: 3 }, (_, index) => (
           <div
             key={index}
@@ -114,9 +115,11 @@ export default function JobCard({
   }
 
   return (
-    <div className={cn("w-full", className)}>
+    <div
+      className={cn(`${selectedJobId ? "hidden" : "block"} w-full`, className)}
+    >
       <div className="grid gap-4 p-4">
-        {jobData.map((job: Job) => (
+        {jobState.map((job: Job) => (
           <Card
             key={job.id}
             className={`bg-mint-green-dark relative flex min-h-[250px] min-w-full flex-col ${selectedJobId === job.id ? "ring-4 ring-[#D96AC4] ring-inset" : ""}`}
@@ -125,7 +128,7 @@ export default function JobCard({
             <button
               type="button"
               aria-label="Bookmark"
-              className="absolute top-4 right-4 duration-150 ease-in-out hover:scale-125"
+              className="absolute top-4 right-4 duration-150 ease-in-out hover:scale-125 cursor-pointer"
               onClick={() => handleFavorite(job.id)}
             >
               {favorites.data?.some(
