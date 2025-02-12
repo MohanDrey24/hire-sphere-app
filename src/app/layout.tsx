@@ -4,7 +4,6 @@ import localFont from "next/font/local";
 import "./globals.css";
 
 import PageTransition from "@/components/PageTransition";
-import AuthProvider from "@/providers/AuthProvider";
 import TanstackProvider from "@/providers/TanstackProvider";
 
 // import StairTransition from "@/components/StairAnimation";
@@ -39,12 +38,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <AuthProvider>
-          <TanstackProvider>
-            {/* <StairTransition /> */}
-            <PageTransition>{children}</PageTransition>
-          </TanstackProvider>
-        </AuthProvider>
+        <TanstackProvider>
+          {/* <StairTransition /> */}
+          <PageTransition>{children}</PageTransition>
+        </TanstackProvider>
       </body>
     </html>
   );
