@@ -15,7 +15,6 @@ export async function verifyJwt(
     });
     return payload;
   } catch (error) {
-    console.warn("JWT verification failed", error);
     return null;
   }
 }
