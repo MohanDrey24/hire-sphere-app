@@ -41,7 +41,6 @@ export const useLogin = () => {
 };
 
 // for signing up
-
 export const signupSchema = zod
   .object({
     email: zod.string().email(),
