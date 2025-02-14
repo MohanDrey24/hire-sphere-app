@@ -1,11 +1,11 @@
 import { MouseEventHandler } from "react";
-import { Control, FieldValues } from "react-hook-form";
+import { Control } from "react-hook-form";
 
 import { FloatingLabelInput } from "../ui/floating-label-input";
 import { FormControl, FormField, FormItem, FormMessage } from "../ui/form";
 
 interface HFormFieldProps {
-  control: Control<FieldValues, any>;
+  control: Control<any>;
   name: string;
   type: string;
   label: string;
