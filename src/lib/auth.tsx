@@ -5,7 +5,7 @@ import type { User } from "@/app/dashboard/types";
 import { api } from "./api-client";
 
 // for getting the current user
-export const getCurrentUser = async (): Promise<User> => {
+export const getCurrentUser = async (): Promise<User | null> => {
   return await api.get<User>("/users/current");
 };
 
